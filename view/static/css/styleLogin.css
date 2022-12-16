@@ -1,0 +1,211 @@
+@import url("reset.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
+input:focus, select:focus, select, input.form-control:focus {
+
+    outline:none !important;
+
+    outline-width: 0 !important;
+
+    box-shadow: none;
+
+    -moz-box-shadow: none;
+
+    -webkit-box-shadow: none;
+
+}
+
+:root{
+    --color-white: #fff;
+    --color-black:#202528;
+    --color-info-dark: #7d8da1;
+    --color-danger: #fc3747;
+    --color-info-light: #dce1eb;
+    --color-dark: #363949;
+    --color-light: rgba(0,0,0,0.4);
+    --color-primary-variant: #0d6efd;
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+    --card-padding: 1.8rem 1.8rem 0.5rem 2rem;
+    --padding-1: 1.2rem;
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    border-radius: 0px;
+    z-index: 4;
+}
+
+.fondo{
+    background-color: rgb(0 0 0 / 50%);
+    transition: all 1ms ease;
+}
+
+.login-card {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 0.2rem 0;
+}
+
+.login-card-header, .login-card-footer{
+    text-align: center;
+}
+
+.login-card a{
+    text-decoration: none;
+    color: #35339a;
+}
+
+.login-card-header{
+    margin-bottom: 0.5rem;
+}
+
+.login-card-footer{
+    margin-top: 0.5rem;
+}
+
+.login-card-header h1{
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+    color: rgb(151, 151, 151);
+}
+.card, .date{
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius-3);
+    transition: all .1s ease;
+}
+
+.card > .card-body{
+    margin-top: 1rem;
+    transition: all 300ms ease;
+    margin-bottom: 1rem;
+}
+
+.card:hover, .date:hover{
+    box-shadow: none;
+}
+
+.login-card-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-card-form .form-item{
+    position: relative;
+}
+
+.login-card-form .form-item ion-icon{
+    position: absolute;
+    top: 1.1rem;
+    left: 1.4rem;
+    font-size: 1.3rem;
+    opacity: .4;
+}
+
+.login-card-form .form-item-other{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(1rem * .8);
+    margin-bottom: .5rem;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"],
+.login-card input[type="email"] {
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1rem 1.5rem;
+    padding-left: calc(1rem * 3.5);
+    border-radius: 100px;
+    width: 100%;
+    transition: background .5s;    
+}
+
+.login-card input:focus{
+    background: rgb(255, 255, 255);    
+}
+
+.login-card-form button{
+    background: rgba(0, 0, 0, .7);
+    backdrop-filter: blur(5px);
+    color: white;
+    padding: 1rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background .5s;
+    border: none;
+}
+
+.login-card-form button:hover{
+    background-color: #e6132c85;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+}
+
+p{
+    margin: 0;
+    padding: 0;
+}
+
+.color{
+    color: var(--color-background);
+}
+
+
+.danger{
+    color: var(--color-danger);
+}
+
+.iconp{
+    height: 180px;
+}
+
+.blocked{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(0 0 0 / 90%);
+    backdrop-filter: blur(10px);
+}
+
+.date{
+    font-size: 80px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    color: rgb(151, 151, 151);
+    width: 100%;
+    padding: 0 10px;
+    /* font-family: 'Kdam Thmor Pro', sans-serif;      */
+    font-family: 'Michroma', sans-serif;         
+    transition: .2s ease;                               
+}
+
+.two{
+    font-size: 20px;
+}
+
+.coldown{
+    position: absolute;
+    top: 81;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: var(--color-danger);
+    font-size: 80px;
+    -webkit-text-stroke: 2px #fff;
+}
