@@ -34,16 +34,17 @@
 
 		public function desconectar()
 		{
-			// $con=null;
+			// mysqli_close($con);
 			// return $con;
-			$servidor = "localhost";
-			$usuario = "root";
-			$clave = "";
-			$base = "argosysmarkt"; 
+			// $con=null;
+			// $servidor = "localhost";
+			// $usuario = "root";
+			// $clave = "";
+			// $base = "argosysmarkt"; 
 
-			$con = new mysqli("$servidor", "$usuario", "$clave", "$base");
+			// $con = new mysqli("$servidor", "$usuario", "$clave", "$base");
 
-			$con->close();
+			// $con->close();
 		}
 	}
 ?>

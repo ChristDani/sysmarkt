@@ -61,7 +61,7 @@ $sLimite = " limit $inicio,$limite";
 // cantidad de registros devueltos en la consulta
 $contar="select * from $tabla $where";
 
-$sql = "select ".implode(", ", $columnas)." from $tabla $where order by region $sLimite";
+$sql = "select ".implode(", ", $columnas)." from $tabla $where order by descripcion $sLimite";
 // para verificar errores en la consulta
 // echo $sql;
 // echo "<br>";

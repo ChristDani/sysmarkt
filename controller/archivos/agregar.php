@@ -1,10 +1,6 @@
 <?php
 require "../../librerias/PHPExcel/Classes/PHPExcel.php";
 require_once "../../model/conexion.php";
-
-$model = new conexion();
-$con = $model -> conectar();
-
 require_once "../../model/archivos.php";
 $procearchivos = new archivos();
 
@@ -75,8 +71,11 @@ if ($_FILES['productos']['name'])
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
+    $model = new conexion();
+    $con = $model -> conectar();
     $sqlprod = "delete from productos";
-    $rsd=sqlsrv_query($con,$sqlprod);
+    $rsd=mysqli_query($con,$sqlprod);
+    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -120,8 +119,11 @@ if ($_FILES['cac']['name'])
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
+    $model = new conexion();
+    $con = $model -> conectar();
     $sqlcac = "delete from cac";
-    $rsd=sqlsrv_query($con,$sqlcac);
+    $rsd=mysqli_query($con,$sqlcac);
+    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -165,8 +167,11 @@ if ($_FILES['dac']['name'])
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
+    $model = new conexion();
+    $con = $model -> conectar();
     $sqldac = "delete from dac";
-    $rsd=sqlsrv_query($con,$sqldac);
+    $rsd=mysqli_query($con,$sqldac);
+    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -208,8 +213,11 @@ if ($_FILES['acd']['name'])
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
+    $model = new conexion();
+    $con = $model -> conectar();
     $sqlacd = "delete from acd";
-    $rsd=sqlsrv_query($con,$sqlacd);
+    $rsd=mysqli_query($con,$sqlacd);
+    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -259,8 +267,11 @@ if ($_FILES['cadena']['name'])
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
+    $model = new conexion();
+    $con = $model -> conectar();
     $sqlcadena = "delete from cadena";
-    $rsd=sqlsrv_query($con,$sqlcadena);
+    $rsd=mysqli_query($con,$sqlcadena);
+    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
