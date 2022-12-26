@@ -46,7 +46,7 @@ if ($intentos == 3) {?>
                             <form action="controller/acceso/login.php" method="post" class="login-card-form">
                                 <div class="form-item mb-3">
                                     <ion-icon name="person-outline"></ion-icon>
-                                    <input class="form-control" type="text" name="dni" id="dni" required autocomplete='off' maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Ingresa tu DNI">
+                                    <input class="form-control" type="number" name="dni" id="dni" required autocomplete='off' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="8" placeholder="Ingresa tu DNI">
                                 </div>
                                 <div class="form-item mb-3">
                                     <ion-icon name="lock-closed-outline"></ion-icon>

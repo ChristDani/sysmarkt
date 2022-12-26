@@ -10,7 +10,7 @@
 				$servidor = "localhost";
 				$usuario = "root";
 				$clave = "";
-				$base = "argosysmarkt"; 
+				$base = "argosal"; 
 
 				$con = mysqli_connect("$servidor", "$usuario", "$clave", "$base");
 				// $con = new mysqli("$servidor", "$usuario", "$clave", "$base");

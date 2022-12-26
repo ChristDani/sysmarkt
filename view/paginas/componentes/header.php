@@ -99,7 +99,13 @@ elseif ($tipoUsuario === "0")
                                 <div class="sb-nav-link-icon"><ion-icon name="newspaper-outline"></ion-icon></div>
                                     Reportes
                             </a>
-                        <?php } ?>			
+                        <?php } ?>
+                        <a href="index.php?pagina=Herramientas" class="nav-link">
+                            <div class="sb-nav-link-icon">
+                                <ion-icon name="build-outline"></ion-icon>
+                            </div>
+                            Herramientas
+                        </a>			
                         <a class="nav-link" href="index.php?pagina=Configuracion">
                             <div class="sb-nav-link-icon"> <ion-icon name="cog-outline"></ion-icon></div>
                                 Configuracion

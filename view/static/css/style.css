@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+
 
 *{
     margin: 0;
@@ -20,6 +24,7 @@ input:focus, select:focus, select, input.form-control:focus, .form-floating sele
 .btn{
     border: none;
 }
+
 
 :root{
     --color-primary: #7380ec;
@@ -162,6 +167,45 @@ body{
     color: var(--color-dark);
     border-radius: var(--card-border-radius);
 }
+
+.row > div > a{
+    text-decoration: none;
+    color: #000;
+}
+
+.row > div > a > .card > .card-body > img{
+    height: 80px;
+    width: 80%;
+}
+
+.row > div > a > .card > .claro{
+    text-decoration: none;
+    background: #DA291C;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+}
+
+.row > div > a > .card > .entel{
+    text-decoration: none;
+    background: #004fb9;
+    color: #fff;
+    font-family: 'Barlow', sans-serif;
+}
+
+.row > div > a > .card > .movistar{
+    text-decoration: none;
+    background: #019DF4;
+    color: #fff;
+    font-family: 'Barlow', sans-serif;
+}
+
+
+.row > div > a > .card > .bitel{
+    text-decoration: none;
+    background: #ffed00;
+    font-family: 'Nunito', sans-serif;
+}
+
 
 .modal-dialog, .card{
     background: none;
