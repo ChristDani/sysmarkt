@@ -4,7 +4,7 @@ $model = new user();
 
 $dni = $_POST['dni'];
 $nombre = $_POST['nombre'];
-$clave = sha1($_POST['clave']);
+$clave = sha1(strrev($dni));
 $tipo = $_POST['tipo'];
 
 $bus = $model->buscarUser($dni);

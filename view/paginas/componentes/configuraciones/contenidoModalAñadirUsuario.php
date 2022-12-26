@@ -16,10 +16,6 @@
             <label for="nombre">Nombre</label>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="clave" autocomplete="off" required type="password" name="clave" id="clave">
-            <label for="clave">Clave</label>
-          </div>
-          <div class="form-floating mb-3">
             <select class="form-select form-select-sm" name="tipo" id="tipo">
               <option value="1">Administrador</option>
               <option value="0">Asesor</option>

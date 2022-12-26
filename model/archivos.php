@@ -3,12 +3,12 @@ require_once "conexion.php";
 
 class archivos
 {
-    public function insertarProductos($region,$nombre,$centro,$almacen,$nombreAlmacen,$material,$descripcion,$libres,$bloqueados)
+    public function insertarProductos($descripcion)
     {
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="insert into productos(region,nombre,centro,almacen,nombreAlmacen,material,descripcion,libres,bloqueados) values('$region','$nombre','$centro','$almacen','$nombreAlmacen','$material','$descripcion','$libres','$bloqueados')";
+        $sql="insert into productos(descripcion) values('$descripcion')";
 
 		$rs=mysqli_query($con,$sql);
 

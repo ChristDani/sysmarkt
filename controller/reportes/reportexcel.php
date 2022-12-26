@@ -119,24 +119,91 @@ if (isset($_POST['btngenerarreporteventas']))
     {
         $fechar = date('d/m/y', strtotime($row['fechaRegistro']));
         $fechaa = date('d/m/y', strtotime($row['fechaActualizacion']));
+        
+        if ($row['estado'] == "0") 
+        {
+            $estadorepor = "No Requiere";
+        }
+        elseif ($row['estado'] == "1") 
+        {
+            $estadorepor = "Concretado";
+        }
+        elseif ($row['estado'] == "2") 
+        {
+            $estadorepor = "Pendiente";
+        }
+
+        if ($row['modalidad'] == "0") 
+        {
+            $modalidadrepor = "Prepago";
+        }
+        elseif ($row['modalidad'] == "1") 
+        {
+            $modalidadrepor = "Postpago";
+        }
+        elseif ($row['modalidad'] == "-") 
+        {
+            $modalidadrepor = "---";
+        }
+
+        if ($row['producto'] == "0") 
+        {
+            $productorepor = "Fija";
+        }
+        elseif ($row['producto'] == "1") 
+        {
+            $productorepor = "Movil";
+        }
+
+        if ($row['tipo'] == "0") 
+        {
+            $tiporepor = "Linea Nueva";
+        }
+        elseif ($row['tipo'] == "1") 
+        {
+            $tiporepor = "Portabilidad";
+        }
+        elseif ($row['tipo'] == "2") 
+        {
+            $tiporepor = "Renovacion";
+        }
+        elseif ($row['tipo'] == "-") 
+        {
+            $tiporepor = "---";
+        }
+
+        if ($row['tipoFija'] == "0") 
+        {
+            $tipofijarepor = "Alta";
+        }
+        elseif ($row['tipoFija'] == "1") 
+        {
+            $tipofijarepor = "Portabilidad";
+        }
+        elseif ($row['tipoFija'] == "-") 
+        {
+            $tipofijarepor = "---";
+        }
+
         fputcsv($salida, array($row['codigo'],
                                 $row['dniAsesor'],
                                 $row['nombre'],
                                 $row['dni'],
                                 $row['telefono'],
-                                $row['producto'],
+                                $productorepor,
                                 $row['lineaProcedente'],
                                 $row['operadorCedente'],
-                                $row['modalidad'],
-                                $row['tipo'],
+                                $modalidadrepor,
+                                $tiporepor,
                                 $row['planR'],
                                 $row['equipo'],
                                 $row['formaDePago'],
                                 $row['numeroReferencia'],
                                 $row['sec'],
-                                $row['tipoFija'],
+                                $tipofijarepor,
                                 $row['planFija'],
-                                $row['estado'],
+                                $row['modoFija'],
+                                $estadorepor,
                                 $row['observaciones'],
                                 $row['promocion'],
                                 $row['ubicacion'],

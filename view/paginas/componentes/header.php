@@ -39,7 +39,7 @@ elseif ($tipoUsuario === "0")
 { 
     // ventas totales para admin
     $sql = "select * from whatsapp where dniAsesor='$dniUsuario' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
-    $resultado = sqlsrv_query($consulta,$sql);
+    $resultado = mysqli_query($consulta,$sql);
     $totalClientesMenu = $resultado->num_rows;
 }
 ?>
@@ -69,7 +69,7 @@ elseif ($tipoUsuario === "0")
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="top mb-4">
-                            <h2>AR<span class="danger">GO</span></h2>
+                            <h2>ARGO<span class="danger">SAL</span></h2>
                         </div>
                         <a class="nav-link" href="index.php?pagina=Dashboard">
                             <div class="sb-nav-link-icon"><ion-icon name="speedometer-outline"></ion-icon></div>
@@ -102,13 +102,19 @@ elseif ($tipoUsuario === "0")
                         <?php } ?>
                         <a href="index.php?pagina=Herramientas" class="nav-link">
                             <div class="sb-nav-link-icon">
-                                <ion-icon name="build-outline"></ion-icon>
+                                <ion-icon name="construct-outline"></ion-icon>
                             </div>
                             Herramientas
                         </a>			
                         <a class="nav-link" href="index.php?pagina=Configuracion">
                             <div class="sb-nav-link-icon"> <ion-icon name="cog-outline"></ion-icon></div>
                                 Configuracion
+                        </a>
+                        <a href="index.php?pagina=Comisiones" class="nav-link">
+                            <div class="sb-nav-link-icon">
+                                <ion-icon name="wallet-outline"></ion-icon>
+                            </div>
+                            Comisiones
                         </a>
                     </div>
                 </div>

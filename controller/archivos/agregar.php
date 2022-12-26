@@ -51,7 +51,7 @@ if ($_FILES['productos']['name'])
 {
     // subiendo el archivo al sistema
     $producto = $_FILES['productos']['name'];
-        $dirtProductos = "../../view/static/archivos/productos/".$producto;
+        $dirtProductos = "../../view/static/archivos/productos/inventarioProductos.xlsx";
         copy($_FILES['productos']['tmp_name'],$dirtProductos);
         
     // detenemos el codigo un momento para que procesen los datos
@@ -70,28 +70,20 @@ if ($_FILES['productos']['name'])
     $numerofila = $excelProductos -> setActiveSheetIndex(1) -> getHighestRow();
     // echo $numerofila;
 
-    // eliminamos la tabla antigua para reemplazar los datos
-    $model = new conexion();
-    $con = $model -> conectar();
-    $sqlprod = "delete from productos";
-    $rsd=mysqli_query($con,$sqlprod);
-    mysqli_close($con);
+    // // eliminamos la tabla antigua para reemplazar los datos
+    // $model = new conexion();
+    // $con = $model -> conectar();
+    // $sqlprod = "delete from productos";
+    // $rsd=mysqli_query($con,$sqlprod);
+    // mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
         // se especifican las variables
-        $region = $excelProductos -> getActiveSheet() -> getCell('A'.$i) -> getCalculatedValue();
-        $nombre = $excelProductos -> getActiveSheet() -> getCell('B'.$i) -> getCalculatedValue();
-        $centro = $excelProductos -> getActiveSheet() -> getCell('C'.$i) -> getCalculatedValue();
-        $almacen = $excelProductos -> getActiveSheet() -> getCell('D'.$i) -> getCalculatedValue();
-        $nombreAlmacen = $excelProductos -> getActiveSheet() -> getCell('E'.$i) -> getCalculatedValue();
-        $material = $excelProductos -> getActiveSheet() -> getCell('F'.$i) -> getCalculatedValue();
         $descripcion = $excelProductos -> getActiveSheet() -> getCell('G'.$i) -> getCalculatedValue();
-        $libres = $excelProductos -> getActiveSheet() -> getCell('H'.$i) -> getCalculatedValue();
-        $bloqueados = $excelProductos -> getActiveSheet() -> getCell('I'.$i) -> getCalculatedValue();
 
         // se ejecuta la insercion
-        $procearchivos->insertarProductos($region,$nombre,$centro,$almacen,$nombreAlmacen,$material,$descripcion,$libres,$bloqueados);
+        $procearchivos->insertarProductos($descripcion);
     }
 }
 

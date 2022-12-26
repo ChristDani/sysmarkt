@@ -37,4 +37,13 @@
             </div>
         </a>
     </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="https://maps.geodir.co/" target="_blank">
+            <div class="card text-center">
+                <div class="card-body py-5 geodir">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Logotipo_GeoDir.svg" alt="">
+                </div>
+            </div>
+        </a>
+    </div>
 </div>

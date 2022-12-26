@@ -69,11 +69,7 @@
     <div class="cloud">
         <H1 class="end">404</H1>
         <P class="body">PAGINA NO ENCONTRADA</P>
-        <a href="index.php?pagina=Dashboard" class="btn">INICIO</a>
+        <a onclick="window.history.back();" href="#" class="btn">INICIO</a>
     </div>
-
-
-
-
 </body>
 </html>

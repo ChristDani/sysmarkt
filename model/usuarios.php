@@ -67,8 +67,10 @@ class user
     {
         $model=new conexion();
         $con=$model->conectar();
+
+        $clave = sha1(strrev($dni));
         
-        $sql="update usuarios set clave='7c4a8d09ca3762af61e59520943dc26494f8941b', tipo='0', fotoPerfil='default.png', estado='0', activo='1', fechaRegistro=CURRENT_TIMESTAMP where dni='$dni'";
+        $sql="update usuarios set clave='$clave', tipo='0', fotoPerfil='default.png', estado='0', activo='1', fechaRegistro=CURRENT_TIMESTAMP where dni='$dni'";
 
 		$rs=mysqli_query($con,$sql);
 

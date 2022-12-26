@@ -1,5 +1,5 @@
 <?php
-    error_reporting(0);
+    // error_reporting(0);
     session_start();
     if (!isset($_SESSION["usersysmarkt"])) 
     {
@@ -74,6 +74,10 @@
                 {
                     include_once "paginas/herramientas.php";
                 }
+                elseif ($_GET["pagina"]==="Comisiones") 
+                {
+                    include_once "paginas/comisiones.php";
+                }
                 elseif ($_GET["pagina"]==="Configuracion") 
                 {
                     include_once "paginas/configuracion.php";
@@ -112,6 +116,10 @@
                 elseif ($_GET["pagina"]==="Herramientas") 
                 {
                     include_once "paginas/herramientas.php";
+                }
+                elseif ($_GET["pagina"]==="Comisiones") 
+                {
+                    include_once "paginas/comisiones.php";
                 }
                 elseif ($_GET["pagina"]==="Configuracion") 
                 {
