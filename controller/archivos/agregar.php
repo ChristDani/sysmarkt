@@ -2,6 +2,9 @@
 require "../../librerias/PHPExcel/Classes/PHPExcel.php";
 require_once "../../model/conexion.php";
 require_once "../../model/archivos.php";
+
+$model = new conexion();
+$con = $model -> conectar();
 $procearchivos = new archivos();
 
 if ($_FILES['masiva']['name']) 
@@ -51,7 +54,7 @@ if ($_FILES['productos']['name'])
 {
     // subiendo el archivo al sistema
     $producto = $_FILES['productos']['name'];
-        $dirtProductos = "../../view/static/archivos/productos/inventarioProductos.xlsx";
+        $dirtProductos = "../../view/static/archivos/productos/".$producto;
         copy($_FILES['productos']['tmp_name'],$dirtProductos);
         
     // detenemos el codigo un momento para que procesen los datos
@@ -64,26 +67,32 @@ if ($_FILES['productos']['name'])
     $excelProductos = PHPExcel_IOFactory::load($archivoProductos);
 
     // cargar la hoja escefica que queremos
-    $excelProductos -> setActiveSheetIndex(1);
+    $excelProductos -> setActiveSheetIndex(0);
 
     // obtener el numero de filas del archivo
-    $numerofila = $excelProductos -> setActiveSheetIndex(1) -> getHighestRow();
-    // echo $numerofila;
+    $numerofila = $excelProductos -> setActiveSheetIndex(0) -> getHighestRow();
+    echo $numerofila;
 
-    // // eliminamos la tabla antigua para reemplazar los datos
-    // $model = new conexion();
-    // $con = $model -> conectar();
-    // $sqlprod = "delete from productos";
-    // $rsd=mysqli_query($con,$sqlprod);
-    // mysqli_close($con);
+    // eliminamos la tabla antigua para reemplazar los datos
+    $sqlprod = "delete from productos";
+    $rsd=mysqli_query($con,$sqlprod);
+    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
         // se especifican las variables
+        $region = $excelProductos -> getActiveSheet() -> getCell('A'.$i) -> getCalculatedValue();
+        $nombre = $excelProductos -> getActiveSheet() -> getCell('B'.$i) -> getCalculatedValue();
+        $centro = $excelProductos -> getActiveSheet() -> getCell('C'.$i) -> getCalculatedValue();
+        $almacen = $excelProductos -> getActiveSheet() -> getCell('D'.$i) -> getCalculatedValue();
+        $nombreAlmacen = $excelProductos -> getActiveSheet() -> getCell('E'.$i) -> getCalculatedValue();
+        $material = $excelProductos -> getActiveSheet() -> getCell('F'.$i) -> getCalculatedValue();
         $descripcion = $excelProductos -> getActiveSheet() -> getCell('G'.$i) -> getCalculatedValue();
+        $libres = $excelProductos -> getActiveSheet() -> getCell('H'.$i) -> getCalculatedValue();
+        $bloqueados = $excelProductos -> getActiveSheet() -> getCell('I'.$i) -> getCalculatedValue();
 
         // se ejecuta la insercion
-        $procearchivos->insertarProductos($descripcion);
+        $procearchivos->insertarProductos($region,$nombre,$centro,$almacen,$nombreAlmacen,$material,$descripcion,$libres,$bloqueados);
     }
 }
 
@@ -111,8 +120,6 @@ if ($_FILES['cac']['name'])
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
-    $model = new conexion();
-    $con = $model -> conectar();
     $sqlcac = "delete from cac";
     $rsd=mysqli_query($con,$sqlcac);
     mysqli_close($con);
@@ -152,15 +159,13 @@ if ($_FILES['dac']['name'])
     $excelDac = PHPExcel_IOFactory::load($archivoDac);
 
     // cargar la hoja escefica que queremos
-    $excelDac -> setActiveSheetIndex(0);
+    $excelDac -> setActiveSheetIndex(3);
 
     // obtener el numero de filas del archivo
-    $numerofila = $excelDac -> setActiveSheetIndex(0) -> getHighestRow();
+    $numerofila = $excelDac -> setActiveSheetIndex(3) -> getHighestRow();
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
-    $model = new conexion();
-    $con = $model -> conectar();
     $sqldac = "delete from dac";
     $rsd=mysqli_query($con,$sqldac);
     mysqli_close($con);
@@ -168,16 +173,24 @@ if ($_FILES['dac']['name'])
     for ($i=2; $i <= $numerofila ; $i++) 
     {
         // se especifican las variables
-        $nombre = $excelDac -> getActiveSheet() -> getCell('A'.$i) -> getCalculatedValue();
-        $distrito = $excelDac -> getActiveSheet() -> getCell('B'.$i) -> getCalculatedValue();
-        $provincia = $excelDac -> getActiveSheet() -> getCell('C'.$i) -> getCalculatedValue();
-        $departamento = $excelDac -> getActiveSheet() -> getCell('D'.$i) -> getCalculatedValue();
-        $region = $excelDac -> getActiveSheet() -> getCell('E'.$i) -> getCalculatedValue();
-        $direccion = $excelDac -> getActiveSheet() -> getCell('F'.$i) -> getCalculatedValue();
+        $region = $excelDac -> getActiveSheet() -> getCell('A'.$i) -> getCalculatedValue();
+        $pdv = $excelDac -> getActiveSheet() -> getCell('B'.$i) -> getCalculatedValue();
+        $nombre = $excelDac -> getActiveSheet() -> getCell('C'.$i) -> getCalculatedValue();
+        $entrega = $excelDac -> getActiveSheet() -> getCell('D'.$i) -> getCalculatedValue();
+        $pdvsisact = $excelDac -> getActiveSheet() -> getCell('E'.$i) -> getCalculatedValue();
+        $codpdv = $excelDac -> getActiveSheet() -> getCell('F'.$i) -> getCalculatedValue();
         $descripcion = $excelDac -> getActiveSheet() -> getCell('G'.$i) -> getCalculatedValue();
+        $direccion = $excelDac -> getActiveSheet() -> getCell('H'.$i) -> getCalculatedValue();
+        $distrito = $excelDac -> getActiveSheet() -> getCell('I'.$i) -> getCalculatedValue();
+        $provincia = $excelDac -> getActiveSheet() -> getCell('J'.$i) -> getCalculatedValue();
+        $departamento = $excelDac -> getActiveSheet() -> getCell('K'.$i) -> getCalculatedValue();
+        $horario = $excelDac -> getActiveSheet() -> getCell('L'.$i) -> getCalculatedValue();
+        $estado = $excelDac -> getActiveSheet() -> getCell('T'.$i) -> getCalculatedValue();
+        $alta = $excelDac -> getActiveSheet() -> getCell('U'.$i) -> getCalculatedValue();
+        $baja = $excelDac -> getActiveSheet() -> getCell('V'.$i) -> getCalculatedValue();
 
         // se ejecuta la insercion
-        $procearchivos->insertarDac($nombre,$distrito,$provincia,$departamento,$region,$direccion,$descripcion);
+        $procearchivos->insertarDac($region,$pdv,$nombre,$entrega,$pdvsisact,$codpdv,$descripcion,$direccion,$distrito,$provincia,$departamento,$horario,$estado,$alta,$baja);
     }
 }
 
@@ -198,15 +211,13 @@ if ($_FILES['acd']['name'])
     $excelAcd = PHPExcel_IOFactory::load($archivoAcd);
 
     // cargar la hoja escefica que queremos
-    $excelAcd -> setActiveSheetIndex(1);
+    $excelAcd -> setActiveSheetIndex(3);
 
     // obtener el numero de filas del archivo
-    $numerofila = $excelAcd -> setActiveSheetIndex(1) -> getHighestRow();
+    $numerofila = $excelAcd -> setActiveSheetIndex(3) -> getHighestRow();
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
-    $model = new conexion();
-    $con = $model -> conectar();
     $sqlacd = "delete from acd";
     $rsd=mysqli_query($con,$sqlacd);
     mysqli_close($con);
@@ -259,8 +270,6 @@ if ($_FILES['cadena']['name'])
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
-    $model = new conexion();
-    $con = $model -> conectar();
     $sqlcadena = "delete from cadena";
     $rsd=mysqli_query($con,$sqlcadena);
     mysqli_close($con);
