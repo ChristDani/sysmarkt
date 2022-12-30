@@ -1,6 +1,5 @@
 <?php 
 require_once "model/conexion.php";
-require_once "model/usuarios.php";
 require_once "model/metas.php";
 
 $metas = new metas();
@@ -17,20 +16,17 @@ if ($listaMetas != null)
 {
     foreach ($listaMetas as $m) 
     {
-            $portamen69 = trim($m[1]);
-            $portamay69 = trim($m[2]);
-            $altapost = trim($m[3]);
-            $altaprepa = trim($m[4]);
-            $portaprepa = trim($m[5]);
-            $renovacion = trim($m[6]);
-            $hfc_ftth = trim($m[7]);
-            $ifi = trim($m[8]);
-            $metatotal = intval($m[1])+intval($m[2])+intval($m[3])+intval($m[4])+intval($m[5])+intval($m[6])+intval($m[7])+intval($m[8]);
+            $portamen69 = trim($m[0]);
+            $portamay69 = trim($m[1]);
+            $altapost = trim($m[2]);
+            $altaprepa = trim($m[3]);
+            $portaprepa = trim($m[4]);
+            $renovacion = trim($m[5]);
+            $hfc_ftth = trim($m[6]);
+            $ifi = trim($m[7]);
+            $metatotal = intval($m[0])+intval($m[1])+intval($m[2])+intval($m[3])+intval($m[4])+intval($m[5])+intval($m[6])+intval($m[7]);
     }
-} 
-
-// $model = new user();
-// $listar = $model->listar();
+}
 
 $cone = new conexion();
 $consulta = $cone->conectar();

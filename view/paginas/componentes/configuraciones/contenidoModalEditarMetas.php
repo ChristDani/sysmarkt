@@ -8,14 +8,14 @@ if ($listaMetas != null)
 {
     foreach ($listaMetas as $m) 
     {
-        $editportamen69 = trim($m[1]);
-        $editportamay69 = trim($m[2]);
-        $editaltapost = trim($m[3]);
-        $editaltaprepa = trim($m[4]);
-        $editportaprepa = trim($m[5]);
-        $editrenovacion = trim($m[6]);
-        $edithfc_ftth = trim($m[7]);
-        $editifi = trim($m[8]);
+        $editportamen69 = trim($m[0]);
+        $editportamay69 = trim($m[1]);
+        $editaltapost = trim($m[2]);
+        $editaltaprepa = trim($m[3]);
+        $editportaprepa = trim($m[4]);
+        $editrenovacion = trim($m[5]);
+        $edithfc_ftth = trim($m[6]);
+        $editifi = trim($m[7]);
     }
 } 
 ?>
@@ -30,35 +30,35 @@ if ($listaMetas != null)
         <form action="controller/metas/editar.php" method="post">
 
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Portabilidad menor a 69" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" name="portamen69" id="portamen69" value="<?php echo $editportamen69; ?>">
+            <input class="form-control" placeholder="Portabilidad menor a 69" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="number" name="portamen69" id="portamen69" value="<?php echo $editportamen69; ?>">
             <label for="portamen69">Portabilidad menor a 69</label>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Portabilidad mayor a 69" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" name="portamay69" id="portamay69" value="<?php echo $editportamay69; ?>">
+            <input class="form-control" placeholder="Portabilidad mayor a 69" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="number" name="portamay69" id="portamay69" value="<?php echo $editportamay69; ?>">
             <label for="portamay69">Portabilidad mayor a 69</label>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Alta Postpago" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" name="altapost" id="altapost" value="<?php echo $editaltapost; ?>">
+            <input class="form-control" placeholder="Alta Postpago" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="number" name="altapost" id="altapost" value="<?php echo $editaltapost; ?>">
             <label for="altapost">Alta Postpago</label>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Alta Prepago" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" name="altaprepa" id="altaprepa" value="<?php echo $editaltaprepa; ?>">
+            <input class="form-control" placeholder="Alta Prepago" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="number" name="altaprepa" id="altaprepa" value="<?php echo $editaltaprepa; ?>">
             <label for="altaprepa">Alta Prepago</label>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Portabilidad Prepago" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" name="portaprepa" id="portaprepa" value="<?php echo $editportaprepa; ?>">
+            <input class="form-control" placeholder="Portabilidad Prepago" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="number" name="portaprepa" id="portaprepa" value="<?php echo $editportaprepa; ?>">
             <label for="portaprepa">Portabilidad Prepago</label>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Renovacion" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" name="renovacion" id="renovacion" value="<?php echo $editrenovacion; ?>">
+            <input class="form-control" placeholder="Renovacion" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="number" name="renovacion" id="renovacion" value="<?php echo $editrenovacion; ?>">
             <label for="renovacion">Renovacion</label>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="HFC_FTTH" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" name="hfc_ftth" id="hfc_ftth" value="<?php echo $edithfc_ftth; ?>">
+            <input class="form-control" placeholder="HFC_FTTH" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="number" name="hfc_ftth" id="hfc_ftth" value="<?php echo $edithfc_ftth; ?>">
             <label for="hfc_ftth">HFC, FTTH</label>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" placeholder="IFI" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" name="ifi" id="ifi" value="<?php echo $editifi; ?>">
+            <input class="form-control" placeholder="IFI" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="number" name="ifi" id="ifi" value="<?php echo $editifi; ?>">
             <label for="ifi">IFI</label>
           </div>
 

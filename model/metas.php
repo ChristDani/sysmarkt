@@ -8,7 +8,7 @@ class metas
         $filas=null;
         $model=new conexion();
 		$conexion=$model->conectar();
-        $sql="select * from metas where dniAsesor='general'";
+        $sql="select * from metas";
         $rs=mysqli_query($conexion,$sql);
 
         while($row=mysqli_fetch_array($rs))
@@ -25,7 +25,7 @@ class metas
         $filas=null;
         $model=new conexion();
 		$conexion=$model->conectar();
-        $sql="select * from metas where dniAsesor='$dni'";
+        $sql="select * from metasasesor where dniAsesor='$dni'";
         $rs=mysqli_query($conexion,$sql);
 
         while($row=mysqli_fetch_array($rs))
@@ -42,7 +42,7 @@ class metas
         $model=new conexion();
         $con=$model->conectar();
 
-        $sql="update metas set portamenor69='$portamen69', portamayor69='$portamay69', altapost='$altapost', altaprepa='$altaprepa', portaprepa='$portaprepa', renovacion='$renovacion', hfc_ftth='$hfc_ftth', ifi='$ifi' where dniAsesor='general'";
+        $sql="update metas set portamenor69='$portamen69', portamayor69='$portamay69', altapost='$altapost', altaprepa='$altaprepa', portaprepa='$portaprepa', renovacion='$renovacion', hfc_ftth='$hfc_ftth', ifi='$ifi'";
 
         $rs=mysqli_query($con,$sql);
 
@@ -54,7 +54,7 @@ class metas
         $model=new conexion();
         $con=$model->conectar();
 
-        $sql="update metas set portamenor69='$portamen69', portamayor69='$portamay69', altapost='$altapost', altaprepa='$altaprepa', portaprepa='$portaprepa', renovacion='$renovacion', hfc_ftth='$hfc_ftth', ifi='$ifi' where dniAsesor='$dni'";
+        $sql="update metasasesor set portamenor69='$portamen69', portamayor69='$portamay69', altapost='$altapost', altaprepa='$altaprepa', portaprepa='$portaprepa', renovacion='$renovacion', hfc_ftth='$hfc_ftth', ifi='$ifi' where dniAsesor='$dni'";
 
         $rs=mysqli_query($con,$sql);
 
