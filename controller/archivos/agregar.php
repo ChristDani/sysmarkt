@@ -67,10 +67,10 @@ if ($_FILES['productos']['name'])
     $excelProductos = PHPExcel_IOFactory::load($archivoProductos);
 
     // cargar la hoja escefica que queremos
-    $excelProductos -> setActiveSheetIndex(0);
+    $excelProductos -> setActiveSheetIndex(1);
 
     // obtener el numero de filas del archivo
-    $numerofila = $excelProductos -> setActiveSheetIndex(0) -> getHighestRow();
+    $numerofila = $excelProductos -> setActiveSheetIndex(1) -> getHighestRow();
     echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
@@ -91,6 +91,7 @@ if ($_FILES['productos']['name'])
         $libres = $excelProductos -> getActiveSheet() -> getCell('H'.$i) -> getCalculatedValue();
         $bloqueados = $excelProductos -> getActiveSheet() -> getCell('I'.$i) -> getCalculatedValue();
 
+        echo "<br>$i";
         // se ejecuta la insercion
         $procearchivos->insertarProductos($region,$nombre,$centro,$almacen,$nombreAlmacen,$material,$descripcion,$libres,$bloqueados);
     }

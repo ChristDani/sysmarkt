@@ -68,7 +68,8 @@ class archivos
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="insert into masiva(documento,nombre,tel_Fijo,celular,fechaActivacion,operador,tipo_plan,direccion,distrito,provincia,departamento) values('$documento','$nombre','$tel_Fijo','$celular','$fechaActivacion','$operador','$tipo_plan','$direccion','$distrito','$provincia','$departamento')";
+        // $sql="insert into masiva(documento,nombre,tel_Fijo,celular,fechaActivacion,operador,tipo_plan,direccion,distrito,provincia,departamento) values('$documento','$nombre','$tel_Fijo','$celular','$fechaActivacion','$operador','$tipo_plan','$direccion','$distrito','$provincia','$departamento')";
+        $sql="CALL insertarMasiva ('$documento','$nombre','$tel_Fijo','$celular','$fechaActivacion','$operador','$tipo_plan','$direccion','$distrito','$provincia','$departamento')";
 
 		$rs=mysqli_query($con,$sql);
 
