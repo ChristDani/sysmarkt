@@ -4,7 +4,9 @@ require_once 'model/planes.php';
 
 $abecedario = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z','+','-','/',' '];
 $comisionTotalMovil = 0;
-$porcentaje = 80;
+$comisionTotalFija = 0;
+
+$porcentajeFija = 50;
 
 // planes
 $planeslist = new planes;
@@ -19,18 +21,51 @@ if ($planesMov != null)
         $resultado = mysqli_query($consulta,$sql);
         $cantidad = $resultado->num_rows;
 
+        if ($cantidad >= 0 and $cantidad <= 10) 
+        {
+            $porcentajeMovil = 60;
+        }
+        elseif ($cantidad >= 11 and $cantidad <= 15) 
+        {
+            $porcentajeMovil = 80;
+        }
+        elseif ($cantidad >= 16 and $cantidad <= 20) 
+        {
+            $porcentajeMovil = 100;
+        }
+        elseif ($cantidad >= 21) 
+        {
+            $porcentajeMovil = 120;
+        }
+
         $plan = str_replace($abecedario, '', $pr[0]);
-        $comi = ($plan*$cantidad)*($porcentaje/100);
+        $comi = ($plan*$cantidad)*($porcentajeMovil/100);
         $comisionTotalMovil = $comisionTotalMovil+$comi;
     }
 }
+if ($planesFija != null) 
+{
+    foreach ($planesFija as $pr) 
+    {
+        $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor=$dniUsuario and planFija='".trim($pr[0])."' and estado='1'";
+        $resultado = mysqli_query($consulta,$sql);
+        $cantidad = $resultado->num_rows;
+
+        $plan = str_replace($abecedario, '', substr($pr[0],10));
+        $comiF = ($plan*$cantidad)*($porcentajeFija/100);
+        $comisionTotalFija = $comisionTotalFija+$comiF;
+    }
+}
+
+$comisionTotal = $comisionTotalMovil+$comisionTotalFija;
 ?>
 <div class="d-flex gap-3 align-items-start">
     <h1>Comisiones del Mes</h1>
-    <!-- <input type="date" class="form-control-sm " name="fecharequerida" id="fecharequerida"> -->
+    <input type="date" class="form-control-sm " name="fecharequerida" id="fecharequerida">
+    <h1 class='success' id="comisionTotalMovil">S/ <?php echo $comisionTotal; ?></h1>
 </div>
 
-<h1>Movil - <span class='success' id="comisionTotal">S/ <?php echo $comisionTotalMovil; ?></span></h1>
+<h1>Movil - <span class='success' id="comisionTotalMovil">S/ <?php echo $comisionTotalMovil; ?></span></h1>
 <div class="row mb-4">
     <?php
         if ($planesMov != null) 
@@ -41,8 +76,25 @@ if ($planesMov != null)
                 $resultado = mysqli_query($consulta,$sql);
                 $cantidad = $resultado->num_rows;
 
+                if ($cantidad >= 0 and $cantidad <= 10) 
+                {
+                    $porcentajeMovil = 60;
+                }
+                elseif ($cantidad >= 11 and $cantidad <= 15) 
+                {
+                    $porcentajeMovil = 80;
+                }
+                elseif ($cantidad >= 16 and $cantidad <= 20) 
+                {
+                    $porcentajeMovil = 100;
+                }
+                elseif ($cantidad >= 21) 
+                {
+                    $porcentajeMovil = 120;
+                }
+
                 $plan = str_replace($abecedario, '', $pr[0]);
-                $comision = ($plan*$cantidad)*($porcentaje/100);
+                $comision = ($plan*$cantidad)*($porcentajeMovil/100);
                 ?>
                 <div class='col-xl-3 col-md-6'>
                 <div class='card'>
@@ -53,12 +105,12 @@ if ($planesMov != null)
                 <p></p>
                 <p></p>
                 <p></p>
-                <p><?php echo $cantidad; ?></p>
+                <p class="warning"><?php echo $porcentajeMovil; ?>%</p>
                 <p></p>
                 </div>
                 <div class='body'>
                 <div class='row my-2'>
-                <h4 class='text-center'></h4>
+                <h4 class='text-center'><?php echo $cantidad; ?></h4>
                 </div>
                 <div class='row text-center'>
                 <div class='col'>
@@ -83,13 +135,20 @@ if ($planesMov != null)
     ?>
 </div>
 
-<h1>Fija - <span>Comision total</span></h1>
+<h1>Fija - <span class='success' id="comisionTotalFija">S/ <?php echo $comisionTotalFija; ?></span></h1>
 <div class="row mb-4">
     <?php
         if ($planesFija != null) 
         {
             foreach ($planesFija as $pr) 
-            {?>
+            {
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor=$dniUsuario and planFija='".trim($pr[0])."' and estado='1'";
+                $resultado = mysqli_query($consulta,$sql);
+                $cantidad = $resultado->num_rows;
+
+                $plan = str_replace($abecedario, '', substr($pr[0],10));
+                $comisionFija = ($plan*$cantidad)*($porcentajeFija/100);
+                ?>
                 <div class='col-xl-3 col-md-6'>
                 <div class='card'>
                 <div class='card-body'>
@@ -99,12 +158,12 @@ if ($planesMov != null)
                 <p></p>
                 <p></p>
                 <p></p>
-                <p>5</p>
+                <p class="warning"><?php echo $porcentajeFija; ?>%</p>
                 <p></p>
                 </div>
                 <div class='body'>
                 <div class='row my-2'>
-                <h4 class='text-center'></h4>
+                <h4 class='text-center'><?php echo $cantidad; ?></h4>
                 </div>
                 <div class='row text-center'>
                 <div class='col'>
@@ -118,7 +177,7 @@ if ($planesMov != null)
                 </div>
                 </div>
                 <div class='row text-center' style='border-top: 1px solid #b9b9b9;'>
-                <p class='my-1 success'>comision</p>
+                <p class='my-1 success'>S/ <?php echo $comisionFija; ?></p>
                 </div>
                 </div>
                 </div>
