@@ -208,7 +208,7 @@ class Whatsapp
         $model=new conexion();
         $con=$model->conectar();
 
-        $sql="update whatsapp set dniAsesor='$asesor', nombre='$nombre', dni='$dni',, numeroReferencia='$telefonoRef', producto='$producto', promocion='$promocion', tipo='$tipo', telefono='$telefono', lineaProcedente='$lineaProce', modalidad='$modalidad', planR='$plan', equipo='$equipos', formaDePago='$formaPago', sec='$sec', estado='$estado', observaciones='$observacion', ubicacion='$ubicacion', distrito='$distrito', fechaActualizacion=CURRENT_TIMESTAMP where codigo='$codigo'";
+        $sql="update whatsapp set dniAsesor='$asesor', nombre='$nombre', dni='$dni', numeroReferencia='$telefonoRef', producto='$producto', promocion='$promocion', tipo='$tipo', telefono='$telefono', lineaProcedente='$lineaProce', modalidad='$modalidad', planR='$plan', equipo='$equipos', formaDePago='$formaPago', sec='$sec', estado='$estado', observaciones='$observacion', ubicacion='$ubicacion', distrito='$distrito', fechaActualizacion=CURRENT_TIMESTAMP where codigo='$codigo'";
 
         $rs=mysqli_query($con,$sql);
 

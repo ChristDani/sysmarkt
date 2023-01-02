@@ -1,5 +1,6 @@
 <?php
 require_once 'model/equipo.php';
+require_once "model/planes.php";
 require_once 'model/usuarios.php';
 
 // usuarios
@@ -9,6 +10,11 @@ $listUser = $user->listar();
 // productos
 $produclist = new equipos;
 $productsMov = $produclist->listar();
+
+// planes
+$planeslist = new planes;
+$planesMov = $planeslist->listar();
+$planesFija = $planeslist->listarFija();
 ?>
 <div class="modal fade" id="AgregarWhatsapp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -143,20 +149,14 @@ $productsMov = $produclist->listar();
                     <div class="form-floating mb-3 d-none" id="dplan">                
                         <select class="form-select form-select-sm" name="plan" id="plan">
                             <option value="---" style="color: gray;">(vacio)</option>
-                            <option value="S/ 29.90 MAX">S/ 29.90 MAX</option>
-                            <option value="S/ 39.90">S/ 39.90</option>
-                            <option value="S/ 49.90">S/ 49.90</option>
-                            <option value="S/ 55.90">S/ 55.90</option>
-                            <option value="S/ 69.90 MAX ILIMITADO">S/ 69.90 MAX ILIMITADO</option>
-                            <option value="S/ 79.90 MAX ILIMITADO">S/ 79.90 MAX ILIMITADO</option>
-                            <option value="S/ 95.90 MAX ILIMITADO">S/ 95.90 MAX ILIMITADO</option>
-                            <option value="S/ 109.90 MAX ILIMITADO">S/ 109.90 MAX ILIMITADO</option>
-                            <option value="S/ 159.90 MAX ILIMITADO">S/ 159.90 MAX ILIMITADO</option>
-                            <option value="S/ 189.90 MAX ILIMITADO">S/ 189.90 MAX ILIMITADO</option>
-                            <option value="S/ 289.90 MAX ILIMITADO">S/ 289.90 MAX ILIMITADO</option>
-                            <option value="S/ 95.00 MAX PLAY - NETFLIX">S/ 95.00 MAX PLAY - NETFLIX</option>
-                            <option value="S/ 115.00 MAX PLAY - NETFLIX">S/ 115.00 MAX PLAY - NETFLIX</option>
-                            <option value="S/ 145.00 MAX PLAY - NETFLIX">S/ 145.00 MAX PLAY - NETFLIX</option>
+                            <?php 
+                            if ($planesMov != null) 
+                            {
+                                foreach ($planesMov as $pr) 
+                                {?>
+                                    <option value="<?php echo $pr[0]; ?>"><?php echo $pr[0]; ?></option>
+                            <?php }
+                            }?>
                         </select>
                         <label for="plan">Plan</label>
                     </div>
@@ -180,14 +180,14 @@ $productsMov = $produclist->listar();
                     <div class="form-floating mb-3 d-none" id="dplanFija">                
                         <select class="form-select form-select-sm" name="planFija" id="planFija">
                             <option value="---" style="color: gray;">(vacio)</option>
-                            <option value="1 Play - Telefonia">1 Play - Telefonia</option>
-                            <option value="1 Play - Television">1 Play - Television</option>
-                            <option value="1 Play - Internet">1 Play - Internet</option>
-                            <option value="2 Play - Telefonia + Internet">2 Play - Telefonia + Internet</option>
-                            <option value="2 Play - Internet + Cable Avanzado">2 Play - Internet + Cable Avanzado</option>
-                            <option value="2 Play - Internet + Cable Superior">2 Play - Internet + Cable Superior</option>
-                            <option value="3 Play - Telefonia + Internet + Cable Avanzado">3 Play - Telefonia + Internet + Cable Avanzado</option>
-                            <option value="3 Play - Telefonia + Internet + Cable Superior">3 Play - Telefonia + Internet + Cable Superior</option>
+                            <?php 
+                            if ($planesFija != null) 
+                            {
+                                foreach ($planesFija as $pr) 
+                                {?>
+                                    <option value="<?php echo $pr[0]; ?>"><?php echo $pr[0]; ?></option>
+                            <?php }
+                            }?>
                         </select>
                         <label for="planFija">Plan Fija</label>
                     </div>
