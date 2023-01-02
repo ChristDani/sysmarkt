@@ -71,12 +71,11 @@ if ($_FILES['productos']['name'])
 
     // obtener el numero de filas del archivo
     $numerofila = $excelProductos -> setActiveSheetIndex(1) -> getHighestRow();
-    echo $numerofila;
+    // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos
     $sqlprod = "delete from productos";
     $rsd=mysqli_query($con,$sqlprod);
-    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -91,7 +90,7 @@ if ($_FILES['productos']['name'])
         $libres = $excelProductos -> getActiveSheet() -> getCell('H'.$i) -> getCalculatedValue();
         $bloqueados = $excelProductos -> getActiveSheet() -> getCell('I'.$i) -> getCalculatedValue();
 
-        echo "<br>$i";
+        // echo "<br>$i";
         // se ejecuta la insercion
         $procearchivos->insertarProductos($region,$nombre,$centro,$almacen,$nombreAlmacen,$material,$descripcion,$libres,$bloqueados);
     }
@@ -123,7 +122,6 @@ if ($_FILES['cac']['name'])
     // eliminamos la tabla antigua para reemplazar los datos
     $sqlcac = "delete from cac";
     $rsd=mysqli_query($con,$sqlcac);
-    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -169,7 +167,6 @@ if ($_FILES['dac']['name'])
     // eliminamos la tabla antigua para reemplazar los datos
     $sqldac = "delete from dac";
     $rsd=mysqli_query($con,$sqldac);
-    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -221,7 +218,6 @@ if ($_FILES['acd']['name'])
     // eliminamos la tabla antigua para reemplazar los datos
     $sqlacd = "delete from acd";
     $rsd=mysqli_query($con,$sqlacd);
-    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -273,7 +269,6 @@ if ($_FILES['cadena']['name'])
     // eliminamos la tabla antigua para reemplazar los datos
     $sqlcadena = "delete from cadena";
     $rsd=mysqli_query($con,$sqlcadena);
-    mysqli_close($con);
 
     for ($i=2; $i <= $numerofila ; $i++) 
     {
@@ -296,6 +291,8 @@ if ($_FILES['cadena']['name'])
         $procearchivos->insertarCadena($region,$razonsocial,$codigointer,$codpdv,$pdvsisact,$entrega,$direccion,$distrito,$provincia,$departamento,$dias,$horario,$estado);
     }
 }
+
+mysqli_close($con);
 ?>
 <script>
     window.history.back();
