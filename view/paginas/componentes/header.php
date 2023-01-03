@@ -75,6 +75,10 @@ elseif ($tipoUsuario === "0")
                             <div class="sb-nav-link-icon"><ion-icon name="speedometer-outline"></ion-icon></div>
                             Dashboard
                         </a>				
+                        <!-- <a class="nav-link" href="index.php?pagina=Ventas">
+                            <div class="sb-nav-link-icon"><ion-icon name="cart-outline"></ion-icon></div>
+                            Ventas	<span class="badge primary-bg"><?php //echo $totalClientesMenu; ?></span>							
+                        </a> -->
                         <a class="nav-link" href="index.php?pagina=Clientes">
                             <div class="sb-nav-link-icon"><ion-icon name="people-outline"></ion-icon></div>
                             Clientes	<span class="badge primary-bg"><?php echo $totalClientesMenu; ?></span>							

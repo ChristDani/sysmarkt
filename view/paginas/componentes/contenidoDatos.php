@@ -7,7 +7,6 @@
     <input type="text" name="busquedareportedistritomasiva" id="busquedareportedistritomasiva">
     <input id="btngenerarreportemasiva" name="btngenerarreportemasiva" type="submit" value="send">
 </form>
-
 <div class="card">
     <div class="bare row d-flex justify-content-center align-items-center">
         <div class="col d-flex justify-content-start align-items-center">
@@ -41,12 +40,11 @@
         </div>
         <div class="col d-flex justify-content-end align-items-center">
             <div class="form-floating">
-                <input type="text" class="form-control" id="busquedadistritoM" placeholder="Distrito" onkeyup="getDataM(1);pasardato();">
-                <label for="busquedadistritoM">Distrito</label>
+                <input type="text" class="form-control" id="busquedateledniM" placeholder="Distrito" onkeyup="getDataM(1);pasardato();">
+                <label for="busquedateledniM">DNI / Telefono</label>
             </div>
         </div>
     </div>
-
     <div class="row mb-4" id="resultadosM">
         
     </div>
@@ -57,20 +55,16 @@
         </div>
     </div>
 </div>
-
 <script src="controller/masiva/listarMasiva.js"></script>
-
 <script>
     function pasardato() 
     {
         busquedadepa = document.getElementById('busquedadepartamentoM').value;
         busquedaprovi = document.getElementById('busquedaprovinciaM').value;
-        busquedadistri = document.getElementById('busquedadistritoM').value;
-
+        busquedadistri = document.getElementById('busquedateledniM').value;
         busquereportdepa = document.getElementById('busquedareportedepartamentomasiva');
         busquereportprovi = document.getElementById('busquedareporteprovinciamasiva');
         busquereportdistri = document.getElementById('busquedareportedistritomasiva');
-
         busquereportdepa.value = busquedadepa;
         busquereportprovi.value = busquedaprovi;
         busquereportdistri.value = busquedadistri;

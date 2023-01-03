@@ -24,7 +24,7 @@ class planes
         $filas=null;
         $model=new conexion();
 		$conexion=$model->conectar();
-        $sql="select * from planesFija";
+        $sql="select * from planesfija";
         $rs=mysqli_query($conexion,$sql);
 
         while($row=mysqli_fetch_array($rs))

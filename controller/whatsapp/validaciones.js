@@ -1,35 +1,17 @@
-function limpiar() 
-{
-    document.getElementById('dpromocion').classList.add('d-none'); 
-    document.getElementById('dtipo').classList.add('d-none'); 
-    document.getElementById('dtipoFija').classList.add('d-none'); 
-    document.getElementById('dtelefono').classList.add('d-none'); 
-    document.getElementById('dlineaProce').classList.add('d-none'); 
-    document.getElementById('doperadorCeden').classList.add('d-none'); 
-    document.getElementById('dmodalidad').classList.add('d-none'); 
-    document.getElementById('dplan').classList.add('d-none'); 
-    document.getElementById('dequipos').classList.add('d-none'); 
-    document.getElementById('dformaPago').classList.add('d-none'); 
-    document.getElementById('dsec').classList.add('d-none'); 
-    document.getElementById('dplanFija').classList.add('d-none'); 
-    document.getElementById('dmodoFija').classList.add('d-none'); 
-    document.getElementById('dubicacion').classList.add('d-none'); 
-    document.getElementById('ddistrito').classList.add('d-none'); 
-    document.getElementById('dobservacion').classList.add('d-none'); 
-    document.getElementById('destado').classList.add('d-none'); 
-}
-
 function mostrarTelefonoRef() 
 {
     const dni = document.getElementById('dni').value.length
     if (dni == 8) 
     {
+        document.getElementById('dnombre').classList.remove('d-none');
         document.getElementById('dtelefonoRef').classList.remove('d-none');
     }
     else
     {
         document.getElementById('dtelefonoRef').classList.add('d-none');
         document.getElementById('telefonoRef').value='';
+        document.getElementById('dnombre').classList.add('d-none');
+        document.getElementById('nombre').value='';
         document.getElementById('dproducto').classList.add('d-none');
         document.getElementById('producto').selectedIndex = 0;
     }

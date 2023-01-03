@@ -35,7 +35,7 @@ if ($planesFija != null)
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month($fecha) and year(fechaRegistro)=year($fecha)) and dniAsesor like '%$dniAsesor%' and planFija='".trim($pr[0])."' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planFija='".trim($pr[0])."' and estado='1'";
         }
 
         $resultado = mysqli_query($consulta,$sql);
@@ -109,7 +109,7 @@ if ($planesMov != null)
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month($fecha) and year(fechaRegistro)=year($fecha)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='0' and equipo!='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='0' and equipo!='Chip' and estado='1'";
         }
 
         $resultado = mysqli_query($consulta,$sql);
@@ -170,7 +170,7 @@ if ($planesMov != null)
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month($fecha) and year(fechaRegistro)=year($fecha)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='0' and equipo='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='0' and equipo='Chip' and estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -231,7 +231,7 @@ if ($planesMov != null)
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month($fecha) and year(fechaRegistro)=year($fecha)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='1' and equipo!='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='1' and equipo!='Chip' and estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -326,7 +326,7 @@ if ($planesMov != null)
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month($fecha) and year(fechaRegistro)=year($fecha)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='1' and equipo='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='1' and equipo='Chip' and estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -421,7 +421,7 @@ if ($planesMov != null)
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month($fecha) and year(fechaRegistro)=year($fecha)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='2' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='2' and estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);

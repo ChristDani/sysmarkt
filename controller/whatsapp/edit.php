@@ -1,6 +1,7 @@
 <?php
 require_once '../../model/conexion.php';
 require_once '../../model/equipo.php';
+require_once "../../model/planes.php";
 require_once '../../model/usuarios.php';
 
 $model=new conexion();
@@ -13,6 +14,11 @@ $listUser = $user->listar();
 // productos
 $produclist = new equipos;
 $productsMov = $produclist->listar();
+
+// planes
+$planeslist = new planes;
+$planesMov = $planeslist->listar();
+$planesFija = $planeslist->listarFija();
 
 // en el caso de solo querer determinadas columnas usar esto con el mismo nombre de las columnas...
 $columnas=['codigo','dniAsesor','nombre','dni','telefono','producto','lineaProcedente','operadorCedente','modalidad','tipo','planR','equipo','formaDePago','numeroReferencia','sec','tipoFija','planFija','modoFija','estado','observaciones','promocion','ubicacion','distrito','fechaRegistro','fechaActualizacion'];
@@ -166,7 +172,7 @@ if ($filas>0) {
 
         $output['data'].= "<div class='col-lg-6'>";
         $output['data'].= "<div class='form-floating mb-3'>";
-        $output['data'].= "<input class='form-control dniarr' type='text' name='dni' id='dni' value='$dni' onkeyup='arreglarnombreeditar();'>";
+        $output['data'].= "<input class='form-control dniarr' type='text' maxlength=8 name='dni' id='dni' value='$dni' onkeyup='arreglarnombreeditar();'>";
         $output['data'].= "<label for='dni'>DNI</label>";
         $output['data'].= "</div> ";        
         $output['data'] .= "</div> ";
@@ -234,14 +240,16 @@ if ($filas>0) {
 
             // plan de fija
             $output['data'].= "<div id='planFijaEditM' class='form-floating mb-3'>";
-            $output['data'].= "<select class='form-select form-select-sm' name='planFija' id='planFija'> <option hidden value='$planFija'>$planFija</option> <option value='1 Play - Telefonia'>1 Play - Telefonia</option>
-            <option value='1 Play - Television'>1 Play - Television</option>
-            <option value='1 Play - Internet'>1 Play - Internet</option>
-            <option value='2 Play - Telefonia + Internet'>2 Play - Telefonia + Internet</option>
-            <option value='2 Play - Internet + Cable Avanzado'>2 Play - Internet + Cable Avanzado</option>
-            <option value='2 Play - Internet + Cable Superior'>2 Play - Internet + Cable Superior</option>
-            <option value='3 Play - Telefonia + Internet + Cable Avanzado'>3 Play - Telefonia + Internet + Cable Avanzado</option>
-            <option value='3 Play - Telefonia + Internet + Cable Superior'>3 Play - Telefonia + Internet + Cable Superior</option> </select>";
+            $output['data'].= "<select class='form-select form-select-sm' name='planFija' id='planFija'>";
+            $output['data'].= "<option hidden value='$planFija'>$planFija</option>";
+            if ($planesFija != null) 
+            {
+                foreach ($planesFija as $pr) 
+                {
+                    $output['data'].= "<option value='$pr[0]'>$pr[0]</option>";
+                }
+            }
+            $output['data'].= "</select>"; 
             $output['data'].= "<label for='planFija'>Plan</label>"; 
             $output['data'].= "</div> ";
 
@@ -308,20 +316,16 @@ if ($filas>0) {
                 {
                     // plan requerido
                     $output['data'].= "<div id='planReEditM' class='form-floating mb-3'>";
-                    $output['data'].= "<select class='form-select form-select-sm' name='plan' id='plan'> <option hidden value='$planR'>$planR</option> <option value='S/ 29.90 MAX'>S/ 29.90 MAX</option> 
-                    <option value='S/ 39.90'>S/ 39.90</option>
-                    <option value='S/ 49.90'>S/ 49.90</option>
-                    <option value='S/ 55.90'>S/ 55.90</option>
-                    <option value='S/ 69.90 MAX ILIMITADO'>S/ 69.90 MAX ILIMITADO</option>
-                    <option value='S/ 79.90 MAX ILIMITADO'>S/ 79.90 MAX ILIMITADO</option>
-                    <option value='S/ 95.90 MAX ILIMITADO'>S/ 95.90 MAX ILIMITADO</option>
-                    <option value='S/ 109.90 MAX ILIMITADO'>S/ 109.90 MAX ILIMITADO</option>
-                    <option value='S/ 159.90 MAX ILIMITADO'>S/ 159.90 MAX ILIMITADO</option>
-                    <option value='S/ 189.90 MAX ILIMITADO'>S/ 189.90 MAX ILIMITADO</option>
-                    <option value='S/ 289.90 MAX ILIMITADO'>S/ 289.90 MAX ILIMITADO</option>
-                    <option value='S/ 95.00 MAX PLAY - NETFLIX'>S/ 95.00 MAX PLAY - NETFLIX</option>
-                    <option value='S/ 115.00 MAX PLAY - NETFLIX'>S/ 115.00 MAX PLAY - NETFLIX</option>
-                    <option value='S/ 145.00 MAX PLAY - NETFLIX'>S/ 145.00 MAX PLAY - NETFLIX</option> </select> </span>";
+                    $output['data'].= "<select class='form-select form-select-sm' name='plan' id='plan'>";
+                    $output['data'].= "<option hidden value='$planR'>$planR</option>";  
+                    if ($planesMov != null) 
+                    {
+                        foreach ($planesMov as $pr) 
+                        {
+                            $output['data'].= "<option value='$pr[0]'>$pr[0]</option>";
+                        }
+                    }
+                    $output['data'].= " </select>";
                     $output['data'].= "<label for='plan'>Plan Requerido</label>";
                     $output['data'].= "</div> ";
                 }
@@ -399,20 +403,16 @@ if ($filas>0) {
                 {
                     // plan requerido
                     $output['data'].= "<div id='planReEditM' class='form-floating mb-3'>";
-                    $output['data'].= "<select class='form-select form-select-sm' name='plan' id='plan'> <option hidden value='$planR'>$planR</option> <option value='S/ 29.90 MAX'>S/ 29.90 MAX</option> 
-                    <option value='S/ 39.90'>S/ 39.90</option>
-                    <option value='S/ 49.90'>S/ 49.90</option>
-                    <option value='S/ 55.90'>S/ 55.90</option>
-                    <option value='S/ 69.90 MAX ILIMITADO'>S/ 69.90 MAX ILIMITADO</option>
-                    <option value='S/ 79.90 MAX ILIMITADO'>S/ 79.90 MAX ILIMITADO</option>
-                    <option value='S/ 95.90 MAX ILIMITADO'>S/ 95.90 MAX ILIMITADO</option>
-                    <option value='S/ 109.90 MAX ILIMITADO'>S/ 109.90 MAX ILIMITADO</option>
-                    <option value='S/ 159.90 MAX ILIMITADO'>S/ 159.90 MAX ILIMITADO</option>
-                    <option value='S/ 189.90 MAX ILIMITADO'>S/ 189.90 MAX ILIMITADO</option>
-                    <option value='S/ 289.90 MAX ILIMITADO'>S/ 289.90 MAX ILIMITADO</option>
-                    <option value='S/ 95.00 MAX PLAY - NETFLIX'>S/ 95.00 MAX PLAY - NETFLIX</option>
-                    <option value='S/ 115.00 MAX PLAY - NETFLIX'>S/ 115.00 MAX PLAY - NETFLIX</option>
-                    <option value='S/ 145.00 MAX PLAY - NETFLIX'>S/ 145.00 MAX PLAY - NETFLIX</option> </select> </span>";
+                    $output['data'].= "<select class='form-select form-select-sm' name='plan' id='plan'>";
+                    $output['data'].= "<option hidden value='$planR'>$planR</option>";  
+                    if ($planesMov != null) 
+                    {
+                        foreach ($planesMov as $pr) 
+                        {
+                            $output['data'].= "<option value='$pr[0]'>$pr[0]</option>";
+                        }
+                    }
+                    $output['data'].= " </select>";
                     $output['data'].= "<label for='plan'>Plan Requerido</label>";
                     $output['data'].= "</div> ";
                 }
@@ -485,20 +485,16 @@ if ($filas>0) {
         
                     // plan requerido
                     $output['data'].= "<div id='planReEditM' class='form-floating mb-3'>";
-                    $output['data'].= "<select class='form-select form-select-sm' name='plan' id='plan'> <option hidden value='$planR'>$planR</option> <option value='S/ 29.90 MAX'>S/ 29.90 MAX</option> 
-                    <option value='S/ 39.90'>S/ 39.90</option>
-                    <option value='S/ 49.90'>S/ 49.90</option>
-                    <option value='S/ 55.90'>S/ 55.90</option>
-                    <option value='S/ 69.90 MAX ILIMITADO'>S/ 69.90 MAX ILIMITADO</option>
-                    <option value='S/ 79.90 MAX ILIMITADO'>S/ 79.90 MAX ILIMITADO</option>
-                    <option value='S/ 95.90 MAX ILIMITADO'>S/ 95.90 MAX ILIMITADO</option>
-                    <option value='S/ 109.90 MAX ILIMITADO'>S/ 109.90 MAX ILIMITADO</option>
-                    <option value='S/ 159.90 MAX ILIMITADO'>S/ 159.90 MAX ILIMITADO</option>
-                    <option value='S/ 189.90 MAX ILIMITADO'>S/ 189.90 MAX ILIMITADO</option>
-                    <option value='S/ 289.90 MAX ILIMITADO'>S/ 289.90 MAX ILIMITADO</option>
-                    <option value='S/ 95.00 MAX PLAY - NETFLIX'>S/ 95.00 MAX PLAY - NETFLIX</option>
-                    <option value='S/ 115.00 MAX PLAY - NETFLIX'>S/ 115.00 MAX PLAY - NETFLIX</option>
-                    <option value='S/ 145.00 MAX PLAY - NETFLIX'>S/ 145.00 MAX PLAY - NETFLIX</option> </select> </span>";
+                    $output['data'].= "<select class='form-select form-select-sm' name='plan' id='plan'>";
+                    $output['data'].= "<option hidden value='$planR'>$planR</option>";  
+                    if ($planesMov != null) 
+                    {
+                        foreach ($planesMov as $pr) 
+                        {
+                            $output['data'].= "<option value='$pr[0]'>$pr[0]</option>";
+                        }
+                    }
+                    $output['data'].= " </select>";
                     $output['data'].= "<label for='plan'>Plan Requerido</label>";
                     $output['data'].= "</div> ";
                 }
@@ -555,19 +551,19 @@ if ($filas>0) {
 
         // observaciones
         $output['data'].= "<div id='obsEditM' class='form-floating mb-3'>";
-        $output['data'].= "<input class='form-control' maxlength=15 type='text' name='observaciones' id='observaciones' value='$observaciones'>";
+        $output['data'].= "<input class='form-control' type='text' name='observaciones' id='observaciones' value='$observaciones'>";
         $output['data'].= "<label for='observaciones'>Observaciones</label>";
         $output['data'].= "</div>";
 
         // ubicacion
         $output['data'].= "<div id='ubiEditM' class='form-floating mb-3'>";
-        $output['data'].= "<input class='form-control' maxlength=15 type='text' name='ubicacion' id='ubicacion' value='$ubicacion'>";
+        $output['data'].= "<input class='form-control' type='text' name='ubicacion' id='ubicacion' value='$ubicacion'>";
         $output['data'].= "<label for='ubicacion'>Ubicacion</label>";
         $output['data'].= "</div>";
 
         // distrito
         $output['data'].= "<div id='disEditM' class='form-floating mb-3'>";
-        $output['data'].= "<input class='form-control' maxlength=15 type='text' name='distrito' id='distrito' value='$distrito'>";
+        $output['data'].= "<input class='form-control' type='text' name='distrito' id='distrito' value='$distrito'>";
         $output['data'].= "<label for='distrito'>Distrito</label>";
         $output['data'].= "</div>";
     }

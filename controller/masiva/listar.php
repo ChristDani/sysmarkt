@@ -13,7 +13,7 @@ $tabla='masiva';
 // $buscar=isset($_POST['busqueda']) ? $con->mssql_escape($_POST['busqueda']) : null;
 $buscardepa= isset($_POST['busquedadepa']) ? $_POST['busquedadepa'] : null;
 $buscarprovi= isset($_POST['busquedaprovi']) ? $_POST['busquedaprovi'] : null;
-$buscardistri= isset($_POST['busquedadistri']) ? $_POST['busquedadistri'] : null;
+$buscarteledni= isset($_POST['buscarteledni']) ? $_POST['buscarteledni'] : null;
 
 // busqueda de datos
 $where = '';
@@ -22,22 +22,22 @@ if ($buscardepa != null) {
     $where .= "where departamento like '%".$buscardepa."%'";
     if ($buscarprovi != null) {
         $where .= " and provincia like '%".$buscarprovi."%'";
-        if ($buscardistri != null) {
-            $where .= " and distrito like '%".$buscardistri."%'";
+        if ($buscarteledni != null) {
+            $where .= " and (documento like '%".$buscarteledni."%' or celular like '%".$buscarteledni."%')";
         }
     }
-    elseif ($buscardistri != null) {
-        $where .= " and distrito like '%".$buscardistri."%'";
+    elseif ($buscarteledni != null) {
+        $where .= " and (documento like '%".$buscarteledni."%' or celular like '%".$buscarteledni."%')";
     }
 }
 elseif ($buscarprovi != null and $buscardepa == null) {
     $where .= "where provincia like '%".$buscarprovi."%'";
-    if ($buscardistri != null) {
-        $where .= " and distrito like '%".$buscardistri."%'";
+    if ($buscarteledni != null) {
+        $where .= " and (documento like '%".$buscarteledni."%' or celular like '%".$buscarteledni."%')";
     }
 }
-elseif ($buscardistri!=null and $buscardepa == null and $buscarprovi == null) {
-    $where .= "where distrito like '%".$buscardistri."%'";
+elseif ($buscarteledni!=null and $buscardepa == null and $buscarprovi == null) {
+    $where .= "where (documento like '%".$buscarteledni."%' or celular like '%".$buscarteledni."%')";
 }
 
 // limite de registros

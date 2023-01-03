@@ -10,7 +10,7 @@ function getDataM(pagina) {
 
     let depa = document.getElementById('busquedadepartamentoM').value
     let provi = document.getElementById('busquedaprovinciaM').value
-    let distri = document.getElementById('busquedadistritoM').value
+    let teledni = document.getElementById('busquedateledniM').value
     let select = document.getElementById('numRegistrosM').value
     let contenido=document.getElementById('resultadosM')
     // verificar si trae los valores
@@ -29,7 +29,7 @@ function getDataM(pagina) {
     let formaData = new FormData()
     formaData.append('busquedadepa', depa)
     formaData.append('busquedaprovi', provi)
-    formaData.append('busquedadistri', distri)
+    formaData.append('buscarteledni', teledni)
     formaData.append('registros', select)
     formaData.append('pagina', pagina)
     // para mantener la pagina al cambiar el limite de datos

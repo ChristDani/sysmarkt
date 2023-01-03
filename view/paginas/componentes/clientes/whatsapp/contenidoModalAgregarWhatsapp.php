@@ -59,15 +59,15 @@ $planesFija = $planeslist->listarFija();
                             <label for='asesor'>Asesor</label>
                         </div> 
                     <?php } ?>
+
+                    <div class="form-floating mb-3 d-none" id="dnombre">
+                        <input class="form-control" autocomplete="off" type="text" name="nombre" id="nombre" placeholder="Nombre del cliente..." required>
+                        <label for="nombre">Nombre</label>
+                    </div>
                     
                     <div class="form-floating mb-3">                
                         <input class="form-control" autocomplete="off" type="text" name="dni" id="dni" maxlength=8 placeholder="DNI del cliente..." onkeyup="mostrarTelefonoRef();arreglarnombre();" required oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
                         <label for="dni">DNI</label>
-                    </div>
-
-                    <div class="form-floating mb-3 d-none">
-                        <input class="form-control" autocomplete="off" type="text" name="nombre" id="nombre" placeholder="Nombre del cliente..." required>
-                        <label for="nombre">Nombre</label>
                     </div>
                     
                     <div class="form-floating mb-3 d-none" id="dtelefonoRef">                

@@ -43,7 +43,7 @@ class user
         $con=$model->conectar();
         
         $sql="insert into usuarios(dni,nombre,clave,tipo) values('$dni','$nombre','$clave','$tipo')";
-        $sql2="insert into metas values('$dni','10','10','3','1','1','4','4','1')";
+        $sql2="insert into metasasesor values('$dni','10','10','3','1','1','4','4','1')";
 
 		$rs=mysqli_query($con,$sql);
 		$rs2=mysqli_query($con,$sql2);
