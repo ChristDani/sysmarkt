@@ -1,5 +1,5 @@
 <?php
-    // error_reporting(0);
+    error_reporting(0);
     session_start();
     if (!isset($_SESSION["usersysmarkt"])) 
     {
@@ -54,6 +54,10 @@
                 {
                     include_once "paginas/clientes.php";
                 }
+                elseif ($_GET["pagina"]==="Ventas") 
+                {
+                    include_once "paginas/ventas.php";
+                }
                 elseif ($_GET["pagina"]==="Datos") 
                 {
                     include_once "paginas/datos.php";
@@ -96,6 +100,10 @@
                 elseif ($_GET["pagina"]==="Clientes") 
                 {
                     include_once "paginas/clientes.php";
+                }
+                elseif ($_GET["pagina"]==="Ventas") 
+                {
+                    include_once "paginas/ventas.php";
                 }
                 elseif ($_GET["pagina"]==="Datos") 
                 {

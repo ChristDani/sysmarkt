@@ -18,8 +18,6 @@ function getDataW(pagina) {
 
     let input = document.getElementById('busquedaW').value
     let select = document.getElementById('numRegistrosW').value
-    let estado = document.getElementById('busquedaestadowhats').value
-    let asesor = document.getElementById('busquedaxasesor').value
     let tipoUser = document.getElementById('tipoUser').value
     let contenido = document.getElementById('resultadosW')
 
@@ -28,8 +26,6 @@ function getDataW(pagina) {
     let formaData = new FormData()
     formaData.append('busqueda', input)
     formaData.append('registros', select)
-    formaData.append('busestate', estado)
-    formaData.append('busasesor', asesor)
     formaData.append('pagina', pagina)
     formaData.append('tipoUser', tipoUser)
 

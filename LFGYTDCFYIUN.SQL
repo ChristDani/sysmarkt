@@ -1,0 +1,1 @@
+SELECT v.codigo, u.nombre, c.nombre, v.estado, v.sec, v.origen, v.registro FROM ventas as v  INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni

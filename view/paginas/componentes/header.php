@@ -21,26 +21,38 @@
 <?php
 require_once "model/conexion.php";
 require_once "model/usuarios.php";
+require_once "model/clientes.php";
 
+// usuarios
 $model = new user();
 $listar = $model->listar();
 
+// clientes
+$cliente = new cliente();
+$listCliente = $cliente->listar();
+
+// conexio
 $cone = new conexion();
 $consulta = $cone->conectar();
+
+// clientes totales
+$sql = "select * from clientes";
+$resultado = mysqli_query($consulta,$sql);
+$totalClientesMenu = $resultado->num_rows;
 
 if ($tipoUsuario === "1" || $tipoUsuario === "2") 
 { 
     // ventas totales para admin
-    $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+    $sql = "select * from ventas where (month(registro)=month(CURRENT_TIMESTAMP) and year(registro)=year(CURRENT_TIMESTAMP))";
     $resultado = mysqli_query($consulta,$sql);
-    $totalClientesMenu = $resultado->num_rows;
+    $totalVentasMenu = $resultado->num_rows;
 }
 elseif ($tipoUsuario === "0") 
 { 
     // ventas totales para admin
-    $sql = "select * from whatsapp where dniAsesor='$dniUsuario' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+    $sql = "select * from ventas where dniAsesor='$dniUsuario' and (month(registro)=month(CURRENT_TIMESTAMP) and year(registro)=year(CURRENT_TIMESTAMP))";
     $resultado = mysqli_query($consulta,$sql);
-    $totalClientesMenu = $resultado->num_rows;
+    $totalVentasMenu = $resultado->num_rows;
 }
 ?>
 
@@ -75,10 +87,10 @@ elseif ($tipoUsuario === "0")
                             <div class="sb-nav-link-icon"><ion-icon name="speedometer-outline"></ion-icon></div>
                             Dashboard
                         </a>				
-                        <!-- <a class="nav-link" href="index.php?pagina=Ventas">
+                        <a class="nav-link" href="index.php?pagina=Ventas">
                             <div class="sb-nav-link-icon"><ion-icon name="cart-outline"></ion-icon></div>
-                            Ventas	<span class="badge primary-bg"><?php //echo $totalClientesMenu; ?></span>							
-                        </a> -->
+                            Ventas	<span class="badge primary-bg"><?php echo $totalVentasMenu; ?></span>							
+                        </a>
                         <a class="nav-link" href="index.php?pagina=Clientes">
                             <div class="sb-nav-link-icon"><ion-icon name="people-outline"></ion-icon></div>
                             Clientes	<span class="badge primary-bg"><?php echo $totalClientesMenu; ?></span>							
