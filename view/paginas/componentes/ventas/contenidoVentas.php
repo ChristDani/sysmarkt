@@ -86,18 +86,7 @@
 
 <input hidden type="text" id="dniAsesor" value="<?php echo $dniUsuario;?>">
 <input hidden type="text" id="tipoasesor" value="<?php echo $tipoUsuario ; ?>">
+
 <script src="controller/ventas/listar.js"></script> 
-
-
-<?php //if ($tipoUsuario === "1" || $tipoUsuario === "2") { ?>
-<!-- <script src="controller/ventas/listarVentas.js"></script>   -->
-<?php //} elseif ($tipoUsuario === "0") { ?>
-    <!-- <input hidden type="text" name="dniAsesor" id="dniAsesor" value="<?php //echo $dniUsuario;?>">
-    <script src="controller/ventas/listarWhatsappAsesor.js"></script>   -->
-<?php //} ?>
-<!-- <script src="controller/whatsapp/validaciones.js"></script>
-<script src="controller/whatsapp/modal.js"></script> -->
-</div>
-
-<!-- <script src="view/static/js/clientes.js"></script>
-<script src="controller/whatsapp/validaciones.js"></script> -->
+<script src="controller/whatsapp/validaciones.js"></script>
+<script src="controller/ventas/modal.js"></script>

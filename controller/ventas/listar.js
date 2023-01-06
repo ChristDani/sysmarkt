@@ -32,7 +32,7 @@ function getDataVentas(pagina) {
     // le damos el origen de los datos
     let url='controller/ventas/listar.php';
     let formaData = new FormData()
-    formaData.append('busqueda', input)
+    formaData.append('sec', input)
     formaData.append('cliente', cliente)
     formaData.append('registros', select)
     formaData.append('estado', estado)
