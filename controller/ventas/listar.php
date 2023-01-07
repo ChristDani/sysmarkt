@@ -106,7 +106,7 @@ if ($filas>0)
     while ($fila=mysqli_fetch_array($resultado)) 
     {
         $contarProductos="select * from detalleventas where sec='".$fila['sec']."'";
-        $contarProductosCerrados="select * from detalleventas where sec='".$fila['sec']."' and estado != '2'";
+        $contarProductosCerrados="select * from detalleventas where sec='".$fila['sec']."' and estado = '1'";
         
         $resulcontarProductos=mysqli_query($con,$contarProductos);
         $resulcontarProductosCerrados=mysqli_query($con,$contarProductosCerrados);
@@ -143,7 +143,7 @@ if ($filas>0)
             $output['data'].= "<div class='row'>";
             $output['data'].= "<div class='warning-bc d-flex justify-content-between mb-2 rounded-3'>";
             $output['data'].= "<p class='color'>Venta En Proceso</p>";
-            $output['data'].= "<p class='color'> 0/1</p>";
+            $output['data'].= "<p class='color'> $totalcontarProductosCerrados/$totalcontarProductos</p>";
             $output['data'].= "</div>";
             $output['data'].= "</div>";
         }

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require "../../librerias/PHPExcel/Classes/PHPExcel.php";
 require_once "../../model/conexion.php";
 require_once "../../model/archivos.php";
@@ -67,10 +68,10 @@ if ($_FILES['productos']['name'])
     $excelProductos = PHPExcel_IOFactory::load($archivoProductos);
 
     // cargar la hoja escefica que queremos
-    $excelProductos -> setActiveSheetIndex(1);
+    $excelProductos -> setActiveSheetIndex(0);
 
     // obtener el numero de filas del archivo
-    $numerofila = $excelProductos -> setActiveSheetIndex(1) -> getHighestRow();
+    $numerofila = $excelProductos -> setActiveSheetIndex(0) -> getHighestRow();
     // echo $numerofila;
 
     // eliminamos la tabla antigua para reemplazar los datos

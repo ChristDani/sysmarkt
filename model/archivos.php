@@ -8,7 +8,7 @@ class archivos
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="insert into productos(region,nombre,centro,almacen,nombreAlmacen,material,descripcion,libres,bloqueados) values('$region','$nombre','$centro','$almacen','$nombreAlmacen','$material','$descripcion','$libres','$bloqueados')";
+        $sql="insert into productos(region,nombre,centro,almacen,nombreAlmacen,material,descripcion,libres,bloqueados) values('$region',\"".$nombre."\",'$centro','$almacen',\"".$nombreAlmacen."\",'$material',\"".str_replace('"', '\"', $descripcion)."\",'$libres','$bloqueados')";
 
 		$rs=mysqli_query($con,$sql);
 
@@ -44,7 +44,7 @@ class archivos
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="insert into acd(region,pdv,nombre,entrega,pdvsisact,codpdv,descripcion,direccion,distrito,provincia,departamento,horario,estado,alta,baja) values('$region','$pdv','$nombre','$entrega','$pdvsisact','$codpdv','$descripcion','$direccion','$distrito','$provincia','$departamento','$horario','$estado','$alta','$baja')";
+        $sql="insert into acd(region,pdv,nombre,entrega,pdvsisact,codpdv,descripcion,direccion,distrito,provincia,departamento,horario,estado,alta,baja) values('$region','$pdv',\"".$nombre."\",'$entrega',\"".$pdvsisact."\",'$codpdv',\"".$descripcion."\",\"".$direccion."\",\"".$distrito."\",\"".$provincia."\",\"".$departamento."\",\"".$horario."\",'$estado','$alta','$baja')";
 
 		$rs=mysqli_query($con,$sql);
 
