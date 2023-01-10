@@ -182,7 +182,14 @@ if ($filas>0) {
 
                 if ($a == 1) {
                     $output['data'].= "<div class='tab-pane fade show active' id='nav-home' role='tabpanel' aria-labelledby='nav-home-tab' tabindex='0'>";
-                    $output['data'].= "primer producto";
+                    if ($producto === "0") 
+                    {
+                        $output['data'].= "<h3>Fija</h3>";
+                    }
+                    elseif ($producto === "1") 
+                    {
+                        $output['data'].= "<h3>Movil</h3>";
+                    }
                     $output['data'].= "</div>";
                 }else {
                     $output['data'].= "<div class='tab-pane fade' id='nav-profile' role='tabpanel' aria-labelledby='nav-profile-tab' tabindex='0'>";

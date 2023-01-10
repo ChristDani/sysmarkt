@@ -60,7 +60,7 @@ $planesFija = $planeslist->listarFija();
                         </div> 
                     <?php } ?>
 
-                    <div class="form-floating mb-3 d-none" id="dnombre">
+                    <div class="form-floating mb-3 /*d-none*/" id="dnombre">
                         <input class="form-control" autocomplete="off" type="text" name="nombre" id="nombre" placeholder="Nombre del cliente..." required>
                         <label for="nombre">Nombre</label>
                     </div>
@@ -70,12 +70,12 @@ $planesFija = $planeslist->listarFija();
                         <label for="dni">DNI</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dtelefonoRef">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dtelefonoRef">                
                         <input required class="form-control" autocomplete="off" type="tel" name="telefonoRef" id="telefonoRef" maxlength=9 placeholder="999 999 999" onkeyup="mostrarProductos()" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
                         <label for="telefono">Telefono de Referencia</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dproducto">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dproducto">                
                         <select class="form-select form-select-sm" name="producto" id="producto">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="1">Movil</option>
@@ -84,7 +84,7 @@ $planesFija = $planeslist->listarFija();
                         <label for="producto">Producto</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dpromocion">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dpromocion">                
                         <select class="form-select form-select-sm" name="promocion" id="promocion">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="50% de Descuento con Lineas Adicionales">50% de Descuento con Lineas Adicionales</option>
@@ -94,7 +94,7 @@ $planesFija = $planeslist->listarFija();
                         <label for="promocion">Promoción</label>
                     </div>
     
-                    <div class="form-floating mb-3 d-none" id="dtipo">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dtipo">                
                         <select class="form-select form-select-sm" name="tipo" id="tipo">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="0">Linea Nueva</option>
@@ -104,7 +104,7 @@ $planesFija = $planeslist->listarFija();
                         <label for="tipo">Tipo</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dtipoFija">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dtipoFija">                
                         <select class="form-select form-select-sm" name="tipoFija" id="tipoFija">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="1">Portabilidad</option>
@@ -113,12 +113,12 @@ $planesFija = $planeslist->listarFija();
                         <label for="tipoFija">Tipo Fija</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dtelefono">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dtelefono">                
                         <input class="form-control" autocomplete="off" type="tel" name="telefono" id="telefono" maxlength=9 placeholder="999 999 999" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
                         <label for="telefono">Telefono</label>
                     </div>
 
-                    <div class="form-floating mb-3 d-none" id="dlineaProce">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dlineaProce">                
                         <select class="form-select form-select-sm" name="lineaProce" id="lineaProce">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="Postpago">Postpago</option>
@@ -127,7 +127,7 @@ $planesFija = $planeslist->listarFija();
                         <label for="lineaProce">Linea Procedente</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="doperadorCeden">                
+                    <div class="form-floating mb-3 /*d-none*/" id="doperadorCeden">                
                         <select class="form-select form-select-sm" name="operadorCeden" id="operadorCeden">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="Movistar">Movistar</option>
@@ -137,7 +137,7 @@ $planesFija = $planeslist->listarFija();
                         <label for="operadorCeden">Operador Cedente</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dmodalidad">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dmodalidad">                
                         <select class="form-select form-select-sm" name="modalidad" id="modalidad">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="1">Postpago</option>
@@ -146,7 +146,7 @@ $planesFija = $planeslist->listarFija();
                         <label for="modalidad">Modalidad</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dplan">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dplan">                
                         <select class="form-select form-select-sm" name="plan" id="plan">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <?php 
@@ -154,14 +154,14 @@ $planesFija = $planeslist->listarFija();
                             {
                                 foreach ($planesMov as $pr) 
                                 {?>
-                                    <option value="<?php echo $pr[0]; ?>"><?php echo $pr[0]; ?></option>
+                                    <option value="<?php echo $pr[1]; ?>"><?php echo $pr[1]; ?></option>
                             <?php }
                             }?>
                         </select>
                         <label for="plan">Plan</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dequipos">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dequipos">                
                         <select class="form-select form-select-sm" name="equipos" id="equipos">
                             <option select value="Chip">Chip</option>
                             <?php
@@ -177,7 +177,7 @@ $planesFija = $planeslist->listarFija();
                         <label for="equipos">Equipos</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dplanFija">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dplanFija">                
                         <select class="form-select form-select-sm" name="planFija" id="planFija">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <?php 
@@ -185,14 +185,14 @@ $planesFija = $planeslist->listarFija();
                             {
                                 foreach ($planesFija as $pr) 
                                 {?>
-                                    <option value="<?php echo $pr[0]; ?>"><?php echo $pr[0]; ?></option>
+                                    <option value="<?php echo $pr[1]; ?>"><?php echo $pr[1]; ?></option>
                             <?php }
                             }?>
                         </select>
                         <label for="planFija">Plan Fija</label>
                     </div>
 
-                    <div class="form-floating mb-3 d-none" id="dmodoFija">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dmodoFija">                
                         <select class="form-select form-select-sm" name="modoFija" id="modoFija">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="HFC">HFC</option>
@@ -202,7 +202,7 @@ $planesFija = $planeslist->listarFija();
                         <label for="modoFija">Modo Fija</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dformaPago">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dformaPago">                
                         <select class="form-select form-select-sm" name="formaPago" id="formaPago">
                             <option value="---" style="color: gray;">(vacio)</option>
                             <option value="Contado">Contado</option>
@@ -211,12 +211,12 @@ $planesFija = $planeslist->listarFija();
                         <label for="formaPago">Formas de Pago</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="dsec">                
+                    <div class="form-floating mb-3 /*d-none*/" id="dsec">                
                         <input class="form-control" autocomplete="off" type="text" name="sec" id="sec" placeholder="SEC..." maxlength=15 oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
                         <label for="sec">SEC</label>
                     </div>
                     
-                    <div class="form-floating mb-3 d-none" id="destado">                
+                    <div class="form-floating mb-3 /*d-none*/" id="destado">                
                         <select class="form-select form-select-sm" name="estado" id="estado">
                             <option value="0">No Requiere</option>
                             <option value="1">Concretado</option>
@@ -225,17 +225,17 @@ $planesFija = $planeslist->listarFija();
                         <label for="estado">Estado</label>
                     </div>
 
-                    <div class="form-floating mb-3 d-none" id="dobservacion">
+                    <div class="form-floating mb-3 /*d-none*/" id="dobservacion">
                         <textarea class="form-control" autocomplete="off" type="text" name="observaciones" id="observaciones" placeholder="Leave a comment here"></textarea>
                         <label for="observaciones">Observaciones</label>
                     </div>
 
-                    <div class="form-floating mb-3 d-none" id="dubicacion">
+                    <div class="form-floating mb-3 /*d-none*/" id="dubicacion">
                         <input class="form-control" autocomplete="off" type="text" name="ubicacion" id="ubicacion" placeholder="Ubicación del cliente...">
                         <label for="ubicacion">Ubicación</label>
                     </div>
 
-                    <div class="form-floating mb-3 d-none" id="ddistrito">
+                    <div class="form-floating mb-3 /*d-none*/" id="ddistrito">
                         <input class="form-control" autocomplete="off" type="text" name="distrito" id="distrito" placeholder="Distrito del cliente...">
                         <label for="distrito">Distrito</label>
                     </div>

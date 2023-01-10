@@ -45,8 +45,24 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between mt-1">
-                        <h1>Añadir archivos</h1>
-                        <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#agregararchivos">Subir Archivos</button>
+                        <h1>Archivos</h1>
+                        <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#agregararchivos">Administrar</button>
+                    </div>
+                </div>    
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mt-1">
+                        <h1>Planes Moviles</h1>
+                        <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#planesMoviles">Administrar</button>
+                    </div>
+                </div>    
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mt-1">
+                        <h1>Planes Fija</h1>
+                        <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#planesFija">Administrar</button>
                     </div>
                 </div>    
             </div>
@@ -98,7 +114,7 @@
                 <?php           }
                             }elseif ($tipoUsuario === "2") 
                             {
-                                if ($u[0] != $dniUsuario && $u[3] === "0") 
+                                if ($u[0] != $dniUsuario && $u[3] === "0" && $u[8] === $dniUsuario) 
                                 { ?>
                                     <div class="row">
                                         <a class="delete btn col d-flex gap-1 align-items-center my-1" data-bs-toggle="modal" data-bs-target="#InfoUser" onclick="infoUsuarioModera('<?php echo$u[0];?>','<?php echo trim($u[3]);?>');">
@@ -146,4 +162,6 @@
 <?php include_once "contenidoModalAñadirUsuario.php"; ?>
 <?php include_once "ContenidoModalInfo.php"; ?>
 <?php include_once "contenidomodalarchivosasubir.php"; ?>
+<?php include_once "contenidomodalplanesmoviles.php"; ?>
+<?php include_once "contenidomodalplanesfija.php"; ?>
 <script src="controller/usuario/usuarios.js"></script>
