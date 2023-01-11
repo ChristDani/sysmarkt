@@ -146,7 +146,7 @@
                 <?php           }
                             }
                         }
-                    } if ($tipoUsuario === "1") {?>
+                    } if ($tipoUsuario === "1" || $tipoUsuario === "2") {?>
                         <div class="d-flex justify-content-end mt-1">
                             <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#Añadir">Añadir Usuario</button>
                         </div>

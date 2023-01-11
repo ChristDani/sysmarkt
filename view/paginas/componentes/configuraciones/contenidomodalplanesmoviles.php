@@ -49,8 +49,8 @@ $planesMov = $planeslist->listar();
                 <h3>Añadir Plan</h3>
                 
                 <div class="form-floating mb-3">
-                  <input class="form-control" autocomplete="off" type="text" name="plan" id="plan" placeholder="...">
-                  <label for="plan">Plan</label>
+                  <input class="form-control" autocomplete="off" type="text" name="planMovil" id="planMovil" placeholder="...">
+                  <label for="planMovil">Plan</label>
                 </div>
                 <input type="submit" value="send">
               </form>
@@ -60,13 +60,13 @@ $planesMov = $planeslist->listar();
                 <h3>Editar Plan</h3>
                 
                 <div class="form-floating mb-3">
-                  <input class="form-control" autocomplete="off" type="text" name="codigo" id="codigo" placeholder="...">
-                  <label for="codigo">Codigo</label>
+                  <input class="form-control" autocomplete="off" type="text" name="codigoMovil" id="codigoMovil" placeholder="...">
+                  <label for="codigoMovil">Codigo</label>
                 </div>
                 
                 <div class="form-floating mb-3">
-                  <input class="form-control" autocomplete="off" type="text" name="planedit" id="planedit" placeholder="...">
-                  <label for="planedit">Plan</label>
+                  <input class="form-control" autocomplete="off" type="text" name="planeditMovil" id="planeditMovil" placeholder="...">
+                  <label for="planeditMovil">Plan</label>
                 </div>
                 <input type="submit" value="send">
               </form>

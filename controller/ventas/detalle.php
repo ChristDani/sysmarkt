@@ -5,7 +5,7 @@ $model=new conexion();
 $con=$model->conectar();
 
 // posicion de registro
-$secSo = isset($_POST['codigo']) ? $_POST['codigo'] : '70756062';
+$secSo = isset($_POST['codigo']) ? $_POST['codigo'] : null;
 $tipoUsuario = isset($_POST['tipoUser']) ? $_POST['tipoUser'] : null;
 
 
@@ -25,6 +25,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 
 $output=[];
 $output['data']= '';
+$output['fecha']= '';
 
 if ($filas>0) {
     
@@ -47,7 +48,9 @@ if ($filas>0) {
         $nombre = $fila[3];
         $dni = $fila['dniCliente'];
         $estado = $fila['estado'];
-        $fecha = $diassemana[$dia-1].", ".$numerodia." de ".$meses[$mes-1]." del ".$año."<br>".$hora;
+        $fecha = $diassemana[$dia-1].", ".$numerodia." de ".$meses[$mes-1]." del ".$año." ".$hora;
+        
+        $output['fecha']= $fecha;
         
         // contador de productosa concretados
         $contarProductos="select * from detalleventas where sec='$sec'";
@@ -59,7 +62,7 @@ if ($filas>0) {
         $totalcontarProductos = $resulcontarProductos->num_rows;
         $totalcontarProductosCerrados = $resulcontarProductosCerrados->num_rows;
 
-        // $output['data'].= "<div class='row'>";
+        $output['data'].= "<div class='row'>";
 
         if ($estado === "0") 
         {
@@ -74,9 +77,9 @@ if ($filas>0) {
             $output['data'].= "<h3 class='color'>Venta Cerrada</h3>";
             $output['data'].= "<h3 class='color'> $totalcontarProductosCerrados/$totalcontarProductos</h3>";
             $output['data'].= "</div>";
-
         }
-        // $output['data'].= "</div> ";
+
+        $output['data'].= "</div> ";
         
         $output['data'].= "<div class='align-items-center d-flex'>";
 
@@ -98,7 +101,7 @@ if ($filas>0) {
         
         $output['data'].= "<div class='col'>";     
             
-        $output['data'].= "<p class='text-muted'>Nombre</p>";   //Nombre
+        $output['data'].= "<p class='text-muted'>Cliente</p>";   //Nombre
         $output['data'].= "<h1>$nombre</h1>";
 
         $output['data'].= "</div> ";
@@ -118,7 +121,7 @@ if ($filas>0) {
 
         // zona de productos
 
-        $sqlpr = "SELECT CodDetalle, sec, telefonoRefencia, producto, promocion, tipo, telefonoOperacion, lineaProcedente, operadorCendente, modalidad, modoReno, plan, equipo, tipoFija, planFija, modoFija, formaPago, distrito, ubicacion, observaciones, estado, registro, actualizacion from detalleventas where sec='".$secSo."'";
+        $sqlpr = "SELECT CodDetalle, telefonoRefencia, producto, promocion, tipo, telefonoOperacion, lineaProcedente, operadorCendente, modalidad, modoReno, plan, equipo, tipoFija, planFija, modoFija, formaPago, distrito, ubicacion, observaciones, estado, registro, actualizacion from detalleventas where sec='".$secSo."'";
         // para verificar errores en la consulta
         // echo $sqlpr;
 
@@ -132,12 +135,12 @@ if ($filas>0) {
 
             $i=1;
             $output['data'].= "<nav>";
-            $output['data'].= "<div class='nav nav-tabs' id='nav-tab' role='tablist'>";
+            $output['data'].= "<div class='nav nav-tabs mx-2' id='nav-tab' role='tablist'>";
             while ($produc=mysqli_fetch_array($resultpr)) {
                 if ($i == 1) {
-                    $output['data'].= "<button class='nav-link color active' id='nav-home-tab' data-bs-toggle='tab' data-bs-target='#nav-home' type='button' role='tab' aria-controls='nav-home' aria-selected='true'>$i</button>";
+                    $output['data'].= "<button class='nav-link color active' id='nav-prod-tab' data-bs-toggle='tab' data-bs-target='#nav-prod' type='button' role='tab' aria-controls='nav-prod' aria-selected='true'>$i</button>";
                 }else {
-                    $output['data'].= "<button class='nav-link color' id='nav-profile-tab' data-bs-toggle='tab' data-bs-target='#nav-profile' type='button' role='tab' aria-controls='nav-profile' aria-selected='false'>$i</button>";
+                    $output['data'].= "<button class='nav-link color' id='nav-prod$i-tab' data-bs-toggle='tab' data-bs-target='#nav-prod$i' type='button' role='tab' aria-controls='nav-prod$i' aria-selected='false'>$i</button>";
                 }
                 $i+=1;
             }
@@ -145,11 +148,10 @@ if ($filas>0) {
             $output['data'].= "</nav>";
 
             $a=1;
-            $output['data'].= "<div class='tab-content' id='nav-tabContent'>";
+            $output['data'].= "<div class='tab-content mx-3' id='nav-tabContent'>";
             while ($produconten=mysqli_fetch_array($resultprcontent)) {
             
                 $codigoDetalle = $produconten['CodDetalle'];
-                $secdetalle = $produconten['sec'];
                 $referencia = $produconten['telefonoRefencia'];
                 $producto = $produconten['producto'];
                 $promocion = $produconten['promocion'];
@@ -168,7 +170,7 @@ if ($filas>0) {
                 $distrito = $produconten['distrito'];
                 $ubicacion = $produconten['ubicacion'];
                 $observaciones = $produconten['observaciones'];
-                $estado = $produconten['estado'];
+                $estadoprod = $produconten['estado'];
                 $registrodetalle = $produconten['registro'];
                 $actualizaciondetalle = $produconten['actualizacion'];
     
@@ -181,355 +183,336 @@ if ($filas>0) {
                 $fechaactualizacion = $diassemana[$diaprcnt-1].", ".$numerodiaprcnt." de ".$meses[$mesprcnt-1]." del ".$añoprcnt."<br>".$horaprcnt;
 
                 if ($a == 1) {
-                    $output['data'].= "<div class='tab-pane fade show active' id='nav-home' role='tabpanel' aria-labelledby='nav-home-tab' tabindex='0'>";
-                    if ($producto === "0") 
-                    {
-                        $output['data'].= "<h3>Fija</h3>";
-                    }
-                    elseif ($producto === "1") 
-                    {
-                        $output['data'].= "<h3>Movil</h3>";
-                    }
-                    $output['data'].= "</div>";
+                    $output['data'].= "<div class='tab-pane fade show active' id='nav-prod' role='tabpanel' aria-labelledby='nav-prod-tab' tabindex='0'>";
                 }else {
-                    $output['data'].= "<div class='tab-pane fade' id='nav-profile' role='tabpanel' aria-labelledby='nav-profile-tab' tabindex='0'>";
-                    $output['data'].= "Segundo Producto";
-                    $output['data'].= "</div>";
+                    $output['data'].= "<div class='tab-pane fade' id='nav-prod$a' role='tabpanel' aria-labelledby='nav-prod$a-tab' tabindex='0'>";
                 }
+
+                $output['data'].= "<div class='row'>";
+                $output['data'].= "<div class='col'>";
+                $output['data'].= "<p class='text-muted'>Producto solicitado</p>";
+                if ($producto === "0") 
+                {
+                    $output['data'].= "<h3>Fija</h3>";
+                }
+                elseif ($producto === "1") 
+                {
+                    $output['data'].= "<h3>Movil</h3>";
+                }
+                $output['data'].= "</div>";
+                
+                $output['data'].= "<div class='col text-end'>";
+                if ($estadoprod === "0") 
+                {
+                    $output['data'].= "<h3 class='danger'>No requiere<h3>";
+                }
+                elseif ($estadoprod === "1") 
+                {
+                    $output['data'].= "<h3 class='success'>Concretado<h3>";
+                }
+                elseif ($estadoprod === "2") 
+                {
+                    $output['data'].= "<h3 class='warning'>Pendiente<h3>";
+                }
+                $output['data'].= "</div>";
+                $output['data'].= "</div>";
+
+                $output['data'].= "<div class='row'>";
+                $output['data'].= "<div class='col'>";
+                
+                // numero de referencia
+                $output['data'].= "<p class='text-muted'>Telefono referente</p>";
+                $output['data'].= "<h3>$referencia</h3>";
+
+                // $output['data'].= "</div> ";
+                
+                $output['data'].= "</div> ";
+
+                $output['data'].= "<div class='col text-end'>";
+                
+                // promocion
+                $output['data'].= "<p class='text-muted'>Promocion</p>";
+                $output['data'].= "<h3 id='promol'>$promocion</h3>";
+
+                $output['data'].= "</div> ";
+
+                $output['data'].= "</div> ";
+                
+                
+                if ($producto === $fija) 
+                {
+                    $output['data'].= "<div class='row'>";
+                    // tipo de fija
+                    $output['data'].= "<div class='col'>";
+                    $output['data'].= "<p class='text-muted'>Tipo de Linea</p>";
+                    if ($tipoFija === "0") 
+                    {
+                        $output['data'].= "<h3>Alta</h3>";
+                    }
+                    elseif ($tipoFija === "1") 
+                    {
+                        $output['data'].= "<h3>Portabilidad</h3>";
+                    }
+                    $output['data'].= "</div> ";
+                    
+                    
+                    if ($tipoFija === "1") 
+                    {
+                        $output['data'].= "<div class='col text-end'>";
+                        // telefono
+                        $output['data'].= "<p class='text-muted'>Telefono</p>";
+                        $output['data'].= "<h3>$telefono</h3>";
+
+                        $output['data'].= "</div> ";
+                    }        
+
+                    $output['data'].= "</div> ";
+
+
+                    $output['data'].= "<div class='row'>";
+                    
+                    $output['data'].= "<div class='col'>";
+
+                    // plan de fija
+                    $output['data'].= "<p class='text-muted'>Plan</p>";
+                    $output['data'].= "<h3>$planFija</h3>";
+
+                    $output['data'].= "</div> ";
+                    $output['data'].= "<div class='col-auto'>";
+                    
+                    $output['data'].= "<p class='text-muted'>Modo</p>";
+                    $output['data'].= "<h3>$modoFija</h3>";     //Modo Fija
+
+                    $output['data'].= "</div> ";
+
+                } 
+                
+                elseif ($producto === $movil) 
+                {
+                    $output['data'].= "<div class='row'>";
+                    
+                    // tipo
+                    $output['data'].= "<div class='col'>";
+                    
+                    $output['data'].= "<p class='text-muted'>Tipo de Linea</p>";
+                    if ($tipo === "0") 
+                    {
+                        $output['data'].= "<h3>Linea Nueva</h3>"; 
+                    }
+                    elseif ($tipo === "1") 
+                    {
+                        $output['data'].= "<h3>Portabilidad</h3>"; 
+                    }
+                    elseif ($tipo === "2") 
+                    {
+                        $output['data'].= "<h3>Renovación</h3>"; 
+                    }
+
+                    $output['data'].= "</div> ";
+                    
+                    if ($tipo == "0") 
+                    {
+                        // modalidad
+                        $output['data'].= "<div class='col text-end'>";
+                        
+                        $output['data'].= "<p class='text-muted'>Modalidad</p>";
+                        if ($modalidad === "0") 
+                        {
+                            $output['data'].= "<h3>Prepago</h3>";
+                        }
+                        elseif ($modalidad === "1") 
+                        {
+                            $output['data'].= "<h3>Postpago</h3>";
+                        }
+                        
+                        $output['data'].= "</div> ";
+                        $output['data'].= "</div> ";
+                        $output['data'].= "</div> ";
+                        
+                        $output['data'].= "<div class='row'>";            
+
+                        if ($modalidad == "1") 
+                        {
+                            $output['data'].= "<div class='col'>";            
+                            $output['data'].= "<p class='text-muted'>Plan Requerido</p>";
+                            $output['data'].= "<h3>$plan</h3>";     //Plan Requerido
+                            $output['data'].= "</div> ";
+                        }
+                        
+                        $output['data'].= "<div class='col-auto'>";            
+                        $output['data'].= "<p class='text-muted'>Equipo</p>";
+                        $output['data'].= "<h3>$equipo</h3>";     //Equipo
+                        $output['data'].= "</div> ";
+
+
+                    }
+                    elseif ($tipo == "1") 
+                    {
+
+                        $output['data'].= "<div class='col text-center'>";            
+                        $output['data'].= "<p class='text-muted'>Telefono a portar</p>";
+                        $output['data'].= "<h3>$telefono</h3>";     //Telefono
+                        $output['data'].= "</div> ";
+                        $output['data'].= "<div class='col text-end'>";            
+                        $output['data'].= "<p class='text-muted'>Linea Procedente</p>";
+                        $output['data'].= "<h3>$lineaProcedente</h3>";     //Linea Procedente
+                        $output['data'].= "</div> ";
+                        $output['data'].= "</div> ";
+
+                        
+                        $output['data'].= "<div class='row'>";
+                        // operador cedente
+                        $output['data'].= "<div class='col'>";            
+                        $output['data'].= "<p class='text-muted'>Operador Cedente</p>";
+                        $output['data'].= "<h3>$operadorCendente</h3>";     //Operador Cedente
+                        $output['data'].= "</div> ";                
+                        // modalidad
+                        $output['data'].= "<div class='col text-end'>";            
+                        $output['data'].= "<p class='text-muted'>Modalidad</p>";
+                        if ($modalidad === "0") 
+                        {
+                            $output['data'].= "<h3>Prepago</h3>";
+                        }
+                        elseif ($modalidad === "1") 
+                        {
+                            $output['data'].= "<h3>Postpago</h3>";
+                        }
+                        $output['data'].= "</div> ";
+                        $output['data'].= "</div> ";
+
+                        $output['data'].= "<div class='row'>";            
+                        
+                        if ($modalidad == "1") 
+                        {
+                            // plan requerido
+                            $output['data'].= "<div class='col'>";            
+                            $output['data'].= "<p class='text-muted'>Plan Requerido</p>";
+                            $output['data'].= "<h3>$plan</h3>";
+                            $output['data'].= "</div> ";
+                        }
+                        
+                        // equipo
+                        $output['data'].= "<div class='col-auto'>";            
+                        $output['data'].= "<p class='text-muted'>Equipo</p>";
+                        $output['data'].= "<h3>$equipo</h3>";    
+                        $output['data'].= "</div> ";
+
+
+                    }
+                    elseif ($tipo == "2") 
+                    {
+                        // telefono
+                        $output['data'].= "<div class='col-auto text-center'>";            
+                        $output['data'].= "<p class='text-muted'>Telefono</p>";
+                        $output['data'].= "<h3>$telefono</h3>";
+                        $output['data'].= "</div> ";  
+                        
+                        // linea procedente
+                        $output['data'].= "<div class='col text-end'>";            
+                        $output['data'].= "<p class='text-muted'>Linea Procedente</p>";
+                        $output['data'].= "<h3>$lineaProcedente</h3>";
+                        $output['data'].= "</div> ";  
+                        $output['data'].= "</div> ";  
+                        
+                        $output['data'].= "<div class='row'>";            
+
+                        // modalidad
+                        $output['data'].= "<div class='col'>";            
+                        $output['data'].= "<p class='text-muted'>Modalidad</p>";
+                        if ($modalidad === "0") 
+                        {
+                            $output['data'].= "<h3>Prepago</h3>";
+                        }
+                        elseif ($modalidad === "1") 
+                        {
+                            $output['data'].= "<h3>Postpago</h3>";
+                        }
+                        $output['data'].= "</div> ";  
+
+                        if ($modalidad == "1") 
+                        {
+                            // plan requerido
+                            $output['data'].= "<div class='col text-end'>";            
+                            $output['data'].= "<p class='text-muted'>Plan</p>";
+                            $output['data'].= "<h3>$plan</h3>";
+                            $output['data'].= "</div> ";  
+                        }
+
+                        $output['data'].= "</div> ";  
+                        $output['data'].= "<div class='row'>";            
+                        
+                        // equipo
+                        $output['data'].= "<div class='col'>";            
+                        $output['data'].= "<p class='text-muted'>Equipo</p>";
+                        $output['data'].= "<h3>$equipo</h3>";
+                        $output['data'].= "</div> ";  
+
+
+                    }
+                }       
+                
+                $output['data'].= "<div class='col text-end'>";            
+                $output['data'].= "<p class='text-muted'>Forma de Pago</p>";
+                if ($formaPago == "0") {
+                    $output['data'].= "<h3>Contado</h3>";
+                }
+                elseif ($formaPago == "1") {
+                    $output['data'].= "<h3>Cuotas</h3>";
+                }
+                $output['data'].= "</div> ";
+
+                $output['data'].= "</div> ";         
+
+                // observaciones
+                $output['data'].= "<div class='row'>";            
+                $output['data'].= "<div class='col text-center'>";            
+                $output['data'].= "<div class='card'>";
+                $output['data'].= "<div class='card-body'>";        
+                $output['data'].= "<p class='text-muted'>Observaciones</p>";
+                $output['data'].= "<h3>$observaciones</h3>";
+                $output['data'].= "</div> ";
+                $output['data'].= "</div> "; 
+                $output['data'].= "</div> "; 
+                $output['data'].= "</div> ";          
+
+                
+                $output['data'].= "<div class='row m-0'>";            
+                // distrito
+                $output['data'].= "<div class='col'>";            
+                $output['data'].= "<p class='text-muted'>Distrito</p>";
+                $output['data'].= "<h3>$distrito</h3>";
+                $output['data'].= "</div> ";  
+                // ubicacion
+                $output['data'].= "<div class='col text-end'>";            
+                $output['data'].= "<p class='text-muted'>Ubicacion</p>";
+                $output['data'].= "<h3>$ubicacion</h3>";
+                $output['data'].= "</div> ";  
+
+                $output['data'].= "</div> ";  
+
+                if ($registrodetalle != $actualizaciondetalle) 
+                {
+                    // fecha de actualizacion
+                    $output['data'].= "<div class='row text-center'>";
+                    $output['data'].= "<div class='card'>";
+                    $output['data'].= "<div class='card-body'>";        
+                    $output['data'].= "<p class='text-muted'>Producto Actualizado</p>";
+                    $output['data'].= "<h3>$fechaactualizacion</h3>";
+                    $output['data'].= "</div> ";
+                    $output['data'].= "</div> ";
+                    $output['data'].= "</div> ";
+                }
+
+                $output['data'].= "<div class='row m-0'>";
+
+                $output['data'].= "<a href='#' class='btn color' onclick='abrirModalEditar($codigoDetalle);' data-bs-target='#EditarVentas' data-bs-toggle='modal'>Editar Producto</a>";
+                $output['data'].= "</div>";
+
+                $output['data'].= "</div>";
                 $a+=1;
             }
             $output['data'].= "</div>";
         }
-        
-        // $output['data'].= "<div class='row'>";
-
-        // if ($estado === "0") 
-        // {
-        //     $output['data'].= "<div class='warning-bc d-flex justify-content-between mb-2 rounded-3'>";
-        //     $output['data'].= "<h3 class='color'>Venta En Proceso</h3>";
-        //     $output['data'].= "<h3 class='color'> $totalcontarProductosCerrados/$totalcontarProductos</h3>";
-        //     $output['data'].= "</div>";
-        // }
-        // elseif ($estado === "1") 
-        // {
-        //     $output['data'].= "<div class='/*secondary-bc*/ d-flex justify-content-between mb-2 rounded-3'>";
-        //     $output['data'].= "<h3 class='color'>Venta Cerrada</h3>";
-        //     $output['data'].= "<h3 class='color'> $totalcontarProductosCerrados/$totalcontarProductos</h3>";
-        //     $output['data'].= "</div>";
-
-        // }
-        // $output['data'].= "</div> ";
-        // // dni
-        // $output['data'].= "<p class='text-muted'>Documento de identidad</p>";
-        // $output['data'].= "<h3>$dni</h3>";
-
-        // $output['data'].= "</div> ";
-
-//         $output['data'].= "<div class='col text-end'>";
-        
-//         // numero de referencia
-//         $output['data'].= "<p class='text-muted'>Telefono referente</p>";
-//         $output['data'].= "<h3>$telefonoRef</h3>";
-
-//         $output['data'].= "</div> ";
-        
-//         $output['data'].= "</div> ";
-        
-//         $output['data'].= "<div class='row'>";
-        
-//         $output['data'].= "<div class='col'>";
-
-//         // producto
-//         $output['data'].= "<p class='text-muted'>Producto solicitado</p>";
-//         if ($producto === "0") 
-//         {
-//             $output['data'].= "<h3>Fija</h3>";
-//         }
-//         elseif ($producto === "1") 
-//         {
-//             $output['data'].= "<h3>Movil</h3>";
-//         }
-
-//         $output['data'].= "</div> ";
-
-//         $output['data'].= "<div class='col text-end'>";
-        
-//         // promocion
-//         $output['data'].= "<p class='text-muted'>Promocion</p>";
-//         $output['data'].= "<h3 id='promol'>$promocion</h3>";
-
-//         $output['data'].= "</div> ";
-
-//         $output['data'].= "</div> ";
-        
-        
-//         if ($producto === $fija) 
-//         {
-//             $output['data'].= "<div class='row'>";
-//             // tipo de fija
-//             $output['data'].= "<div class='col'>";
-//             $output['data'].= "<p class='text-muted'>Tipo de Linea</p>";
-//             if ($tipoFija === "0") 
-//             {
-//                 $output['data'].= "<h3>Alta</h3>";
-//             }
-//             elseif ($tipoFija === "1") 
-//             {
-//                 $output['data'].= "<h3>Portabilidad</h3>";
-//             }
-//             $output['data'].= "</div> ";
-            
-            
-//             if ($tipoFija === "1") 
-//             {
-//                 $output['data'].= "<div class='col text-end'>";
-//                 // telefono
-//                 $output['data'].= "<p class='text-muted'>Telefono</p>";
-//                 $output['data'].= "<h3>$telefono</h3>";
-
-//                 $output['data'].= "</div> ";
-//             }        
-
-//             $output['data'].= "</div> ";
-
-
-//             $output['data'].= "<div class='row'>";
-            
-//             $output['data'].= "<div class='col'>";
-
-//             // plan de fija
-//             $output['data'].= "<p class='text-muted'>Plan</p>";
-//             $output['data'].= "<h3>$planFija</h3>";
-
-//             $output['data'].= "</div> ";
-//             $output['data'].= "<div class='col-auto'>";
-            
-//             $output['data'].= "<p class='text-muted'>Modo</p>";
-//             $output['data'].= "<h3>$modoFija</h3>";     //Modo Fija
-
-//             $output['data'].= "</div> ";
-
-//         } 
-        
-//         elseif ($producto === $movil) 
-//         {
-//             $output['data'].= "<div class='row'>";
-            
-//             // tipo
-//             $output['data'].= "<div class='col'>";
-            
-//             $output['data'].= "<p class='text-muted'>Tipo de Linea</p>";
-//             if ($tipo === "0") 
-//             {
-//                 $output['data'].= "<h3>Linea Nueva</h3>"; 
-//             }
-//             elseif ($tipo === "1") 
-//             {
-//                 $output['data'].= "<h3>Portabilidad</h3>"; 
-//             }
-//             elseif ($tipo === "2") 
-//             {
-//                 $output['data'].= "<h3>Renovación</h3>"; 
-//             }
-
-//             $output['data'].= "</div> ";
-            
-//             if ($tipo == "0") 
-//             {
-//                 // modalidad
-//                 $output['data'].= "<div class='col text-end'>";
-                
-//                 $output['data'].= "<p class='text-muted'>Modalidad</p>";
-//                 if ($modalidad === "0") 
-//                 {
-//                     $output['data'].= "<h3>Prepago</h3>";
-//                 }
-//                 elseif ($modalidad === "1") 
-//                 {
-//                     $output['data'].= "<h3>Postpago</h3>";
-//                 }
-                
-//                 $output['data'].= "</div> ";
-//                 $output['data'].= "</div> ";
-//                 $output['data'].= "</div> ";
-                
-//                 $output['data'].= "<div class='row'>";            
-
-//                 if ($modalidad == "1") 
-//                 {
-//                     $output['data'].= "<div class='col'>";            
-//                     $output['data'].= "<p class='text-muted'>Plan Requerido</p>";
-//                     $output['data'].= "<h3>$planR</h3>";     //Plan Requerido
-//                     $output['data'].= "</div> ";
-//                 }
-                
-//                 $output['data'].= "<div class='col-auto'>";            
-//                 $output['data'].= "<p class='text-muted'>Equipo</p>";
-//                 $output['data'].= "<h3>$equipo</h3>";     //Equipo
-//                 $output['data'].= "</div> ";
-
-
-//             }
-//             elseif ($tipo == "1") 
-//             {
-
-//                 $output['data'].= "<div class='col text-center'>";            
-//                 $output['data'].= "<p class='text-muted'>Telefono a portar</p>";
-//                 $output['data'].= "<h3>$telefono</h3>";     //Telefono
-//                 $output['data'].= "</div> ";
-//                 $output['data'].= "<div class='col text-end'>";            
-//                 $output['data'].= "<p class='text-muted'>Linea Procedente</p>";
-//                 $output['data'].= "<h3>$lineaProce</h3>";     //Linea Procedente
-//                 $output['data'].= "</div> ";
-//                 $output['data'].= "</div> ";
-
-                
-//                 $output['data'].= "<div class='row'>";
-//                 // operador cedente
-//                 $output['data'].= "<div class='col'>";            
-//                 $output['data'].= "<p class='text-muted'>Operador Cedente</p>";
-//                 $output['data'].= "<h3>$operadorCed</h3>";     //Operador Cedente
-//                 $output['data'].= "</div> ";                
-//                 // modalidad
-//                 $output['data'].= "<div class='col text-end'>";            
-//                 $output['data'].= "<p class='text-muted'>Modalidad</p>";
-//                 if ($modalidad === "0") 
-//                 {
-//                     $output['data'].= "<h3>Prepago</h3>";
-//                 }
-//                 elseif ($modalidad === "1") 
-//                 {
-//                     $output['data'].= "<h3>Postpago</h3>";
-//                 }
-//                 $output['data'].= "</div> ";
-//                 $output['data'].= "</div> ";
-
-//                 $output['data'].= "<div class='row'>";            
-                
-//                 if ($modalidad == "1") 
-//                 {
-//                     // plan requerido
-//                     $output['data'].= "<div class='col'>";            
-//                     $output['data'].= "<p class='text-muted'>Plan Requerido</p>";
-//                     $output['data'].= "<h3>$planR</h3>";
-//                     $output['data'].= "</div> ";
-//                 }
-                
-//                 // equipo
-//                 $output['data'].= "<div class='col-auto'>";            
-//                 $output['data'].= "<p class='text-muted'>Equipo</p>";
-//                 $output['data'].= "<h3>$equipo</h3>";    
-//                 $output['data'].= "</div> ";
-
-
-//             }
-//             elseif ($tipo == "2") 
-//             {
-//                 // telefono
-//                 $output['data'].= "<div class='col-auto text-center'>";            
-//                 $output['data'].= "<p class='text-muted'>Telefono</p>";
-//                 $output['data'].= "<h3>$telefono</h3>";
-//                 $output['data'].= "</div> ";  
-                
-//                 // linea procedente
-//                 $output['data'].= "<div class='col text-end'>";            
-//                 $output['data'].= "<p class='text-muted'>Linea Procedente</p>";
-//                 $output['data'].= "<h3>$lineaProce</h3>";
-//                 $output['data'].= "</div> ";  
-//                 $output['data'].= "</div> ";  
-                
-//                 $output['data'].= "<div class='row'>";            
-
-//                 // modalidad
-//                 $output['data'].= "<div class='col'>";            
-//                 $output['data'].= "<p class='text-muted'>Modalidad</p>";
-//                 if ($modalidad === "0") 
-//                 {
-//                     $output['data'].= "<h3>Prepago</h3>";
-//                 }
-//                 elseif ($modalidad === "1") 
-//                 {
-//                     $output['data'].= "<h3>Postpago</h3>";
-//                 }
-//                 $output['data'].= "</div> ";  
-
-//                 if ($modalidad == "1") 
-//                 {
-//                     // plan requerido
-//                     $output['data'].= "<div class='col text-end'>";            
-//                     $output['data'].= "<p class='text-muted'>Plan</p>";
-//                     $output['data'].= "<h3>$planR</h3>";
-//                     $output['data'].= "</div> ";  
-//                 }
-
-//                 $output['data'].= "</div> ";  
-//                 $output['data'].= "<div class='row'>";            
-                
-//                 // equipo
-//                 $output['data'].= "<div class='col'>";            
-//                 $output['data'].= "<p class='text-muted'>Equipo</p>";
-//                 $output['data'].= "<h3>$equipo</h3>";
-//                 $output['data'].= "</div> ";  
-
-
-//             }
-//         }
-//         else 
-//         {
-//             $output['data'].= "<div class='form-floating mb-3'>";
-//             $output['data'].= "<div class='col-xs-2'>";
-//             $output['data'].= "<center><label><em>Elija un producto a vender, actualice y vuelva generar los detalles...</em></label></center>";
-//             $output['data'].= "</div> ";
-//             $output['data'].= "</div> ";
-//         }        
-        
-//         $output['data'].= "<div class='col text-end'>";            
-//         $output['data'].= "<p class='text-muted'>Forma de Pago</p>";
-//         $output['data'].= "<h3>$formaPago</h3>";
-//         $output['data'].= "</div> ";        
-//         $output['data'].= "</div> ";
-
-//         $output['data'].= "</div> ";         
-
-//         $output['data'].= "<div class='row'>";            
-        
-//         // observaciones
-//         $output['data'].= "<div class='col text-center'>";            
-//         $output['data'].= "<div class='card'>";
-//         $output['data'].= "<div class='card-body'>";        
-//         $output['data'].= "<p class='text-muted'>Observaciones</p>";
-//         $output['data'].= "<h3>$observaciones</h3>";
-//         $output['data'].= "</div> ";
-//         $output['data'].= "</div> "; 
-//         $output['data'].= "</div> "; 
-
-//         $output['data'].= "</div> ";          
-//         $output['data'].= "<div class='row'>";            
-//         // ubicacion
-        
-//         // distrito
-//         $output['data'].= "<div class='col'>";            
-//         $output['data'].= "<p class='text-muted'>Distrito</p>";
-//         $output['data'].= "<h3>$distrito</h3>";
-//         $output['data'].= "</div> ";  
-        
-        
-//         $output['data'].= "<div class='col text-end'>";            
-//         $output['data'].= "<p class='text-muted'>Ubicacion</p>";
-//         $output['data'].= "<h3>$ubicacion</h3>";
-//         $output['data'].= "</div> ";  
-
-        // $output['data'].= "</div> ";  
-
-        // fecha de registro
-        $output['data'].= "<div class='col text-center'>";            
-        $output['data'].= "<div class='card'>";
-        $output['data'].= "<div class='card-body'>";        
-        $output['data'].= "<p class='text-muted'>Fecha de Registro</p>"; 
-        $output['data'].= "<h3>$fecha</h3>";
-        $output['data'].= "</div> ";
-        $output['data'].= "</div> ";
-        $output['data'].= "</div> ";
     }
 }
 

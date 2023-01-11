@@ -38,9 +38,14 @@ function getDataVentas(pagina) {
     formaData.append('estado', estado)
     formaData.append('asesor', asesor)
     formaData.append('tipoAsesor', tipoAsesor)
-    if (tipoAsesor != 1)
+    if (tipoAsesor == 3)
     {
         formaData.append('dniAsesor', dniAsesor)
+    }
+    else if (tipoAsesor == 2)
+    {
+        // formaData.append('dniAsesor', dniAsesor)
+        formaData.append('dniModerador', dniAsesor)
     }
     formaData.append('pagina', pagina)
 

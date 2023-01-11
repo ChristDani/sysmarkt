@@ -40,17 +40,24 @@ $sql = "select * from clientes";
 $resultado = mysqli_query($consulta,$sql);
 $totalClientesMenu = $resultado->num_rows;
 
-if ($tipoUsuario === "1" || $tipoUsuario === "2") 
+if ($tipoUsuario === "1") 
 { 
     // ventas totales para admin
-    $sql = "select * from ventas where (month(registro)=month(CURRENT_TIMESTAMP) and year(registro)=year(CURRENT_TIMESTAMP))";
+    $sql = "SELECT * from detalleventas where (month(registro)=month(CURRENT_TIMESTAMP) and year(registro)=year(CURRENT_TIMESTAMP))";
+    $resultado = mysqli_query($consulta,$sql);
+    $totalVentasMenu = $resultado->num_rows;
+}
+elseif ($tipoUsuario === "2") 
+{ 
+    // ventas totales para admin
+    $sql = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where u.dniModerador='$dniUsuario' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP))";
     $resultado = mysqli_query($consulta,$sql);
     $totalVentasMenu = $resultado->num_rows;
 }
 elseif ($tipoUsuario === "0") 
 { 
     // ventas totales para admin
-    $sql = "select * from ventas where dniAsesor='$dniUsuario' and (month(registro)=month(CURRENT_TIMESTAMP) and year(registro)=year(CURRENT_TIMESTAMP))";
+    $sql = "SELECT * from ventas where dniAsesor='$dniUsuario' and (month(registro)=month(CURRENT_TIMESTAMP) and year(registro)=year(CURRENT_TIMESTAMP))";
     $resultado = mysqli_query($consulta,$sql);
     $totalVentasMenu = $resultado->num_rows;
 }
@@ -91,10 +98,12 @@ elseif ($tipoUsuario === "0")
                             <div class="sb-nav-link-icon"><ion-icon name="cart-outline"></ion-icon></div>
                             Ventas	<span class="badge primary-bg"><?php echo $totalVentasMenu; ?></span>							
                         </a>
-                        <a class="nav-link" href="index.php?pagina=Clientes">
-                            <div class="sb-nav-link-icon"><ion-icon name="people-outline"></ion-icon></div>
-                            Clientes	<span class="badge primary-bg"><?php echo $totalClientesMenu; ?></span>							
-                        </a>
+                        <?php if($tipoUsuario === "1" || $tipoUsuario === "2") { ?>
+                            <a class="nav-link" href="index.php?pagina=Clientes">
+                                <div class="sb-nav-link-icon"><ion-icon name="people-outline"></ion-icon></div>
+                                Clientes	<span class="badge primary-bg"><?php echo $totalClientesMenu; ?></span>							
+                            </a>										
+                        <?php } ?>
                         <?php if($tipoUsuario === "1") { ?>
                             <a class="nav-link" href="index.php?pagina=Datos">
                                 <div class="sb-nav-link-icon"><ion-icon name="document-text-outline"></ion-icon></div>

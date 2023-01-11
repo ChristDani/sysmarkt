@@ -3,6 +3,7 @@ require_once "../../model/usuarios.php";
 $model = new user();
 
 $dni = $_POST['dni'];
+$dniModerador = $_POST['dniModerador'];
 $nombre = $_POST['nombre'];
 $clave = sha1(strrev($dni));
 $tipo = $_POST['tipo'];
@@ -15,7 +16,7 @@ if ($bus != null)
 }
 else 
 {
-    $model->insertarUsuario($dni,$nombre,$clave,$tipo);
+    $model->insertarUsuario($dni,$nombre,$clave,$tipo,$dniModerador);
 }
 ?>
 <script>

@@ -4,8 +4,7 @@
 function abrirModalDetalle(codigo,tipo) {
     // obtenemos el div donde poner los datos
     let contenidoD = document.getElementById('detallesVenta');
-    // let btnedit = document.getElementById('btnEdit');
-    // btnedit.addEventListener("click", abrirModalEditar(codigo,tipo), false);
+    let contenidoF = document.getElementById('fechaDetalle');
     
     //mandamos la posicion al controller
     let url = 'controller/ventas/detalle.php';
@@ -20,12 +19,14 @@ function abrirModalDetalle(codigo,tipo) {
     }).then(response => response.json())
         .then(data => {
             contenidoD.innerHTML = data.data
+            contenidoF.innerHTML = data.fecha
         }).catch(err => console.log(err))
 }
 
 // edicion
 
-function abrirModalEditar(codigo,tipo) {
+function abrirModalEditar(codigo) {
+    console.log(codigo);
     // obtenemos el div donde poner los datos
     let contenidoD = document.getElementById('editarWhats');
 
@@ -36,11 +37,11 @@ function abrirModalEditar(codigo,tipo) {
     formaData.append('tipoUser', tipo)
 
     // traemos los datos del controller
-    fetch(url, {
-        method: "POST",
-        body: formaData
-    }).then(response => response.json())
-        .then(data => {
-            contenidoD.innerHTML = data.data
-        }).catch(err => console.log(err))
+    // fetch(url, {
+    //     method: "POST",
+    //     body: formaData
+    // }).then(response => response.json())
+    //     .then(data => {
+    //         contenidoD.innerHTML = data.data
+    //     }).catch(err => console.log(err))
 }

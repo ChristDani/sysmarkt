@@ -20,8 +20,8 @@ $planesFija = $planeslist->listarFija();
                 <h3>Añadir Plan</h3>
                 
                 <div class="form-floating mb-3">
-                  <input class="form-control" autocomplete="off" type="text" name="plan" id="plan" placeholder="..." required>
-                  <label for="plan">Plan</label>
+                  <input class="form-control" autocomplete="off" type="text" name="planFija" id="planFija" placeholder="..." required>
+                  <label for="planFija">Plan</label>
                 </div>
                 <input class="btn color" type="button" value="Cancelar" onclick="ocultarAgregar();">
                 <input class="btn color" type="submit" value="Agregar">
@@ -32,13 +32,13 @@ $planesFija = $planeslist->listarFija();
                 <h3>Editar Plan</h3>
                 
                 <div class="form-floating mb-3">
-                  <input class="form-control" autocomplete="off" type="text" name="codigo" id="codigo" placeholder="...">
-                  <label for="codigo">Codigo</label>
+                  <input class="form-control" autocomplete="off" type="text" name="codigoFija" id="codigoFija" placeholder="...">
+                  <label for="codigoFija">CodigoFija</label>
                 </div>
                 
                 <div class="form-floating mb-3">
-                  <input class="form-control" autocomplete="off" type="text" name="planedit" id="planedit" placeholder="...">
-                  <label for="planedit">Plan</label>
+                  <input class="form-control" autocomplete="off" type="text" name="planeditFija" id="planeditFija" placeholder="...">
+                  <label for="planeditFija">Plan</label>
                 </div>
                 <input class="btn color" type="button" value="Cancelar" onclick="ocultarEdicion();">
                 <input class="btn color" type="submit" value="Editar">

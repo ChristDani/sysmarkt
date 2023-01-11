@@ -45,6 +45,8 @@
 <?php } ?>
 
 <?php
+if ($tipoUsuario === "0") 
+{ 
 if ($listar != null) 
 {
     foreach ($listar as $x) 
@@ -52,20 +54,20 @@ if ($listar != null)
         if ($x[0] === $dniUsuario) 
         {
             //ventas totales asesor
-            $sqla = "select * from whatsapp where dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+            $sqla = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP))";
             // echo $sqla;
             $resultadoa = mysqli_query($consulta,$sqla);
             $ventasTotalesAsesor = $resultadoa->num_rows;
             // ventas pendientes asesor
-            $sql2 = "select * from whatsapp where estado='2' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+            $sql2 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='2'";
             $resultado2 = mysqli_query($consulta,$sql2);
             $ventasPendientesAsesor = $resultado2->num_rows;
             // ventas concretadas asesor
-            $sql1 = "select * from whatsapp where estado='1' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+            $sql1 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='1'";
             $resultado1 = mysqli_query($consulta,$sql1);
             $ventasConcretadasAsesor = $resultado1->num_rows;
             // ventas rechazadas asesor
-            $sql3 = "select * from whatsapp where estado='0' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+            $sql3 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='0'";
             $resultado3 = mysqli_query($consulta,$sql3);
             $ventasRechazadasAsesor = $resultado3->num_rows;
 ?>
@@ -114,6 +116,7 @@ if ($listar != null)
         }
     }
 }
+}
 
 if ($tipoUsuario === "1") 
 { 
@@ -122,33 +125,28 @@ if ($tipoUsuario === "1")
     {
         foreach ($listar as $x) 
         {
-            if ($x[0] !== $dniUsuario) 
+            if ($x[0] !== $dniUsuario && $x[3] === "0") 
             {
                 //ventas totales asesor
-                $sqla = "select * from whatsapp where dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+                $sqla = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP))";
                 // echo $sqla;
                 $resultadoa = mysqli_query($consulta,$sqla);
                 $ventasTotalesAsesor = $resultadoa->num_rows;
                 // ventas pendientes asesor
-                $sql2 = "select * from whatsapp where estado='2' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+                $sql2 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='2'";
                 $resultado2 = mysqli_query($consulta,$sql2);
                 $ventasPendientesAsesor = $resultado2->num_rows;
                 // ventas concretadas asesor
-                $sql1 = "select * from whatsapp where estado='1' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+                $sql1 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='1'";
                 $resultado1 = mysqli_query($consulta,$sql1);
                 $ventasConcretadasAsesor = $resultado1->num_rows;
                 // ventas rechazadas asesor
-                $sql3 = "select * from whatsapp where estado='0' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+                $sql3 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='0'";
                 $resultado3 = mysqli_query($consulta,$sql3);
                 $ventasRechazadasAsesor = $resultado3->num_rows;
 ?>
-                <?php if ($x[3] === "1") { ?>
-                    <h3>Ventas del Administrador <?php echo $x[1] ?></h3>
-                <?php }elseif ($x[3] === "0") { ?>
-                    <h3>Ventas del Asesor <?php echo $x[1] ?></h3>
-                <?php }elseif ($x[3] === "2") { ?>
-                    <h3>Ventas del Moderador <?php echo $x[1] ?></h3>
-                <?php } ?>
+
+                <h3>Ventas del Asesor(a) <?php echo $x[1] ?></h3>
                 
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
@@ -199,23 +197,23 @@ if ($tipoUsuario === "2")
     {
         foreach ($listar as $x) 
         {
-            if ($x[0] !== $dniUsuario && $x[3] === "0") 
+            if ($x[0] !== $dniUsuario && $x[3] === "0" && $x[8] === $dniUsuario) 
             {
                 //ventas totales asesor
-                $sqla = "select * from whatsapp where dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+                $sqla = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP))";
                 // echo $sqla;
                 $resultadoa = mysqli_query($consulta,$sqla);
                 $ventasTotalesAsesor = $resultadoa->num_rows;
                 // ventas pendientes asesor
-                $sql2 = "select * from whatsapp where estado='2' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+                $sql2 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='2'";
                 $resultado2 = mysqli_query($consulta,$sql2);
                 $ventasPendientesAsesor = $resultado2->num_rows;
                 // ventas concretadas asesor
-                $sql1 = "select * from whatsapp where estado='1' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+                $sql1 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='1'";
                 $resultado1 = mysqli_query($consulta,$sql1);
                 $ventasConcretadasAsesor = $resultado1->num_rows;
                 // ventas rechazadas asesor
-                $sql3 = "select * from whatsapp where estado='0' and dniAsesor='".$x[0]."' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP))";
+                $sql3 = "SELECT * from detalleventas as dv inner join ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni and dv.sec=v.sec where v.dniAsesor='".$x[0]."' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.estado='0'";
                 $resultado3 = mysqli_query($consulta,$sql3);
                 $ventasRechazadasAsesor = $resultado3->num_rows;
 ?>
