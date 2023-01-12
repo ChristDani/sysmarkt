@@ -344,7 +344,7 @@ b{
 }
 
 .color{
-    color: var(--color-dark);
+    color: var(--color-dark) !important;
 }
 
 .primary{

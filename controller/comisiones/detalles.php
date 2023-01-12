@@ -28,46 +28,46 @@ if ($planesMov != null)
         {
             if ($tipo == 'lne') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo!='Chip' and planR='".trim($pr[0])."' and tipo='0' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo!='Chip' and planR='".trim($pr[1])."' and tipo='0' and estado='1'";
             }
             elseif ($tipo == 'ln') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo='Chip' and planR='".trim($pr[0])."' and tipo='0' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo='Chip' and planR='".trim($pr[1])."' and tipo='0' and estado='1'";
             }
             elseif ($tipo == 'pe') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo!='Chip' and planR='".trim($pr[0])."' and tipo='1' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo!='Chip' and planR='".trim($pr[1])."' and tipo='1' and estado='1'";
             }
             elseif ($tipo == 'p') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo='Chip' and planR='".trim($pr[0])."' and tipo='1' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo='Chip' and planR='".trim($pr[1])."' and tipo='1' and estado='1'";
             }
             elseif ($tipo == 'r') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='2' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='2' and estado='1'";
             }
         }
         elseif ($fecha != null) 
         {
             if ($tipo == 'lne') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and equipo!='Chip' and tipo='0' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and equipo!='Chip' and tipo='0' and estado='1'";
             }
             elseif ($tipo == 'ln') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and equipo='Chip' and tipo='0' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and equipo='Chip' and tipo='0' and estado='1'";
             }
             elseif ($tipo == 'pe') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and equipo!='Chip' and tipo='1' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and equipo!='Chip' and tipo='1' and estado='1'";
             }
             elseif ($tipo == 'p') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and equipo='Chip' and tipo='1' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and equipo='Chip' and tipo='1' and estado='1'";
             }
             elseif ($tipo == 'r') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='2' and estado='1'";
+                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='2' and estado='1'";
             }
         }
 
@@ -91,7 +91,7 @@ if ($planesMov != null)
             $porcentajeMovil = 120;
         }
 
-        $plan = str_replace($abecedario, '', $pr[0]);
+        $plan = str_replace($abecedario, '', $pr[1]);
 
         if ($tipo == 'lne' or $tipo == 'ln') 
         {
@@ -113,7 +113,7 @@ if ($planesMov != null)
         $output['data'] .= "<div class='card-body'>";
         $output['data'] .= "<div class='head d-flex justify-content-around'>";
         $output['data'] .= "<p></p>";
-        $output['data'] .= "<p>$pr[0]</p>";
+        $output['data'] .= "<p>$pr[1]</p>";
         $output['data'] .= "<p></p>";
         $output['data'] .= "<p></p>";
         $output['data'] .= "<p></p>";

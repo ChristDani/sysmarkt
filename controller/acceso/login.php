@@ -25,6 +25,7 @@ if ($filas2 != null)
 		$_SESSION["usersysmarkt"] = $tusu;
 		$_SESSION["tiposysmarkt"] = $ttipo;
 		$_SESSION["Mensajesysmarkt"] = null;
+		// $_SESSION["listaproductosysmarkt"] = null;
 		$consultas->activarEstado($dni);
 		header("location:../../index.php?pagina=Dashboard");
 	}

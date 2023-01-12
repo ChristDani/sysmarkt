@@ -91,38 +91,53 @@ elseif ($tipoUsuario === "0")
                             <h2>ARGO<span class="danger">SAL</span></h2>
                         </div>
                         <a class="nav-link" href="index.php?pagina=Dashboard">
-                            <div class="sb-nav-link-icon"><ion-icon name="speedometer-outline"></ion-icon></div>
+                            <div class="sb-nav-link-icon">
+                                <ion-icon name="speedometer-outline"></ion-icon>
+                            </div>
                             Dashboard
                         </a>				
                         <a class="nav-link" href="index.php?pagina=Ventas">
-                            <div class="sb-nav-link-icon"><ion-icon name="cart-outline"></ion-icon></div>
-                            Ventas	<span class="badge primary-bg"><?php echo $totalVentasMenu; ?></span>							
+                            <div class="sb-nav-link-icon">
+                                <ion-icon name="cart-outline"></ion-icon>
+                            </div>
+                            Ventas	
+                            <span class="badge primary-bg"><?php echo $totalVentasMenu; ?></span>							
                         </a>
                         <?php if($tipoUsuario === "1" || $tipoUsuario === "2") { ?>
                             <a class="nav-link" href="index.php?pagina=Clientes">
-                                <div class="sb-nav-link-icon"><ion-icon name="people-outline"></ion-icon></div>
-                                Clientes	<span class="badge primary-bg"><?php echo $totalClientesMenu; ?></span>							
+                                <div class="sb-nav-link-icon">
+                                    <ion-icon name="people-outline"></ion-icon>
+                                </div>
+                                Clientes	
+                                <span class="badge primary-bg"><?php echo $totalClientesMenu; ?></span>							
                             </a>										
                         <?php } ?>
                         <?php if($tipoUsuario === "1") { ?>
                             <a class="nav-link" href="index.php?pagina=Datos">
-                                <div class="sb-nav-link-icon"><ion-icon name="document-text-outline"></ion-icon></div>
+                                <div class="sb-nav-link-icon">
+                                    <ion-icon name="document-text-outline"></ion-icon>
+                                </div>
                                 Datos
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>										
                         <?php } ?>			
                         <a class="nav-link" href="index.php?pagina=Productos">
-                            <div class="sb-nav-link-icon"><ion-icon name="phone-portrait-outline"></ion-icon></div>
+                            <div class="sb-nav-link-icon">
+                                <ion-icon name="phone-portrait-outline"></ion-icon>
+                            </div>
                             Productos
                         </a>
                         <a class="nav-link" href="index.php?pagina=Ubicaciones">
-                            <div class="sb-nav-link-icon"><ion-icon name="map-outline"></ion-icon></div>
-                                Ubicaciones
+                            <div class="sb-nav-link-icon">
+                                <ion-icon name="map-outline"></ion-icon>
+                            </div>
+                            Ubicaciones
                         </a>
                         <?php if($tipoUsuario === "1") { ?>
                             <a class="nav-link" href="index.php?pagina=Reportes">
-                                <div class="sb-nav-link-icon"><ion-icon name="newspaper-outline"></ion-icon></div>
-                                    Reportes
+                                <div class="sb-nav-link-icon">
+                                    <ion-icon name="newspaper-outline"></ion-icon>
+                                </div>
+                                Reportes
                             </a>
                         <?php } ?>
                         <a href="index.php?pagina=Herramientas" class="nav-link">
@@ -132,8 +147,10 @@ elseif ($tipoUsuario === "0")
                             Herramientas
                         </a>			
                         <a class="nav-link" href="index.php?pagina=Configuracion">
-                            <div class="sb-nav-link-icon"> <ion-icon name="cog-outline"></ion-icon></div>
-                                Configuracion
+                            <div class="sb-nav-link-icon"> 
+                                <ion-icon name="cog-outline"></ion-icon>
+                            </div>
+                            Configuracion
                         </a>
                         <a href="index.php?pagina=Comisiones" class="nav-link">
                             <div class="sb-nav-link-icon">

@@ -31,17 +31,17 @@ if ($planesFija != null)
     {
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planFija='".trim($pr[0])."' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planFija='".trim($pr[1])."' and estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planFija='".trim($pr[0])."' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planFija='".trim($pr[1])."' and estado='1'";
         }
 
         $resultado = mysqli_query($consulta,$sql);
         $cantidad = $resultado->num_rows;
 
-        $plan = str_replace($abecedario, '', substr($pr[0],10));
+        $plan = str_replace($abecedario, '', substr($pr[1],10));
         $comisionFija = ($plan*$cantidad)*($porcentajeFija/100);
         $comisionTotalFija = $comisionTotalFija+$comisionFija;
 
@@ -50,7 +50,7 @@ if ($planesFija != null)
         $output['fija'] .= "<div class='card-body'>";
         $output['fija'] .= "<div class='head d-flex justify-content-around'>";
         $output['fija'] .= "<p></p>";
-        $output['fija'] .= "<p>".$pr[0]."</p>";
+        $output['fija'] .= "<p>".$pr[1]."</p>";
         $output['fija'] .= "<p></p>";
         $output['fija'] .= "<p></p>";
         $output['fija'] .= "<p></p>";
@@ -105,17 +105,17 @@ if ($planesMov != null)
     {
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='0' and equipo!='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='0' and equipo!='Chip' and estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='0' and equipo!='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='0' and equipo!='Chip' and estado='1'";
         }
 
         $resultado = mysqli_query($consulta,$sql);
         $cantidad = $resultado->num_rows;
 
-        $plan = str_replace($abecedario, '', $pr[0]);
+        $plan = str_replace($abecedario, '', $pr[1]);
         $comision = ($plan*$cantidad)*(50/100);
         $comisionTotalNuevaEquipo = $comisionTotalNuevaEquipo+$comision;
         $cantidadTotalNuevaEquipo = $cantidadTotalNuevaEquipo+$cantidad;
@@ -166,17 +166,17 @@ if ($planesMov != null)
     {
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='0' and equipo='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='0' and equipo='Chip' and estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='0' and equipo='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='0' and equipo='Chip' and estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
         $cantidad = $resultado->num_rows;
 
-        $plan = str_replace($abecedario, '', $pr[0]);
+        $plan = str_replace($abecedario, '', $pr[1]);
         $comision = ($plan*$cantidad)*(50/100);
         $comisionTotalNuevaSinEquipo = $comisionTotalNuevaSinEquipo+$comision;
         $cantidadTotalNuevaSinEquipo = $cantidadTotalNuevaSinEquipo+$cantidad;
@@ -227,11 +227,11 @@ if ($planesMov != null)
     {
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='1' and equipo!='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='1' and equipo!='Chip' and estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='1' and equipo!='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='1' and equipo!='Chip' and estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -254,7 +254,7 @@ if ($planesMov != null)
             $porcentajeMovil = 120;
         }
 
-        $plan = str_replace($abecedario, '', $pr[0]);
+        $plan = str_replace($abecedario, '', $pr[1]);
         $comision = ($plan*$cantidad)*($porcentajeMovil/100);
         $comisionTotalProtaEquipo = $comisionTotalProtaEquipo+$comision;
         $cantidadTotalProtaEquipo = $cantidadTotalProtaEquipo+$cantidad;
@@ -322,11 +322,11 @@ if ($planesMov != null)
     {
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='1' and equipo='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='1' and equipo='Chip' and estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='1' and equipo='Chip' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='1' and equipo='Chip' and estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -349,7 +349,7 @@ if ($planesMov != null)
             $porcentajeMovil = 120;
         }
 
-        $plan = str_replace($abecedario, '', $pr[0]);
+        $plan = str_replace($abecedario, '', $pr[1]);
         $comision = ($plan*$cantidad)*($porcentajeMovil/100);
         $comisionTotalProtaSinEquipo = $comisionTotalProtaSinEquipo+$comision;
         $cantidadTotalProtaSinEquipo = $cantidadTotalProtaSinEquipo+$cantidad;
@@ -417,17 +417,17 @@ if ($planesMov != null)
     {
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='2' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='2' and estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[0])."' and tipo='2' and estado='1'";
+            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='2' and estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
         $cantidad = $resultado->num_rows;
 
-        $plan = str_replace($abecedario, '', $pr[0]);
+        $plan = str_replace($abecedario, '', $pr[1]);
         $comision = ($plan*$cantidad)*(40/100);
         $comisionTotalRenovacion = $comisionTotalRenovacion+$comision;
         $cantidadTotalRenovacion = $cantidadTotalRenovacion+$cantidad;

@@ -16,7 +16,7 @@
     </div>
     <?php if ($tipoUsuario === "0" || $tipoUsuario === "1") {?>
     <div class="col d-flex justify-content-between align-items-center">
-        <a href="#" class="primary" type="button" data-bs-toggle="modal" data-bs-target="#AgregarVenta">
+        <a href="#" class="color" data-bs-toggle="modal" data-bs-target="#AgregarVenta">
             <ion-icon name="add-circle-outline"></ion-icon>
         </a>
     </div>
@@ -44,9 +44,12 @@
                                 } elseif ($tipoUsuario === "1") 
                                 {
                                     foreach ($listar as $x) 
-                                    { ?>
+                                    { 
+                                        if ($x[3] == "0") 
+                                        { ?>
                                         <option value="<?php echo $x[0]; ?>"><?php echo $x[1]; ?></option>
-                            <?php   }
+                            <?php       }
+                                    }
                                 }
                             }?>
                 </select>
@@ -104,5 +107,5 @@
 <input hidden type="text" id="tipoasesor" value="<?php echo $tipoUsuario ; ?>">
 
 <script src="controller/ventas/listar.js"></script> 
-<script src="controller/whatsapp/validaciones.js"></script>
+<!-- <script src="controller/whatsapp/validaciones.js"></script> -->
 <script src="controller/ventas/modal.js"></script>

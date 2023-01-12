@@ -7,6 +7,7 @@ $model = new ventas();
 $asesor = $_POST['asesor'];
 $nombre = $_POST['nombre'];
 $dni = $_POST['dni'];
+
 $telefonoRef = $_POST['telefonoRef'];
 $producto = $_POST['producto'];
 $promocion = $_POST['promocion'];

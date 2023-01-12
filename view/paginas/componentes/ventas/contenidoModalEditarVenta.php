@@ -6,13 +6,13 @@
         <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="editarVentas" action="controller/ventas/editar.php" method="post">
+        <form id="formularioeditarVentas" action="controller/ventas/editar.php" method="post">
         
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <div class="btn btn-secondary" data-bs-target="#DetallesVentas" data-bs-toggle="modal">Volver</div>
-        <button form="editarVentas" class="btn btn-primary">Guardar</button>
+        <button form="formularioeditarVentas" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
