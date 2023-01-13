@@ -1,21 +1,3 @@
-function mostrarTelefonoRef() 
-{
-    const dni = document.getElementById('dni').value.length
-    if (dni == 8) 
-    {
-        document.getElementById('dnombre').classList.remove('d-none');
-        document.getElementById('dtelefonoRef').classList.remove('d-none');
-    }
-    else
-    {
-        document.getElementById('dtelefonoRef').classList.add('d-none');
-        document.getElementById('telefonoRef').value='';
-        document.getElementById('dnombre').classList.add('d-none');
-        document.getElementById('nombre').value='';
-        document.getElementById('dproducto').classList.add('d-none');
-        document.getElementById('producto').selectedIndex = 0;
-    }
-}
 
 function mostrarProductos() 
 {
