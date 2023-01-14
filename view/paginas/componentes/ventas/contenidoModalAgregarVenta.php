@@ -192,6 +192,7 @@ $planesFija = $planeslist->listarFija();
                         
                     <div class="form-floating mb-3 d-none" id="dequipos">                
                         <select class="form-select form-select-sm" name="equipos" id="equipos">
+                            <option select value="---">(vacio)</option>
                             <option select value="Chip">Chip</option>
                             <?php
                                 if ($productsMov != null) 
