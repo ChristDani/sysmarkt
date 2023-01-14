@@ -3,6 +3,23 @@ require_once "conexion.php";
 
 class cliente
 {
+    public function buscarCliente($dni)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="select * from clientes where dni='".$dni."'";
+        $rs=mysqli_query($conexion,$sql);
+
+        while($row=mysqli_fetch_array($rs))
+		{
+            $filas[]=$row;
+        }
+        
+        $conexion=$model->desconectar();
+        return $filas;
+    }
+
     public function listar()
     {
         $filas=null;

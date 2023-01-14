@@ -25,7 +25,7 @@ $planesFija = $planeslist->listarFija();
             </div>
             <div class="modal-body">
                 <div id="contenedorFormularioaddventa">
-                    <form id="formularionewVenta" action='controller/ventas/agregar.php' method='post'>
+                    <!-- <form id="formularionewVenta" action='controller/ventas/agregar.php' method='post'> -->
                         <div>
                             <div class='col text-center'>
                                 <div class='card'>
@@ -63,7 +63,7 @@ $planesFija = $planeslist->listarFija();
                             </div>
                             <div class="col" id="inputdni">
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" autocomplete="off" type="number" name="dni" id="dni" maxlength=8 placeholder="..." onblur="dnipuesto();" onkeyup="arreglarnombre();" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                    <input class="form-control" autocomplete="off" type="number" name="dni" id="dni" maxlength=8 placeholder="..." onblur="dnipuesto();" onkeyup="arreglarnombre();dnipuesto();" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
                                     <label for="dni">DNI</label>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ $planesFija = $planeslist->listarFija();
                             </div>
                         </div>
     
-                    </form>
+                    <!-- </form> -->
                 </div>
                 <div class='row m-0 d-none gap-1' id="btnaddnewproduc">
                     
@@ -255,20 +255,19 @@ $planesFija = $planeslist->listarFija();
                         <label for="observaciones">Observaciones</label>
                     </div>
 
-                    <div class='row m-0 d-none' id="botonesdeaccionalagregarproducto">
-                        <div class="col text-center">
+                    <div class='row m-0'>
+                        <div class="col text-center d-none" id="botonesdeaccionalagregarproductocancelar">
                             <a href='#' class='btn color' onclick="ocultarcontenidonewproduc()">Cancelar</a>
                         </div>
-                        <div class="col text-center">
+                        <div class="col text-center d-none" id="botonesdeaccionalagregarproductoagregar">
                             <a href='#' class='btn color' onclick="añadirproductoalista()">Agregar</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary d-none" id="dtnaddnewventa" onclick="agregarventalista();">Agregar</button>
+                <button class="btn btn-primary /*d-none*/" id="btnaddnewventa" onclick="agregarventa();">Agregar</button>
             </div>
-            <div id="pruebadelalista"></div>
         </div>
     </div>
 </div>

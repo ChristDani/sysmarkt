@@ -26,7 +26,7 @@ function litarproductosparaagregar()
 
     if (listadeproductos.length > 0) 
     {
-        document.getElementById('dtnaddnewventa').classList.remove('d-none');
+        document.getElementById('btnaddnewventa').classList.remove('d-none');
     }
 }
 function cambiardni() 
@@ -110,6 +110,7 @@ function mostrarcontenidonewproduc()
     document.getElementById('contenedorFormularioaddventa').classList.add('d-none');
     document.getElementById('contenidonuevoproducto').classList.remove('d-none');
     document.getElementById('btnaddnewproduc').classList.add('d-none');
+    document.getElementById('btnaddnewventa').classList.add('d-none');
 
     limpiarcampos();
     ocultarcampos();       
@@ -133,7 +134,8 @@ function ocultarcampos()
     document.getElementById('ddistrito').classList.add('d-none');
     document.getElementById('dubicacion').classList.add('d-none');
     document.getElementById('dobservacion').classList.add('d-none');
-    document.getElementById('botonesdeaccionalagregarproducto').classList.add('d-none');
+    document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');
+    document.getElementById('botonesdeaccionalagregarproductoagregar').classList.add('d-none');
 }
 function limpiarcampos() 
 {
@@ -184,11 +186,34 @@ function arreglarnombre()
         }).catch(err=>console.log(err))
     }
 }
-function agregarventalista()
+function agregarventa()
 {
-    let contenedor = document.getElementById('pruebadelalista');
+    let dniasesor = document.getElementById('asesor').value;
+    let dnicliente = document.getElementById('dni').value;
+    let nombrecliente = document.getElementById('nombre').value;
+    let sec = document.getElementById('sec').value;
+
     // le damos el origen de los datos
-    let url='controller/ventas/agregar.php';
+    let url='controller/ventas/agregarventa.php';
+    let formaData = new FormData()
+    formaData.append('dniasesor', dniasesor)
+    formaData.append('dnicliente', dnicliente)
+    formaData.append('nombrecliente', nombrecliente)
+    formaData.append('sec', sec)
+
+    fetch(url,{
+        method: "POST",
+        body: formaData
+    }).then(response=>response.json())
+    .then(data=>{
+        console.log(data);
+    }).catch(err=>console.log(err))
+    // console.log(listadeproductos);
+}
+function agregardetalleventa()
+{
+    // le damos el origen de los datos
+    let url='controller/ventas/agregardetalleventa.php';
     let formaData = new FormData()
     formaData.append('lista', listadeproductos)
     // formaData.append('lista', "hola puto")
@@ -305,7 +330,8 @@ function mostrarTipoFija(valor)
         document.getElementById('ubicacion').value = '';
         document.getElementById('ddistrito').classList.remove('d-none');
         document.getElementById('distrito').value = '';
-        document.getElementById('botonesdeaccionalagregarproducto').classList.remove('d-none');
+        document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');
+        document.getElementById('botonesdeaccionalagregarproductoagregar').classList.remove('d-none');
     }
     else if (valor == porta) 
     {
@@ -323,7 +349,8 @@ function mostrarTipoFija(valor)
         document.getElementById('ubicacion').value = '';
         document.getElementById('ddistrito').classList.remove('d-none');
         document.getElementById('distrito').value = '';
-        document.getElementById('botonesdeaccionalagregarproducto').classList.remove('d-none');
+        document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');
+        document.getElementById('botonesdeaccionalagregarproductoagregar').classList.remove('d-none');
     }
     else if (valor == any) 
     {
@@ -342,7 +369,8 @@ function mostrarTipoFija(valor)
         document.getElementById('ubicacion').value = '';
         document.getElementById('ddistrito').classList.add('d-none');
         document.getElementById('distrito').value = '';
-        document.getElementById('botonesdeaccionalagregarproducto').classList.add('d-none');        
+        document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');        
+        document.getElementById('botonesdeaccionalagregarproductoagregar').classList.add('d-none');        
     }
 }
 
@@ -444,7 +472,8 @@ function mostrarModalidadMovil(valor)
         document.getElementById('ubicacion').selectedIndex = 0;
         document.getElementById('ddistrito').classList.remove('d-none');
         document.getElementById('distrito').selectedIndex = 0;
-        document.getElementById('botonesdeaccionalagregarproducto').classList.remove('d-none');
+        document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');
+        document.getElementById('botonesdeaccionalagregarproductoagregar').classList.remove('d-none');
     }
     else if (valor == post) 
     {
@@ -460,7 +489,8 @@ function mostrarModalidadMovil(valor)
         document.getElementById('ubicacion').selectedIndex = 0;
         document.getElementById('ddistrito').classList.remove('d-none');
         document.getElementById('distrito').selectedIndex = 0;        
-        document.getElementById('botonesdeaccionalagregarproducto').classList.remove('d-none'); 
+        document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none'); 
+        document.getElementById('botonesdeaccionalagregarproductoagregar').classList.remove('d-none'); 
     }
     else if (valor == any) 
     {   
@@ -476,6 +506,7 @@ function mostrarModalidadMovil(valor)
         document.getElementById('ubicacion').selectedIndex = 0;
         document.getElementById('ddistrito').classList.add('d-none');
         document.getElementById('distrito').selectedIndex = 0;     
-        document.getElementById('botonesdeaccionalagregarproducto').classList.add('d-none');
+        document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');
+        document.getElementById('botonesdeaccionalagregarproductoagregar').classList.add('d-none');
     }
 }
