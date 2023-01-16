@@ -14,6 +14,10 @@ document.getElementById('busquedaxasesor').addEventListener("change", function()
     getDataVentas(paginaActualVenta)
 }, false)
 
+document.getElementById('busquedaxmoderador').addEventListener("change", function() {
+    getDataVentas(paginaActualVenta)
+}, false)
+
 document.getElementById('busquedaVenta').addEventListener("change", function() {
     getDataVentas(paginaActualVenta)
 }, false)
@@ -25,6 +29,7 @@ function getDataVentas(pagina) {
     let select = document.getElementById('numRegistrosVenta').value
     let estado = document.getElementById('busquedaestadoventa').value
     let asesor = document.getElementById('busquedaxasesor').value
+    let moderador = document.getElementById('busquedaxmoderador').value
     let tipoAsesor = document.getElementById('tipoasesor').value
     let dniAsesor = document.getElementById('dniAsesor').value
     let contenido = document.getElementById('resultadosVenta')
@@ -37,8 +42,9 @@ function getDataVentas(pagina) {
     formaData.append('registros', select)
     formaData.append('estado', estado)
     formaData.append('asesor', asesor)
+    formaData.append('moderador', moderador)
     formaData.append('tipoAsesor', tipoAsesor)
-    if (tipoAsesor == 3)
+    if (tipoAsesor == 0)
     {
         formaData.append('dniAsesor', dniAsesor)
     }

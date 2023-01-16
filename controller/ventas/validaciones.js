@@ -18,14 +18,13 @@ function litarproductosparaagregar()
             tablaproduc = tablaproduc + "<div class='text-center'><div class='card'><div class='card-body m-0'><div class='row m-0'><div class='col'><p>"+i[0]+"</p></div><div class='col'><p>"+i[1]+"</p></div><div class='col'><p>"+i[2]+"</p></div></div></div></div></div>";
             
         });
-        tablaproduc = tablaproduc + "<a href='#' class='btn color' onclick='mostrarcontenidonewproduc();'>Nuevo Producto</a>";
+        if (listadeproductos[0][2] == "1") 
+        {            
+            tablaproduc = tablaproduc + "<a href='#' class='btn color' onclick='mostrarcontenidonewproduc();'>Nuevo Producto</a>";
+        }
         campo.innerHTML = tablaproduc;
         // console.log(listadeproductos);
         // console.log(tablaproduc);
-    }
-
-    if (listadeproductos.length > 0) 
-    {
         document.getElementById('btnaddnewventa').classList.remove('d-none');
     }
 }
@@ -191,6 +190,8 @@ function agregarventa()
     let dniasesor = document.getElementById('asesor').value;
     let dnicliente = document.getElementById('dni').value;
     let nombrecliente = document.getElementById('nombre').value;
+    let ubicacioncliente = listadeproductos[0][17];
+    let distritocliente = listadeproductos[0][16];
     let sec = document.getElementById('sec').value;
 
     // le damos el origen de los datos
@@ -199,6 +200,8 @@ function agregarventa()
     formaData.append('dniasesor', dniasesor)
     formaData.append('dnicliente', dnicliente)
     formaData.append('nombrecliente', nombrecliente)
+    formaData.append('ubicacioncliente', ubicacioncliente)
+    formaData.append('distritocliente', distritocliente)
     formaData.append('sec', sec)
 
     fetch(url,{
@@ -208,30 +211,58 @@ function agregarventa()
     .then(data=>{
         console.log(data);
     }).catch(err=>console.log(err))
-    // console.log(listadeproductos);
+    
+    setTimeout(() => {
+        agregardetalleventa();        
+    }, 400);
 }
 function agregardetalleventa()
 {
-    // le damos el origen de los datos
-    let url='controller/ventas/agregardetalleventa.php';
-    let formaData = new FormData()
-    formaData.append('lista', listadeproductos)
-    // formaData.append('lista', "hola puto")
-
-    fetch(url,{
-        method: "POST",
-        body: formaData
-    }).then(response=>response.json())
-    .then(data=>{
-        console.log(data);
-    }).catch(err=>console.log(err))
-    console.log(listadeproductos);
+    let clave = 0;
+    listadeproductos.forEach(function(i) 
+    {
+        // le damos el origen de los datos
+        let url='controller/ventas/agregardetalleventa.php';
+        let formaData = new FormData()
+        formaData.append('sec', i[0])
+        formaData.append('referencia', i[1])
+        formaData.append('producto', i[2])
+        formaData.append('promocion', i[3])
+        formaData.append('tipo', i[4])
+        formaData.append('telefop', i[5])
+        formaData.append('lineaproce', i[6])
+        formaData.append('operaceden', i[7])
+        formaData.append('modalidad', i[8])
+        formaData.append('modoreno', i[9])
+        formaData.append('plan', i[10])
+        formaData.append('equipo', i[11])
+        formaData.append('tipofija', i[12])
+        formaData.append('planfija', i[13])
+        formaData.append('modofija', i[14])
+        formaData.append('formapago', i[15])
+        formaData.append('distrito', i[16])
+        formaData.append('ubicacion', i[17])
+        formaData.append('observacion', i[18])
+        formaData.append('estado', i[19])
+    
+        fetch(url,{
+            method: "POST",
+            body: formaData
+        }).then(response=>response.json())
+        .then(data=>{
+            console.log(data);
+        }).catch(err=>console.log(err))
+        clave = clave + 1;
+    });
+    if (listadeproductos.length == clave) 
+    {
+        location.reload();
+    }
 }
 
 
 
 // validaciones de muestra de inputs
-
 
 function mostrarProductos() 
 {
@@ -330,6 +361,8 @@ function mostrarTipoFija(valor)
         document.getElementById('ubicacion').value = '';
         document.getElementById('ddistrito').classList.remove('d-none');
         document.getElementById('distrito').value = '';
+        document.getElementById('dmodoReno').classList.add('d-none');
+        document.getElementById('modoReno').selectedIndex = 1;  
         document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');
         document.getElementById('botonesdeaccionalagregarproductoagregar').classList.remove('d-none');
     }
@@ -349,6 +382,8 @@ function mostrarTipoFija(valor)
         document.getElementById('ubicacion').value = '';
         document.getElementById('ddistrito').classList.remove('d-none');
         document.getElementById('distrito').value = '';
+        document.getElementById('dmodoReno').classList.add('d-none');
+        document.getElementById('modoReno').selectedIndex = 1;  
         document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');
         document.getElementById('botonesdeaccionalagregarproductoagregar').classList.remove('d-none');
     }
@@ -369,6 +404,8 @@ function mostrarTipoFija(valor)
         document.getElementById('ubicacion').value = '';
         document.getElementById('ddistrito').classList.add('d-none');
         document.getElementById('distrito').value = '';
+        document.getElementById('dmodoReno').classList.add('d-none');
+        document.getElementById('modoReno').selectedIndex = 1;  
         document.getElementById('botonesdeaccionalagregarproductocancelar').classList.remove('d-none');        
         document.getElementById('botonesdeaccionalagregarproductoagregar').classList.add('d-none');        
     }
@@ -391,6 +428,8 @@ function mostrarTipoMovil(valor)
         document.getElementById('operadorCeden').selectedIndex = 0; 
         document.getElementById('dmodalidad').classList.remove('d-none');
         document.getElementById('modalidad').selectedIndex = 0;
+        document.getElementById('dmodoReno').classList.add('d-none');
+        document.getElementById('modoReno').selectedIndex = 1;  
         mostrarModalidadMovil('---'); 
     }
     else if (valor == porta) 
@@ -403,6 +442,8 @@ function mostrarTipoMovil(valor)
         document.getElementById('operadorCeden').selectedIndex = 0;        
         document.getElementById('dmodalidad').classList.add('d-none');
         document.getElementById('modalidad').selectedIndex = 0;
+        document.getElementById('dmodoReno').classList.add('d-none');
+        document.getElementById('modoReno').selectedIndex = 1;  
         mostrarModalidadMovil('---');
         
         document.getElementById('lineaProce').addEventListener("change", function() {
@@ -410,18 +451,24 @@ function mostrarTipoMovil(valor)
             {
                 document.getElementById('dmodalidad').classList.add('d-none');
                 document.getElementById('modalidad').selectedIndex = 1;
+                document.getElementById('dmodoReno').classList.add('d-none');
+                document.getElementById('modoReno').selectedIndex = 1;  
                 mostrarModalidadMovil('1'); 
             }
             else if (document.getElementById('lineaProce').value == "Prepago")
             {
                 document.getElementById('dmodalidad').classList.remove('d-none');
                 document.getElementById('modalidad').selectedIndex = 0;
+                document.getElementById('dmodoReno').classList.add('d-none');
+                document.getElementById('modoReno').selectedIndex = 1;  
                 mostrarModalidadMovil('---');           
             }
             else if (document.getElementById('lineaProce').value == "---")
             {
                 document.getElementById('dmodalidad').classList.add('d-none');
                 document.getElementById('modalidad').selectedIndex = 0;
+                document.getElementById('dmodoReno').classList.add('d-none');
+                document.getElementById('modoReno').selectedIndex = 1;  
                 mostrarModalidadMovil('---');           
             }
         }, false)       
@@ -436,6 +483,8 @@ function mostrarTipoMovil(valor)
         document.getElementById('operadorCeden').selectedIndex = 0; 
         document.getElementById('dmodalidad').classList.add('d-none');
         document.getElementById('modalidad').selectedIndex = 1;
+        document.getElementById('dmodoReno').classList.remove('d-none');
+        document.getElementById('modoReno').selectedIndex = 1;
         mostrarModalidadMovil('1');
     }
     else if (valor == any) 
@@ -447,7 +496,9 @@ function mostrarTipoMovil(valor)
         document.getElementById('doperadorCeden').classList.add('d-none');
         document.getElementById('operadorCeden').selectedIndex = 0; 
         document.getElementById('dmodalidad').classList.add('d-none');
-        document.getElementById('modalidad').selectedIndex = 0;    
+        document.getElementById('modalidad').selectedIndex = 0; 
+        document.getElementById('dmodoReno').classList.add('d-none');
+        document.getElementById('modoReno').selectedIndex = 1;   
         mostrarModalidadMovil('---');     
     }
 }

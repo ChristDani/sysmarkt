@@ -46,6 +46,7 @@ if ($filas>0) {
         $sec = $fila['sec'];
         $asesor = $fila[1];
         $nombre = $fila[3];
+        $origen = $fila['origen'];
         $dni = $fila['dniCliente'];
         $estado = $fila['estado'];
         $fecha = $diassemana[$dia-1].", ".$numerodia." de ".$meses[$mes-1]." del ".$año." ".$hora;
@@ -97,7 +98,7 @@ if ($filas>0) {
         $output['data'].= "</div> ";
 
         
-        $output['data'].= "<div class='row align-items-start'>";
+        $output['data'].= "<div class='row m-2 align-items-start'>";
         
         $output['data'].= "<div class='col'>";     
             
@@ -119,6 +120,35 @@ if ($filas>0) {
         
         $output['data'].= "</div> ";
 
+        $output['data'].= "<div class='row m-2'>";
+        if ($tipoUsuario == "1") 
+        {
+            
+            $output['data'].= "<div class='col'>";     
+            
+            $output['data'].= "<p class='text-muted'>Origen</p>";
+            if ($origen == "0") 
+            {
+                $output['data'].= "<h2>Whatsapp</h2>";
+            }
+            elseif ($origen == "1") 
+            {
+                $output['data'].= "<h2>Landing</h2>";
+            }
+            
+            $output['data'].= "</div> ";
+        }    
+        if ($tipoUsuario == "1" || $tipoUsuario == "2") 
+        {
+            $output['data'].= "<div class='col text-center'>";
+    
+            $output['data'].= "<a href='#' class='btn color' onclick='abrirModalEditarventa($sec);' data-bs-target='#EditarVenta' data-bs-toggle='modal'>Editar Venta</a>";
+    
+            $output['data'].= "</div> ";
+            
+        }
+        $output['data'].= "</div> ";
+
         // zona de productos
 
         $sqlpr = "SELECT CodDetalle, telefonoRefencia, producto, promocion, tipo, telefonoOperacion, lineaProcedente, operadorCendente, modalidad, modoReno, plan, equipo, tipoFija, planFija, modoFija, formaPago, distrito, ubicacion, observaciones, estado, registro, actualizacion from detalleventas where sec='".$secSo."'";
@@ -138,9 +168,9 @@ if ($filas>0) {
             $output['data'].= "<div class='nav nav-tabs mx-2' id='nav-tab' role='tablist'>";
             while ($produc=mysqli_fetch_array($resultpr)) {
                 if ($i == 1) {
-                    $output['data'].= "<button class='nav-link color active' id='nav-prod-tab' data-bs-toggle='tab' data-bs-target='#nav-prod' type='button' role='tab' aria-controls='nav-prod' aria-selected='true'>$i</button>";
+                    $output['data'].= "<button class='nav-link active' id='nav-prod-tab' data-bs-toggle='tab' data-bs-target='#nav-prod' type='button' role='tab' aria-controls='nav-prod' aria-selected='true'>$i</button>";
                 }else {
-                    $output['data'].= "<button class='nav-link color' id='nav-prod$i-tab' data-bs-toggle='tab' data-bs-target='#nav-prod$i' type='button' role='tab' aria-controls='nav-prod$i' aria-selected='false'>$i</button>";
+                    $output['data'].= "<button class='nav-link' id='nav-prod$i-tab' data-bs-toggle='tab' data-bs-target='#nav-prod$i' type='button' role='tab' aria-controls='nav-prod$i' aria-selected='false'>$i</button>";
                 }
                 $i+=1;
             }
@@ -326,7 +356,7 @@ if ($filas>0) {
                         }
                         
                         $output['data'].= "</div> ";
-                        $output['data'].= "</div> ";
+                        // $output['data'].= "</div> ";
                         $output['data'].= "</div> ";
                         
                         $output['data'].= "<div class='row'>";            
@@ -339,7 +369,7 @@ if ($filas>0) {
                             $output['data'].= "</div> ";
                         }
                         
-                        $output['data'].= "<div class='col-auto'>";            
+                        $output['data'].= "<div class='col'>";            
                         $output['data'].= "<p class='text-muted'>Equipo</p>";
                         $output['data'].= "<h3>$equipo</h3>";     //Equipo
                         $output['data'].= "</div> ";
@@ -392,7 +422,7 @@ if ($filas>0) {
                         }
                         
                         // equipo
-                        $output['data'].= "<div class='col-auto'>";            
+                        $output['data'].= "<div class='col'>";            
                         $output['data'].= "<p class='text-muted'>Equipo</p>";
                         $output['data'].= "<h3>$equipo</h3>";    
                         $output['data'].= "</div> ";

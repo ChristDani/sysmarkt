@@ -19,12 +19,12 @@ class ventas
     }
 
     // movil en reno post
-    public function agregarDetalleVenta($asesor,$nombre,$dni,$telefonoRef,$producto,$promocion,$tipo,$telefono,$lineaProce,$modalidad,$plan,$equipos,$formaPago,$sec,$estado,$observacion,$ubicacion,$distrito)
+    public function agregarDetalleVenta($sec,$referencia,$producto,$promocion,$tipo,$telefop,$lineaproce,$operaceden,$modalidad,$modoreno,$plan,$equipo,$tipofija,$planfija,$modofija,$formapago,$distrito,$ubicacion,$observacion,$estado)
     {
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="insert into whatsapp(dniAsesor,nombre,dni,telefono,producto,lineaProcedente,operadorCedente,modalidad,tipo,planR,equipo,formaDePago,numeroReferencia,sec,tipoFija,planFija,modoFija,estado,observaciones,promocion,ubicacion,distrito) values('$asesor','$nombre','$dni','$telefono','$producto','$lineaProce','---','$modalidad','$tipo','$plan','$equipos','$formaPago','$telefonoRef','$sec','-','---','---','$estado','$observacion','$promocion','$ubicacion','$distrito')";
+        $sql="INSERT INTO detalleventas(sec, telefonoRefencia, producto, promocion, tipo, telefonoOperacion, lineaProcedente, operadorCendente, modalidad, modoReno, plan, equipo, tipoFija, planFija, modoFija, formaPago, distrito, ubicacion, observaciones, estado) VALUES ('$sec','$referencia','$producto','$promocion','$tipo','$telefop','$lineaproce','$operaceden','$modalidad','$modoreno','$plan','$equipo','$tipofija','$planfija','$modofija','$formapago','$distrito','$ubicacion','$observacion','$estado')";
 
 		$rs=mysqli_query($con,$sql);
 
@@ -33,8 +33,25 @@ class ventas
 
     // ediciones
 
+    // $contarProductos="select * from detalleventas where sec='".$fila['sec']."'";
+    // $contarProductosCerrados="select * from detalleventas where sec='".$fila['sec']."' and estado != '2'";
+    
+    // $resulcontarProductos=mysqli_query($con,$contarProductos);
+    // $resulcontarProductosCerrados=mysqli_query($con,$contarProductosCerrados);
+    
+    // $totalcontarProductos = $resulcontarProductos->num_rows;
+    // $totalcontarProductosCerrados = $resulcontarProductosCerrados->num_rows;
+    // if ($totalcontarProductos > $totalcontarProductosCerrados) {
+    //     $cambio = "update ventas set estado = 0 where sec = '".$fila['sec']."'";
+    //     $cam=mysqli_query($con,$cambio);
+    // }
+    // elseif ($totalcontarProductos = $totalcontarProductosCerrados) {
+    //     $cambio = "update ventas set estado = 1 where sec = '".$fila['sec']."'";
+    //     $cam=mysqli_query($con,$cambio);
+    // }
+
     // movil en reno post
-    public function editarMovilRenoPost($codigo,$asesor,$nombre,$dni,$telefonoRef,$producto,$promocion,$tipo,$telefono,$lineaProce,$modalidad,$plan,$equipos,$formaPago,$sec,$estado,$observacion,$ubicacion,$distrito)
+    public function editarDetalle($codigo,$asesor,$nombre,$dni,$telefonoRef,$producto,$promocion,$tipo,$telefono,$lineaProce,$modalidad,$plan,$equipos,$formaPago,$sec,$estado,$observacion,$ubicacion,$distrito)
     {
         $model=new conexion();
         $con=$model->conectar();

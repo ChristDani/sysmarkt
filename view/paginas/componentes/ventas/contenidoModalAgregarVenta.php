@@ -15,6 +15,7 @@ $productsMov = $produclist->listar();
 $planeslist = new planes;
 $planesMov = $planeslist->listar();
 $planesFija = $planeslist->listarFija();
+$promociones = $planeslist->listarPromo();
 ?>
 <div class="modal fade" id="AgregarVenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -25,65 +26,62 @@ $planesFija = $planeslist->listarFija();
             </div>
             <div class="modal-body">
                 <div id="contenedorFormularioaddventa">
-                    <!-- <form id="formularionewVenta" action='controller/ventas/agregar.php' method='post'> -->
-                        <div>
-                            <div class='col text-center'>
-                                <div class='card'>
-                                    <div class='card-body m-2'>       
-                                        <p class='text-muted'>Asesor a Cargo</p>
-                                        <h3><?php echo $nombreUsuario; ?></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <input hidden name="asesor" id="asesor" value="<?php echo $dniUsuario; ?>">               
-                        
-                        <div class="form-floating mb-3 d-none">
-                            <input class="form-control" autocomplete="off" type="text" name="nombre" id="nombre" placeholder="..." required>
-                            <label for="nombre">Nombre</label>
-                        </div>
-    
+                    <div>
                         <div class='col text-center'>
                             <div class='card'>
                                 <div class='card-body m-2'>       
-                                    <p class='text-muted'>Nombre del Cliente</p>
-                                    <h3 id="mostrarnamecliente"></h3>
+                                    <p class='text-muted'>Asesor a Cargo</p>
+                                    <h3><?php echo $nombreUsuario; ?></h3>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="row m-0">
-                            <div class='col text-center d-none' id="letrerodni">
-                                <div class='card' ondblclick="cambiardni();">
-                                    <div class='card-body m-2'>       
-                                        <p class='text-muted'>DNI</p>
-                                        <h3 id="mostrardni"></h3>
-                                    </div>
-                                </div>
+                    </div>
+                    <input hidden name="asesor" id="asesor" value="<?php echo $dniUsuario; ?>">               
+                    
+                    <div class="form-floating mb-3 d-none">
+                        <input class="form-control" autocomplete="off" type="text" name="nombre" id="nombre" placeholder="..." required>
+                        <label for="nombre">Nombre</label>
+                    </div>
+
+                    <div class='col text-center'>
+                        <div class='card'>
+                            <div class='card-body m-2'>       
+                                <p class='text-muted'>Nombre del Cliente</p>
+                                <h3 id="mostrarnamecliente"></h3>
                             </div>
-                            <div class="col" id="inputdni">
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" autocomplete="off" type="number" name="dni" id="dni" maxlength=8 placeholder="..." onblur="dnipuesto();" onkeyup="arreglarnombre();dnipuesto();" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
-                                    <label for="dni">DNI</label>
-                                </div>
-                            </div>
-                            <div class='col text-center d-none' id="letrerosec">
-                                <div class='card' ondblclick="cambiarsec();">
-                                    <div class='card-body m-2'>       
-                                        <p class='text-muted'>Sec</p>
-                                        <h3 id="mostrarsec"></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col d-none" id="inputsec">
-                                <div class="form-floating mb-3">                
-                                    <input class="form-control" autocomplete="off" type="number" name="sec" id="sec" placeholder="..." maxlength=15 required onblur="secpuesta();" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
-                                    <label for="sec">SEC</label>
+                        </div>
+                    </div>
+                    
+                    <div class="row m-0">
+                        <div class='col text-center d-none' id="letrerodni">
+                            <div class='card' ondblclick="cambiardni();">
+                                <div class='card-body m-2'>       
+                                    <p class='text-muted'>DNI</p>
+                                    <h3 id="mostrardni"></h3>
                                 </div>
                             </div>
                         </div>
-    
-                    <!-- </form> -->
+                        <div class="col" id="inputdni">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" autocomplete="off" type="number" name="dni" id="dni" maxlength=8 placeholder="..." onblur="dnipuesto();" onkeyup="arreglarnombre();dnipuesto();" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                <label for="dni">DNI</label>
+                            </div>
+                        </div>
+                        <div class='col text-center d-none' id="letrerosec">
+                            <div class='card' ondblclick="cambiarsec();">
+                                <div class='card-body m-2'>       
+                                    <p class='text-muted'>Sec</p>
+                                    <h3 id="mostrarsec"></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-none" id="inputsec">
+                            <div class="form-floating mb-3">                
+                                <input class="form-control" autocomplete="off" type="number" name="sec" id="sec" placeholder="..." maxlength=15 required onblur="secpuesta();" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                <label for="sec">SEC</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class='row m-0 d-none gap-1' id="btnaddnewproduc">
                     
@@ -107,9 +105,14 @@ $planesFija = $planeslist->listarFija();
                     <div class="form-floating mb-3 d-none" id="dpromocion">                
                         <select class="form-select form-select-sm" name="promocion" id="promocion">
                             <option value="---" style="color: gray;">(vacio)</option>
-                            <option value="50% de Descuento con Lineas Adicionales">50% de Descuento con Lineas Adicionales</option>
-                            <option value="20% de Descuento en Portabilidad Movil">20% de Descuento en Portabilidad Movil</option>
-                            <option value="50% de Descuento en Planes Fija">50% de Descuento en Planes Fija</option>
+                            <?php 
+                            if ($promociones != null) 
+                            {
+                                foreach ($promociones as $pr) 
+                                {?>
+                                    <option value="<?php echo $pr[1]; ?>"><?php echo $pr[1]; ?></option>
+                            <?php }
+                            }?>
                         </select>
                         <label for="promocion">Promoción</label>
                     </div>
@@ -267,7 +270,7 @@ $planesFija = $planeslist->listarFija();
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary /*d-none*/" id="btnaddnewventa" onclick="agregarventa();">Agregar</button>
+                <button class="btn btn-primary d-none" id="btnaddnewventa" onclick="agregarventa();">Agregar</button>
             </div>
         </div>
     </div>

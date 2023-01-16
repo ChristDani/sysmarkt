@@ -21,7 +21,29 @@
         </a>
     </div>
     <?php }?>
-    <?php if ($tipoUsuario === "1" || $tipoUsuario === "2") {?>
+    <?php if ($tipoUsuario === "1") {?>
+        <div class="col d-flex justify-content-end align-items-center">
+    <?php } else { ?>
+        <div class="col d-none">
+    <?php }?>
+            <div class="form-floating">
+                <select class="form-select" aria-label="Floating label select example" name="busquedaxmoderador" id="busquedaxmoderador">
+                    <option value="">Todos</option>
+                    <?php if ($listar != null) 
+                            {
+                                foreach ($listar as $x) 
+                                { 
+                                    if ($x[3] == "2") 
+                                    { ?>
+                                    <option value="<?php echo $x[0]; ?>"><?php echo $x[1]; ?></option>
+                        <?php       }
+                                }
+                            }?>
+                </select>
+                <label for="busquedaxmoderador">Moderadores</label>
+            </div>
+        </div>
+    <?php if ($tipoUsuario === "2") {?>
         <div class="col d-flex justify-content-end align-items-center">
     <?php } else { ?>
         <div class="col d-none">
@@ -31,25 +53,12 @@
                     <option value="">Todos</option>
                     <?php if ($listar != null) 
                             {
-                                if ($tipoUsuario === "2") 
-                                {
-                                    foreach ($listar as $x) 
-                                    {
-                                        if ($x[8] == $dniUsuario) 
-                                        { ?>
-                                            <option value="<?php echo $x[0]; ?>"><?php echo $x[1]; ?></option>
-                                            <?php   }
-                                    }?>
-                            <?php
-                                } elseif ($tipoUsuario === "1") 
-                                {
-                                    foreach ($listar as $x) 
-                                    { 
-                                        if ($x[3] == "0") 
-                                        { ?>
-                                        <option value="<?php echo $x[0]; ?>"><?php echo $x[1]; ?></option>
-                            <?php       }
-                                    }
+                                foreach ($listar as $x) 
+                                { 
+                                    if ($x[3] == "0") 
+                                    { ?>
+                                    <option value="<?php echo $x[0]; ?>"><?php echo $x[1]; ?></option>
+                        <?php       }
                                 }
                             }?>
                 </select>

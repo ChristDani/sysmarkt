@@ -13,16 +13,39 @@ $tabla='ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAs
 $dniAsesorV= !empty($_POST['dniAsesor']) ? $_POST['dniAsesor'] : null;
 $dniModeradorV= !empty($_POST['dniModerador']) ? $_POST['dniModerador'] : null;
 
+$buscarmoderador= !empty($_POST['moderador']) ? $_POST['moderador'] : null;
 $buscarasesor= !empty($_POST['asesor']) ? $_POST['asesor'] : null;
 $buscarestado= isset($_POST['estado']) ? $_POST['estado'] : null;
 $buscarcliente= !empty($_POST['cliente']) ? $_POST['cliente'] : null;
 $buscarsec= isset($_POST['sec']) ? $_POST['sec'] : null;
+
 $tipoAsesor= isset($_POST['tipoAsesor']) ? $_POST['tipoAsesor'] : null;
 
 // busqueda de datos
 $where="where ((month(v.registro)=month(CURRENT_TIMESTAMP) and year(v.registro)=year(CURRENT_TIMESTAMP)) and v.dniAsesor like '%$dniAsesorV%' and u.dniModerador like '%$dniModeradorV%') ";
 
-if ($buscarasesor != null) {
+if ($buscarmoderador != null) {
+    $where.="and u.dniModerador='".$buscarmoderador."' ";
+    if ($buscarestado != null) {
+        $where.="and v.estado='".$buscarestado."' ";
+        if ($buscarcliente != null) {
+            $where.="and v.dniCliente='".$buscarcliente."' ";
+            if ($buscarsec != null) {
+                $where.="and v.sec like '%".$buscarsec."%' ";
+            }
+        }
+    }
+    elseif ($buscarcliente != null) {
+        $where.="and v.dniCliente='".$buscarcliente."' ";
+        if ($buscarsec != null) {
+            $where.="and v.sec like '%".$buscarsec."%' ";
+        }
+    }
+    elseif ($buscarsec != null) {
+        $where.="and v.sec like '%".$buscarsec."%' ";
+    }
+}
+elseif ($buscarasesor != null) {
     $where.="and v.dniAsesor='".$buscarasesor."' ";
     if ($buscarestado != null) {
         $where.="and v.estado='".$buscarestado."' ";
@@ -114,15 +137,6 @@ if ($filas>0)
         
         $totalcontarProductos = $resulcontarProductos->num_rows;
         $totalcontarProductosCerrados = $resulcontarProductosCerrados->num_rows;
-
-        // if ($totalcontarProductos > $totalcontarProductosCerrados) {
-        //     $cambio = "update ventas set estado = 0 where sec = '".$fila['sec']."'";
-        //     $cam=mysqli_query($con,$cambio);
-        // }
-        // elseif ($totalcontarProductos = $totalcontarProductosCerrados) {
-        //     $cambio = "update ventas set estado = 1 where sec = '".$fila['sec']."'";
-        //     $cam=mysqli_query($con,$cambio);
-        // }
 
         $dia= date('N', strtotime($fila['registro']));
         $numerodia= date('d', strtotime($fila['registro']));

@@ -35,5 +35,21 @@ class planes
         $conexion=$model->desconectar();
         return $filas;
     }
+    public function listarPromo()
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="select * from promociones";
+        $rs=mysqli_query($conexion,$sql);
+
+        while($row=mysqli_fetch_array($rs))
+		{
+            $filas[]=$row;
+        }
+        
+        $conexion=$model->desconectar();
+        return $filas;
+    }
 }
 ?>
