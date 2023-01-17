@@ -45,3 +45,23 @@ function abrirModalEditar(codigo)
         contenidoD.innerHTML = data.data
     }).catch(err => console.log(err))
 }
+
+function abrirModalEditarventa(codigo) 
+{
+    // obtenemos el div donde poner los datos
+    let contenidoD = document.getElementById('formularioVenta');
+
+    //mandamos la posicion al controller
+    let url = 'controller/ventas/editVenta.php';
+    let formaData = new FormData();
+    formaData.append('codigo', codigo)
+
+    // traemos los datos del controller
+    fetch(url, {
+        method: "POST",
+        body: formaData
+    }).then(response => response.json())
+    .then(data => {
+        contenidoD.innerHTML = data.data
+    }).catch(err => console.log(err))
+}

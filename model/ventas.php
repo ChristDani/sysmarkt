@@ -3,9 +3,7 @@ require_once 'conexion.php';
 
 class ventas
 {
-    // insersiones
 
-    // fija en porta 
     public function agregarVenta($dniAsesor,$dniCliente,$sec)
     {
         $model=new conexion();
@@ -18,7 +16,6 @@ class ventas
 		$con=$model->desconectar();
     }
 
-    // movil en reno post
     public function agregarDetalleVenta($sec,$referencia,$producto,$promocion,$tipo,$telefop,$lineaproce,$operaceden,$modalidad,$modoreno,$plan,$equipo,$tipofija,$planfija,$modofija,$formapago,$distrito,$ubicacion,$observacion,$estado)
     {
         $model=new conexion();
@@ -31,34 +28,46 @@ class ventas
 		$con=$model->desconectar();
     }
 
-    // ediciones
+    public function editarventa($dniAsesor,$sec)
+    {
+        $model=new conexion();
+        $con=$model->conectar();
+        
+        $sql="UPDATE ventas set dniAsesor='$dniAsesor',sec='$sec' where sec='$sec'";
 
-    // $contarProductos="select * from detalleventas where sec='".$fila['sec']."'";
-    // $contarProductosCerrados="select * from detalleventas where sec='".$fila['sec']."' and estado != '2'";
-    
-    // $resulcontarProductos=mysqli_query($con,$contarProductos);
-    // $resulcontarProductosCerrados=mysqli_query($con,$contarProductosCerrados);
-    
-    // $totalcontarProductos = $resulcontarProductos->num_rows;
-    // $totalcontarProductosCerrados = $resulcontarProductosCerrados->num_rows;
-    // if ($totalcontarProductos > $totalcontarProductosCerrados) {
-    //     $cambio = "update ventas set estado = 0 where sec = '".$fila['sec']."'";
-    //     $cam=mysqli_query($con,$cambio);
-    // }
-    // elseif ($totalcontarProductos = $totalcontarProductosCerrados) {
-    //     $cambio = "update ventas set estado = 1 where sec = '".$fila['sec']."'";
-    //     $cam=mysqli_query($con,$cambio);
-    // }
+		$rs=mysqli_query($con,$sql);
 
-    // movil en reno post
-    public function editarDetalle($codigo,$asesor,$nombre,$dni,$telefonoRef,$producto,$promocion,$tipo,$telefono,$lineaProce,$modalidad,$plan,$equipos,$formaPago,$sec,$estado,$observacion,$ubicacion,$distrito)
+		$con=$model->desconectar();
+    }
+    
+    public function editarDetalle($codigo,$sec,$telefonoRef,$promocion,$tipo,$telefono,$lineaProce,$operadorCeden,$modalidad,$modoReno,$plan,$equipos,$tipoFija,$planFija,$modoFija,$formaPago,$distrito,$ubicacion,$observacion,$estado)
     {
         $model=new conexion();
         $con=$model->conectar();
 
-        $sql="update whatsapp set dniAsesor='$asesor', nombre='$nombre', dni='$dni', numeroReferencia='$telefonoRef', producto='$producto', promocion='$promocion', tipo='$tipo', telefono='$telefono', lineaProcedente='$lineaProce', modalidad='$modalidad', planR='$plan', equipo='$equipos', formaDePago='$formaPago', sec='$sec', estado='$estado', observaciones='$observacion', ubicacion='$ubicacion', distrito='$distrito', fechaActualizacion=CURRENT_TIMESTAMP where codigo='$codigo'";
+        $sql="UPDATE detalleventas set telefonoRefencia='$telefonoRef',promocion='$promocion',tipo='$tipo',telefonoOperacion='$telefono',lineaProcedente='$lineaProce',operadorCendente='$operadorCeden',modalidad='$modalidad',modoReno='$modoReno',plan='$plan',equipo='$equipos',tipoFija='$tipoFija',planFija='$planFija',modoFija='$modoFija',formaPago='$formaPago',distrito='$distrito',ubicacion='$ubicacion',observaciones='$observacion',estado='$estado' where CodDetalle='$codigo'";
+
+        $contarProductos="select * from detalleventas where sec='$sec'";
+        $contarProductosCerrados="select * from detalleventas where sec='$sec' and estado != '2'";
 
         $rs=mysqli_query($con,$sql);
+
+        $resulcontarProductos=mysqli_query($con,$contarProductos);
+        $resulcontarProductosCerrados=mysqli_query($con,$contarProductosCerrados);
+        
+        $totalcontarProductos = $resulcontarProductos->num_rows;
+        $totalcontarProductosCerrados = $resulcontarProductosCerrados->num_rows;
+
+        if ($totalcontarProductos > $totalcontarProductosCerrados) 
+        {
+            $cambio = "update ventas set estado = 0 where sec = '$sec'";
+            $cam=mysqli_query($con,$cambio);
+        }
+        elseif ($totalcontarProductos = $totalcontarProductosCerrados) 
+        {
+            $cambio = "update ventas set estado = 1 where sec = '$sec'";
+            $cam=mysqli_query($con,$cambio);
+        }
 
 		$con=$model->desconectar();
     }

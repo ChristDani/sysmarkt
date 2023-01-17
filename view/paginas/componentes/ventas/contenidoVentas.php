@@ -69,7 +69,7 @@
         <div class="form-floating">
             <select class="form-select" aria-label="Floating label select example" name="busquedaestadoventa" id="busquedaestadoventa">
                 <option value="">Todos</option>
-                <option value="0">En Curso</option>
+                <option value="0">En Proceso</option>
                 <option value="1">Cerradas</option>
             </select>
             <label for="busquedaestadoventa">Estado</label>
@@ -116,5 +116,4 @@
 <input hidden type="text" id="tipoasesor" value="<?php echo $tipoUsuario ; ?>">
 
 <script src="controller/ventas/listar.js"></script> 
-<!-- <script src="controller/whatsapp/validaciones.js"></script> -->
 <script src="controller/ventas/modal.js"></script>

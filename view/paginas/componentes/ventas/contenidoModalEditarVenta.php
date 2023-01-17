@@ -1,4 +1,4 @@
-<div class="modal fade" id="EditarVentas" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div class="modal fade" id="EditarVentas" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -17,29 +17,3 @@
     </div>
   </div>
 </div>
-<script>
-
-    function arreglarnombreeditar()
-    {
-        let dni = document.querySelector('.dniarr');
-        let nombre = document.querySelector('.nombrearr');
-        
-        if (dni.value.length == 8) 
-        { 
-            let url='controller/arreglarnombre.php';
-            let formaData = new FormData()
-            formaData.append('dni', dni.value)
-    
-            fetch(url,{
-                method: "POST",
-                body: formaData
-            }).then(response=>response.json())
-            .then(data=>{
-                nombre.value=data.data.nombres+" "+data.data.apellidoPaterno+" "+data.data.apellidoMaterno;
-            }).catch(err=>console.log(err))
-        }
-
-
-    }
-
-</script>

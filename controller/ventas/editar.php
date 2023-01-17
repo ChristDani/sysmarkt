@@ -5,62 +5,49 @@ require_once '../../model/ventas.php';
 $model = new ventas();
 
 $codigo = $_POST['codigo'];
-$asesor = $_POST['asesor'];
-$nombre = $_POST['nombre'];
-$dni = $_POST['dni'];
-$telefonoRef = $_POST['telefonoRef'];
-$producto = $_POST['producto'];
-$promocion = $_POST['promocion'];
-if (isset($_POST['tipo'])) 
-{
-    $tipo = $_POST['tipo'];
-}
-if (isset($_POST['tipoFija'])) 
-{
-    $tipoFija = $_POST['tipoFija'];
-}
-if (isset($_POST['telefono'])) 
-{
-    $telefono = $_POST['telefono'];
-}
-if (isset($_POST['lineaProce'])) 
-{
-    $lineaProce = $_POST['lineaProce'];
-}
-if (isset($_POST['operadorCeden'])) 
-{
-    $operadorCeden = $_POST['operadorCeden'];
-}
-if (isset($_POST['modalidad'])) 
-{
-    $modalidad = $_POST['modalidad'];
-}
-if (isset($_POST['plan'])) 
-{
-    $plan = $_POST['plan'];
-}
-if (isset($_POST['equipos'])) 
-{
-    $equipos = $_POST['equipos'];
-}
-if (isset($_POST['planFija'])) 
-{
-    $planFija = $_POST['planFija'];
-}
-if (isset($_POST['modoFija'])) 
-{
-    $modoFija = $_POST['modoFija'];
-}
-$formaPago = $_POST['formaPago'];
+
 $sec = $_POST['sec'];
-$estado = $_POST['estado'];
-$observacion = $_POST['observaciones'];
-$ubicacion = $_POST['ubicacion'];
+
+$telefonoRef = $_POST['telefonoRef'];
+
+$promocion = $_POST['promocion'];
+
+$tipo = isset($_POST['tipo']) ? $_POST['tipo'] : '-';
+
+$telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '---';
+
+$lineaProce = isset($_POST['lineaProce']) ? $_POST['lineaProce'] : '---';
+
+$operadorCeden = isset($_POST['operadorCeden']) ? $_POST['operadorCeden'] : '---';
+
+$modalidad = isset($_POST['modalidad']) ? $_POST['modalidad'] : '-';
+
+$modoReno = isset($_POST['modoReno']) ? $_POST['modoReno'] : '-';
+
+$plan = isset($_POST['plan']) ? $_POST['plan'] : '---';
+
+$equipos = isset($_POST['equipos']) ? $_POST['equipos'] : '---';
+
+$tipoFija = isset($_POST['tipoFija']) ? $_POST['tipoFija'] : '-';
+
+$planFija = isset($_POST['planFija']) ? $_POST['planFija'] : '---';
+
+$modoFija = isset($_POST['modoFija']) ? $_POST['modoFija'] : '---';
+
+$formaPago = $_POST['formaPago'];
+
 $distrito = $_POST['distrito'];
 
+$ubicacion = $_POST['ubicacion'];
 
-$model->editarDetalle($codigo,$asesor,$nombre,$dni,$telefonoRef,$producto,$promocion,$tipoFija,$telefono,$planFija,$modoFija,$formaPago,$sec,$estado,$observacion,$ubicacion,$distrito);
+$observacion = $_POST['observaciones'];
 
+$estado = $_POST['estado'];
+
+
+
+
+$model->editarDetalle($codigo,$sec,$telefonoRef,$promocion,$tipo,$telefono,$lineaProce,$operadorCeden,$modalidad,$modoReno,$plan,$equipos,$tipoFija,$planFija,$modoFija,$formaPago,$distrito,$ubicacion,$observacion,$estado);
 ?>
 <script>
     window.history.back();

@@ -17,7 +17,7 @@ $planesMov = $planeslist->listar();
 $planesFija = $planeslist->listarFija();
 $promociones = $planeslist->listarPromo();
 ?>
-<div class="modal fade" id="AgregarVenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="AgregarVenta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -89,13 +89,13 @@ $promociones = $planeslist->listarPromo();
                 <div id="contenidonuevoproducto" class="d-none">
 
                     <div class="form-floating mb-3" id="dtelefonoRef">                
-                        <input required class="form-control" autocomplete="off" type="number" name="telefonoRef" id="telefonoRef" maxlength=9 placeholder="999 999 999" onkeyup="mostrarProductos()" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                        <input required class="form-control" autocomplete="off" type="number" name="telefonoRef" id="telefonoRef" maxlength=9 placeholder="..." onkeyup="mostrarProductos()" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
                         <label for="telefono">Telefono de Referencia</label>
                     </div>
                         
                     <div class="form-floating mb-3 d-none" id="dproducto">                
                         <select class="form-select form-select-sm" name="producto" id="producto">
-                            <option value="---" style="color: gray;">(vacio)</option>
+                            <option value="-" style="color: gray;">(vacio)</option>
                             <option value="1">Movil</option>
                             <option value="0">Fija</option>
                         </select>
@@ -119,7 +119,7 @@ $promociones = $planeslist->listarPromo();
                         
                     <div class="form-floating mb-3 d-none" id="dtipo">                
                         <select class="form-select form-select-sm" name="tipo" id="tipo">
-                            <option value="---" style="color: gray;">(vacio)</option>
+                            <option value="-" style="color: gray;">(vacio)</option>
                             <option value="0">Linea Nueva</option>
                             <option value="1">Portabilidad</option>
                             <option value="2">Renovacion</option>
@@ -129,7 +129,7 @@ $promociones = $planeslist->listarPromo();
                         
                     <div class="form-floating mb-3 d-none" id="dtipoFija">                
                         <select class="form-select form-select-sm" name="tipoFija" id="tipoFija">
-                            <option value="---" style="color: gray;">(vacio)</option>
+                            <option value="-" style="color: gray;">(vacio)</option>
                             <option value="1">Portabilidad</option>
                             <option value="0">Alta</option>
                         </select>

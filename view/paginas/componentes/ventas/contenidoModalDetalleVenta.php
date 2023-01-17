@@ -16,3 +16,4 @@
 </div>
 
 <?php include_once "contenidoModalEditarVenta.php"; ?>
+<?php include_once "contenidoeditarventa.php"; ?>

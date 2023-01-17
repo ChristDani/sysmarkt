@@ -157,7 +157,7 @@ if ($filas>0)
         {
             $output['data'].= "<div class='row'>";
             $output['data'].= "<div class='warning-bc d-flex justify-content-between mb-2 rounded-3'>";
-            $output['data'].= "<p class='color'>Venta En Proceso</p>";
+            $output['data'].= "<p class='color'>Venta en Proceso</p>";
             $output['data'].= "<p class='color'> $totalcontarProductosCerrados/$totalcontarProductos</p>";
             $output['data'].= "</div>";
             $output['data'].= "</div>";

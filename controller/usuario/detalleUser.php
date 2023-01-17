@@ -5,6 +5,7 @@ $dni= isset($_POST['dni']) ? $_POST['dni'] : null;
 
 $consultas=new user();
 $userdetecte=$consultas->buscarUser($dni);
+$moderador=$consultas->listar();
 
 $diassemana = array("Lunes","Martes","Miercoles","Jueves","Viernes","Sábado","Domingo");
 $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -26,6 +27,7 @@ if ($userdetecte != null)
         $detecteFechaUser = $diassemana[$dia-1].", ".$numerodia." de ".$meses[$mes-1]." del ".$año." / ".$hora;
         $detecteEstadoUser = $udt[5];
         $detectefotoUser = trim($udt[6]);
+        $detectemoderadorUser = $udt[8];
     }
 }
 
@@ -39,6 +41,7 @@ $output['data'].= "</div>";
 $output['data'].= "<div class='gap-3 col-xl-6 d-grid align-items-center'>";
 $output['data'].= "<h2>$detectedniUser</h2>";
 $output['data'].= "<h2>$detecteNombreUser</h2>";
+
 if ($detecteTipoUser === "1") 
 {
     $output['data'].= "<h2>Administrador</h2>";
@@ -51,6 +54,7 @@ elseif ($detecteTipoUser === "0")
 {
     $output['data'].= "<h2>Asesor</h2>";
 }
+
 if ($detecteEstadoUser === "0") 
 {
     $output['data'].= "<h2 class='secondary'>Desconectado</h2>";
@@ -66,6 +70,15 @@ elseif ($detecteEstadoUser === "2")
 elseif ($detecteEstadoUser === "3") 
 {
     $output['data'].= "<h2 class='danger'>Ocupado</h2>";
+}
+if ($detectemoderadorUser != "---") 
+{
+    foreach ($moderador as $mdo) {
+        if ($mdo[0] == $detectemoderadorUser) 
+        {
+            $output['data'].= "<h2>Moderador: <span class='text-info small'>".$mdo[1]."</span></h2>";
+        }
+    }
 }
 $output['data'].= "</div>";
 $output['data'].= "</div>";
