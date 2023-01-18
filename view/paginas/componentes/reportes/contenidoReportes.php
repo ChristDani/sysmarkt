@@ -46,14 +46,35 @@ $listUser = $user->listar();
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">
                         <div class="form-floating">
+                            <select class="form-select" aria-label="Floating label select example" name="busquedaxmoderadormetas" id="busquedaxmoderadormetas">
+                                <option value="">Todos</option>
+                                <?php if ($listar != null) 
+                                        {
+                                            foreach ($listar as $x) 
+                                            { 
+                                                if ($x[3] == "2") 
+                                                { ?>
+                                                <option value="<?php echo $x[0]; ?>"><?php echo $x[1]; ?></option>
+                                    <?php       }
+                                            }
+                                        }?>
+                            </select>
+                            <label for="busquedaxmoderadormetas">Moderadores</label>
+                        </div>
+                    </div>
+                    <div class="col d-flex justify-content-end align-items-center">
+                        <div class="form-floating">
                             <select class="form-select" aria-label="Floating label select example" name="busquedaxasesormetas" id="busquedaxasesormetas">
                                 <option value="">Todos</option>
-                                <?php if ($listUser != null) 
+                                <?php if ($listar != null) 
                                         {
-                                            foreach ($listUser as $x) 
-                                            {?>
+                                            foreach ($listar as $x) 
+                                            { 
+                                                if ($x[3] == "0") 
+                                                { ?>
                                                 <option value="<?php echo $x[0]; ?>"><?php echo $x[1]; ?></option>
-                                    <?php   }
+                                    <?php       }
+                                            }
                                         }?>
                             </select>
                             <label for="busquedaxasesormetas">Asesores</label>
@@ -63,9 +84,8 @@ $listUser = $user->listar();
                         <div class="form-floating">
                             <select class="form-select" aria-label="Floating label select example" name="busquedaestadoRM" id="busquedaestadoRM">
                                 <option value="">Todos</option>
-                                <option value="0">No Requiere</option>
-                                <option value="2">Pendiente</option>
-                                <option value="1">Concretado</option>
+                                <option value="0">En Proceso</option>
+                                <option value="1">Cerradas</option>
                             </select>
                             <label for="busquedaestadoRM">Estado</label>
                         </div>
@@ -73,7 +93,7 @@ $listUser = $user->listar();
                     <div class="col d-flex justify-content-end align-items-center">
                         <div class="form-floating">
                             <input type="text" class="form-control" id="busquedaRM" placeholder="Buscar" onkeyup="getDataRM(1);ahsdgjahdgasd();pasardatorv();">
-                            <label for="busquedaRM">Buscar</label>
+                            <label for="busquedaRM">Buscar SEC</label>
                         </div>
                     </div>
                 </div>
@@ -81,19 +101,19 @@ $listUser = $user->listar();
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">N°</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Producto</th>
+                            <th scope="col">Asesor</th>
+                            <th scope="col">Cliente</th>
                             <th scope="col">SEC</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Registro</th>
+                            <th scope="col">Productos</th>
                             <th scope="col">Detalles</th>
                         </tr>
                     </thead>
                     <tbody id="resultadosRM">
-                        <tr>
+                        <!-- <tr>
                             <th scope="row" colspan="8" height="80" class="text-center text-muted">Sin resultados...</th>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
                 <div class="bare row d-flex justify-content-between">

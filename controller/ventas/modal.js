@@ -50,11 +50,13 @@ function abrirModalEditarventa(codigo)
 {
     // obtenemos el div donde poner los datos
     let contenidoD = document.getElementById('formularioVenta');
+    let tipoAsesor = document.getElementById('tipoasesor').value
 
     //mandamos la posicion al controller
     let url = 'controller/ventas/editVenta.php';
     let formaData = new FormData();
     formaData.append('codigo', codigo)
+    formaData.append('tipoUser', tipoAsesor)
 
     // traemos los datos del controller
     fetch(url, {

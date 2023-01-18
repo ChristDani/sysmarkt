@@ -28,12 +28,12 @@ class ventas
 		$con=$model->desconectar();
     }
 
-    public function editarventa($dniAsesor,$sec)
+    public function editarventa($dniAsesor,$sec,$secant)
     {
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="UPDATE ventas set dniAsesor='$dniAsesor',sec='$sec' where sec='$sec'";
+        $sql="UPDATE ventas set dniAsesor='$dniAsesor',sec='$sec' where sec='$secant'";
 
 		$rs=mysqli_query($con,$sql);
 

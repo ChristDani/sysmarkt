@@ -29,8 +29,6 @@ $tabla='detalleventas';
 
 // posicion de registro
 $codigo = isset($_POST['codigo']) ? $_POST['codigo'] : null;
-$tipoU= isset($_POST['tipoUser']) ? $_POST['tipoUser'] : null;
-
 
 // llamamos al registro
 $sql = "select ".implode(", ", $columnas)." from $tabla where CodDetalle='".$codigo."'";

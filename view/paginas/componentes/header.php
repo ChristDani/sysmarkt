@@ -81,7 +81,7 @@ elseif ($tipoUsuario === "0")
             </button>  
         </ul>      			 
     </nav>
-    <?php require_once 'contenidoMetas.php'; ?>
+    <?php require_once 'metas/contenidoMetas.php'; ?>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav" id="sidenavAccordion">
