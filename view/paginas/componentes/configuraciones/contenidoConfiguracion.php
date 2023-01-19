@@ -54,7 +54,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mt-1">
                         <h1>Planes Moviles</h1>
-                        <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#planesMoviles">Administrar</button>
+                        <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#planesMoviles" onclick="listarMovil();">Administrar</button>
                     </div>
                 </div>    
             </div>
@@ -63,6 +63,14 @@
                     <div class="d-flex justify-content-between mt-1">
                         <h1>Planes Fija</h1>
                         <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#planesFija" onclick="listarFija();">Administrar</button>
+                    </div>
+                </div>    
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mt-1">
+                        <h1>Promociones</h1>
+                        <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#Promociones" onclick="listarPromo();">Administrar</button>
                     </div>
                 </div>    
             </div>
@@ -164,6 +172,7 @@
 <?php include_once "contenidomodalarchivosasubir.php"; ?>
 <?php include_once "contenidomodalplanesmoviles.php"; ?>
 <?php include_once "contenidomodalplanesfija.php"; ?>
+<?php include_once "contenidomodalpromociones.php"; ?>
 <?php include_once "contenidomodalEliminarplan.php"; ?>
 <script src="controller/usuario/usuarios.js"></script>
 <script src="controller/planes/planes.js"></script>

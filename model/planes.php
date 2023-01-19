@@ -117,5 +117,38 @@ class planes
         
         $conexion=$model->desconectar();
     }
+
+    public function agregarPromo($promo)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="INSERT into promociones(nombre) values('$promo')";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
+
+    public function editarPromo($code,$promo)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="UPDATE promociones set nombre='$promo' where codigo='$code'";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
+    
+    public function eliminarPromo($code)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="DELETE from promociones where codigo='$code'";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
 }
 ?>

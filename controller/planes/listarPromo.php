@@ -4,7 +4,7 @@ require_once "../../model/conexion.php";
 $model=new conexion();
 $con=$model->conectar();
 
-$sql = "SELECT * from planes";
+$sql = "SELECT * from promociones";
 
 $resultado=mysqli_query($con,$sql);
 
@@ -24,8 +24,8 @@ if ($filas>0)
         $output['data'] .= "<th class='color'>$i</th>";
         $output['data'] .= "<th class='color d-none'>$code</th>";
         $output['data'] .= "<th class='color'>$plan</th>";
-        $output['data'] .= "<th onclick='mostrarEdicionMovil(\"$code\",\"$plan\");'><a href='#'><ion-icon name='create-outline'></ion-icon></a></th>";
-        $output['data'] .= "<th data-bs-toggle='modal' data-bs-target='#eliminarplan' onclick='eliminarplan(\"1\",\"$code\",\"$plan\");'><a href='#'><ion-icon name='trash-outline'></ion-icon></a></th>";
+        $output['data'] .= "<th onclick='mostrarEdicionPromo(\"$code\",\"$plan\");'><a href='#'><ion-icon name='create-outline'></ion-icon></a></th>";
+        $output['data'] .= "<th data-bs-toggle='modal' data-bs-target='#eliminarplan' onclick='eliminarplan(\"2\",\"$code\",\"$plan\");'><a href='#'><ion-icon name='trash-outline'></ion-icon></a></th>";
         $output['data'] .= "</tr>";
         $i+=1; 
     }

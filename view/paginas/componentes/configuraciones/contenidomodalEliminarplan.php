@@ -6,7 +6,7 @@
         <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-justify">
-        ¿Estas seguro que deseas eliminar el plan "<span class="text-info" id="nombreplanEliminar"></span>"?, al ejecutar esta operacion ya no hay vuelta atras.
+        ¿Estas seguro que deseas eliminar<span id="nombreplanEliminar"></span>?, al ejecutar esta operacion ya no hay vuelta atras.
       </div>
       <div class="modal-footer justify-content-between">
         <div id="botondevolveralosplanes">

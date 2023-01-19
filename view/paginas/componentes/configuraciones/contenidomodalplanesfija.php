@@ -7,17 +7,17 @@
       </div>
       <div class="modal-body">
         <div class="row m-0">
-          <div class="col-auto d-none" id="contenidoagregarplan">
+          <div class="col-auto d-none" id="contenidoagregarplanFija">
             <h3>Añadir Plan</h3>
             
             <div class="form-floating mb-3">
-              <input class="form-control" autocomplete="off" type="text" id="planFija" placeholder="...">
+              <textarea class="form-control" autocomplete="off" type="text" id="planFija" placeholder="..."></textarea>
               <label for="planFija">Plan</label>
             </div>
             <input class="btn color" type="button" value="Cancelar" onclick="ocultarAgregarFija();">
             <input class="btn color" type="submit" value="Agregar" onclick="agregarplanFija();">
           </div>
-          <div class="col-auto d-none" id="contenidoeditarplan">
+          <div class="col-auto d-none" id="contenidoeditarplanFija">
             <h3>Editar Plan</h3>
             
             <div class="form-floating mb-3 d-none">
@@ -31,14 +31,14 @@
             </div>
             
             <div class="form-floating mb-3">
-              <input class="form-control" autocomplete="off" type="text" id="planeditFija" placeholder="...">
+              <textarea class="form-control" autocomplete="off" type="text" id="planeditFija" placeholder="..."></textarea>
               <label for="planeditFija">Plan</label>
             </div>
             <input class="btn color" type="button" value="Cancelar" onclick="ocultarEdicionFija();">
             <input class="btn color" type="submit" value="Editar" onclick="editarplanFija();">
           </div>
-          <div class="col" style="height: 60vh; overflow-x: auto;" id="listado">
-            <table class="table ">
+          <div class="col" style="height: 60vh; overflow-x: auto;">
+            <table class="table">
               <thead>
                 <tr>
                   <th class="color">N°</th>
