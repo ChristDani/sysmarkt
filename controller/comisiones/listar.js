@@ -9,6 +9,7 @@ function getComision() {
 
     let fecha = document.getElementById('fechacomision').value
     let dniasesor = document.getElementById('dniasesor').value
+    let dnimoderador = document.getElementById('dnimoderador').value
     let tipoasesor = document.getElementById('tipoasesor').value
     let contenido1=document.getElementById('contenidoMovilComision')
     let contenido2=document.getElementById('contenidoFijaComision')
@@ -24,9 +25,13 @@ function getComision() {
     let url='controller/comisiones/listar.php';
     let formaData = new FormData()
     formaData.append('fecha', fecha)
-    if (tipoasesor != 1) 
+    if (tipoasesor == 0) 
     {
         formaData.append('dniasesor', dniasesor)
+    }
+    else if (tipoasesor == 2)
+    {
+        formaData.append('dnimoderador', dnimoderador)
     }
 
     fetch(url,{
@@ -48,6 +53,7 @@ function detalles(tipo) {
 
     let fecha = document.getElementById('fechacomision').value
     let dniasesor = document.getElementById('dniasesor').value
+    let dnimoderador = document.getElementById('dnimoderador').value
     let tipoasesor = document.getElementById('tipoasesor').value
     let contenido=document.getElementById('detallesComi')
     let letrero=document.getElementById('tipocomi')
@@ -69,9 +75,13 @@ function detalles(tipo) {
     {
         letrero.innerHTML = 'Portabilidad Sin Equipo'
     }
-    else if (tipo == 'r') 
+    else if (tipo == 'rd') 
     {
-        letrero.innerHTML = 'Renovación'
+        letrero.innerHTML = 'Renovación Descendente'
+    }
+    else if (tipo == 'ra') 
+    {
+        letrero.innerHTML = 'Renovación Ascendente'
     }
     
     // console.log(fecha)
@@ -81,9 +91,13 @@ function detalles(tipo) {
     let formaData = new FormData()
     formaData.append('fecha', fecha)
     formaData.append('tipo', tipo)
-    if (tipoasesor != 1) 
+    if (tipoasesor == 0) 
     {
         formaData.append('dniasesor', dniasesor)
+    }
+    else if (tipoasesor == 2)
+    {
+        formaData.append('dnimoderador', dnimoderador)
     }
 
     fetch(url,{

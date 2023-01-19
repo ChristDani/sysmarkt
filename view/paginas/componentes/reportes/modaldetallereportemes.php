@@ -8,6 +8,9 @@
       <div id="detallesReportesMes" class="modal-body">
         
       </div>
+      <div class="modal-footer">
+        <h3 id="fechaDetalle"></h3>
+      </div>
     </div>
   </div>
 </div>

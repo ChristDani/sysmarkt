@@ -8,12 +8,8 @@ $con=$model->conectar();
 $secSo = isset($_POST['codigo']) ? $_POST['codigo'] : null;
 $tipoUsuario = isset($_POST['tipoUser']) ? $_POST['tipoUser'] : null;
 
-
 // llamamos al registro
 $sql = "SELECT v.dniAsesor, u.nombre, v.dniCliente, c.nombre, v.estado, v.sec, v.origen, v.registro from ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni where v.sec='".$secSo."'";
-// para verificar errores en la consulta
-// echo $sql;
-
 
 $resultado=mysqli_query($con,$sql);
 

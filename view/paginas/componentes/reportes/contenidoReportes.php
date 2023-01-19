@@ -97,7 +97,7 @@ $listUser = $user->listar();
                         </div>
                     </div>
                 </div>
-                <table class="table table-responsive-xl color">
+                <table class="table table-responsive-lg color">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">N°</th>

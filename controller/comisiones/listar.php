@@ -16,6 +16,7 @@ $planesFija = $planeslist->listarFija();
 
 $fecha= !empty($_POST['fecha']) ? $_POST['fecha'] : null;
 $dniAsesor= !empty($_POST['dniasesor']) ? $_POST['dniasesor'] : null;
+$dniModerador= !empty($_POST['dnimoderador']) ? $_POST['dnimoderador'] : null;
 
 
 $output=[];
@@ -29,13 +30,14 @@ if ($planesFija != null)
 {
     foreach ($planesFija as $pr) 
     {
+        $p = trim($pr[1]);
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planFija='".trim($pr[1])."' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='0' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.planFija='$p' and dv.estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planFija='".trim($pr[1])."' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='0' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.planFija='$p' and dv.estado='1'";
         }
 
         $resultado = mysqli_query($consulta,$sql);
@@ -94,8 +96,11 @@ $cantidadTotalProtaEquipo = 0;
 $comisionTotalProtaSinEquipo = 0;
 $cantidadTotalProtaSinEquipo = 0;
 
-$comisionTotalRenovacion = 0;
-$cantidadTotalRenovacion = 0;
+$comisionTotalRenovacionDesc = 0;
+$cantidadTotalRenovacionDesc = 0;
+
+$comisionTotalRenovacionAsc = 0;
+$cantidadTotalRenovacionAsc = 0;
 
 
 // suma de lineas nuevas con equipo
@@ -103,13 +108,14 @@ if ($planesMov != null)
 {
     foreach ($planesMov as $pr) 
     {
+        $pmlne = trim($pr[1]);
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='0' and equipo!='Chip' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmlne' and dv.tipo='0' and dv.equipo!='Chip' and dv.estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='0' and equipo!='Chip' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmlne' and dv.tipo='0' and dv.equipo!='Chip' and dv.estado='1'";
         }
 
         $resultado = mysqli_query($consulta,$sql);
@@ -164,13 +170,14 @@ if ($planesMov != null)
 {
     foreach ($planesMov as $pr) 
     {
+        $pmln = trim($pr[1]);
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='0' and equipo='Chip' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmln' and dv.tipo='0' and dv.equipo='Chip' and dv.estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='0' and equipo='Chip' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmln' and dv.tipo='0' and dv.equipo='Chip' and dv.estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -225,13 +232,14 @@ if ($planesMov != null)
 {
     foreach ($planesMov as $pr) 
     {
+        $pmpe = trim($pr[1]);
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='1' and equipo!='Chip' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmpe' and dv.tipo='1' and dv.equipo!='Chip' and dv.estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='1' and equipo!='Chip' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmpe' and dv.tipo='1' and dv.equipo!='Chip' and dv.estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -320,13 +328,14 @@ if ($planesMov != null)
 {
     foreach ($planesMov as $pr) 
     {
+        $pmp = trim($pr[1]);
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='1' and equipo='Chip' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmp' and dv.tipo='1' and dv.equipo='Chip' and dv.estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='1' and equipo='Chip' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmp' and dv.tipo='1' and dv.equipo='Chip' and dv.estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -410,18 +419,19 @@ $output['movil'] .= "</a>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "</div>";
 
-// suma de renovaciones
+// suma de renovaciones descendentes
 if ($planesMov != null) 
 {
     foreach ($planesMov as $pr) 
     {
+        $pmrd = trim($pr[1]);
         if ($fecha == null)
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='2' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmrd' and dv.tipo='2' and dv.modoReno='0' and dv.estado='1'";
         }
         elseif ($fecha != null) 
         {
-            $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='2' and estado='1'";
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmrd' and dv.tipo='2' and dv.modoReno='0' and dv.estado='1'";
         }
         
         $resultado = mysqli_query($consulta,$sql);
@@ -429,28 +439,27 @@ if ($planesMov != null)
 
         $plan = str_replace($abecedario, '', $pr[1]);
         $comision = ($plan*$cantidad)*(40/100);
-        $comisionTotalRenovacion = $comisionTotalRenovacion+$comision;
-        $cantidadTotalRenovacion = $cantidadTotalRenovacion+$cantidad;
+        $comisionTotalRenovacionDesc = $comisionTotalRenovacionDesc+$comision;
+        $cantidadTotalRenovacionDesc = $cantidadTotalRenovacionDesc+$cantidad;
     }
 }
 
 $output['movil'] .= "<div class='col-xl-3 col-md-6'>";
 $output['movil'] .= "<div class='card'>";
-$output['movil'] .= "<a href='#' type='button' data-bs-toggle='modal' data-bs-target='#DetallesComision' onclick=detalles('r');>";
+$output['movil'] .= "<a href='#' type='button' data-bs-toggle='modal' data-bs-target='#DetallesComision' onclick=detalles('rd');>";
 $output['movil'] .= "<div class='card-body'>";
 $output['movil'] .= "<div class='head d-flex justify-content-around'>";
 $output['movil'] .= "<p></p>";
-$output['movil'] .= "<p>Renovación</p>";
+$output['movil'] .= "<p>Renovación Descendente</p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "<p></p>";
-// $output['movil'] .= "<p class='primary'>40% - 60%</p>";
 $output['movil'] .= "<p class='primary'>40%</p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "<div class='body'>";
 $output['movil'] .= "<div class='row my-2'>";
-$output['movil'] .= "<h4 class='text-center warning'>$cantidadTotalRenovacion</h4>";
+$output['movil'] .= "<h4 class='text-center warning'>$cantidadTotalRenovacionDesc</h4>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "<div class='row text-center'>";
 $output['movil'] .= "<div class='col'>";
@@ -464,7 +473,69 @@ $output['movil'] .= "<p></p>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "<div class='row text-center' style='border-top: 1px solid #b9b9b9;'>";
-$output['movil'] .= "<p class='my-1 success'>S/ $comisionTotalRenovacion</p>";
+$output['movil'] .= "<p class='my-1 success'>S/ $comisionTotalRenovacionDesc</p>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "</a>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "</div>";
+
+// suma de renovaciones ascendentes
+if ($planesMov != null) 
+{
+    foreach ($planesMov as $pr) 
+    {
+        $pmra = trim($pr[1]);
+        if ($fecha == null)
+        {
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmra' and dv.tipo='2' and dv.modoReno='1' and dv.estado='1'";
+        }
+        elseif ($fecha != null) 
+        {
+            $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pmra' and dv.tipo='2' and dv.modoReno='1' and dv.estado='1'";
+        }
+        
+        $resultado = mysqli_query($consulta,$sql);
+        $cantidad = $resultado->num_rows;
+
+        $plan = str_replace($abecedario, '', $pr[1]);
+        $comision = ($plan*$cantidad)*(60/100);
+        $comisionTotalRenovacionAsc = $comisionTotalRenovacionAsc+$comision;
+        $cantidadTotalRenovacionAsc = $cantidadTotalRenovacionAsc+$cantidad;
+    }
+}
+
+$output['movil'] .= "<div class='col-xl-3 col-md-6'>";
+$output['movil'] .= "<div class='card'>";
+$output['movil'] .= "<a href='#' type='button' data-bs-toggle='modal' data-bs-target='#DetallesComision' onclick=detalles('ra');>";
+$output['movil'] .= "<div class='card-body'>";
+$output['movil'] .= "<div class='head d-flex justify-content-around'>";
+$output['movil'] .= "<p></p>";
+$output['movil'] .= "<p>Renovación Ascendente</p>";
+$output['movil'] .= "<p></p>";
+$output['movil'] .= "<p></p>";
+$output['movil'] .= "<p></p>";
+$output['movil'] .= "<p class='primary'>60%</p>";
+$output['movil'] .= "<p></p>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "<div class='body'>";
+$output['movil'] .= "<div class='row my-2'>";
+$output['movil'] .= "<h4 class='text-center warning'>$cantidadTotalRenovacionAsc</h4>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "<div class='row text-center'>";
+$output['movil'] .= "<div class='col'>";
+$output['movil'] .= "<p></p>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "<div class='col'>";
+$output['movil'] .= "<p></p>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "<div class='col'>";
+$output['movil'] .= "<p></p>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "</div>";
+$output['movil'] .= "<div class='row text-center' style='border-top: 1px solid #b9b9b9;'>";
+$output['movil'] .= "<p class='my-1 success'>S/ $comisionTotalRenovacionAsc</p>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "</div>";
@@ -474,10 +545,10 @@ $output['movil'] .= "</div>";
      
 
 
-$output['comiMovil']= 'S/ '.$comisionTotalNuevaEquipo+$comisionTotalNuevaSinEquipo+$comisionTotalProtaEquipo+$comisionTotalProtaSinEquipo+$comisionTotalRenovacion;
+$output['comiMovil']= 'S/ '.$comisionTotalNuevaEquipo+$comisionTotalNuevaSinEquipo+$comisionTotalProtaEquipo+$comisionTotalProtaSinEquipo+$comisionTotalRenovacionDesc+$comisionTotalRenovacionAsc;
 $output['comiFija']= 'S/ '.$comisionTotalFija;
-$output['comiTotal']= 'S/ '.$comisionTotalNuevaEquipo+$comisionTotalNuevaSinEquipo+$comisionTotalProtaEquipo+$comisionTotalProtaSinEquipo+$comisionTotalRenovacion+$comisionTotalFija;
-$output['c1mes']= 'S/ '.$comisionTotalNuevaEquipo+$comisionTotalProtaEquipo+$comisionTotalRenovacion+$comisionTotalFija;
+$output['comiTotal']= 'S/ '.$comisionTotalNuevaEquipo+$comisionTotalNuevaSinEquipo+$comisionTotalProtaEquipo+$comisionTotalProtaSinEquipo+$comisionTotalRenovacionDesc+$comisionTotalRenovacionAsc+$comisionTotalFija;
+$output['c1mes']= 'S/ '.$comisionTotalNuevaEquipo+$comisionTotalProtaEquipo+$comisionTotalRenovacionDesc+$comisionTotalRenovacionAsc+$comisionTotalFija;
 $output['c3meses']= 'S/ '.$comisionTotalNuevaSinEquipo+$comisionTotalProtaSinEquipo;
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE); //por si viene con 'ñ' o tildes...

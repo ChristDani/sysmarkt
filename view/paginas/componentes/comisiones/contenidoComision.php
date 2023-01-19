@@ -1,4 +1,5 @@
 <input hidden type="text" id="dniasesor" value="<?php echo $dniUsuario ; ?>">
+<input hidden type="text" id="dnimoderador" value="<?php echo $dniUsuario ; ?>">
 <input hidden type="text" id="tipoasesor" value="<?php echo $tipoUsuario ; ?>">
 
 <div class="d-flex gap-3 align-items-start">

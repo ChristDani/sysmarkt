@@ -6,42 +6,43 @@ $con=$model->conectar();
 
 $fecharequerida= !empty($_POST['fecha']) ? $_POST['fecha'] : null;
 $dniAsesorMeta= !empty($_POST['busasesormet']) ? $_POST['busasesormet'] : null;
+$dniModeradorMeta= !empty($_POST['busmoderadormet']) ? $_POST['busmoderadormet'] : null;
 
 if ($fecharequerida != null) 
 {
     // ventas totales
-    $sqlvt = "select * from whatsapp where (month(fechaRegistro)=month('$fecharequerida') and year(fechaRegistro)=year('$fecharequerida')) and dniAsesor like '%$dniAsesorMeta%'";
+    $sqlvt = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecharequerida') and year(dv.registro)=year('$fecharequerida')) and v.dniAsesor like '%$dniAsesorMeta%' and u.dniModerador like '%$dniModeradorMeta%'";
     $resultadovt = mysqli_query($con,$sqlvt);
     $vt = $resultadovt->num_rows;
     // ventas concretadas
-    $sqlvc = "select * from whatsapp where estado='1' and (month(fechaRegistro)=month('$fecharequerida') and year(fechaRegistro)=year('$fecharequerida')) and dniAsesor like '%$dniAsesorMeta%'";
+    $sqlvc = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where dv.estado='1' and (month(dv.registro)=month('$fecharequerida') and year(dv.registro)=year('$fecharequerida')) and dniAsesor like '%$dniAsesorMeta%' and u.dniModerador like '%$dniModeradorMeta%'";
     $resultadovc = mysqli_query($con,$sqlvc);
     $vc = $resultadovc->num_rows;
     // ventas pendientes
-    $sqlvp = "select * from whatsapp where estado='2' and (month(fechaRegistro)=month('$fecharequerida') and year(fechaRegistro)=year('$fecharequerida')) and dniAsesor like '%$dniAsesorMeta%'";
+    $sqlvp = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where dv.estado='2' and (month(dv.registro)=month('$fecharequerida') and year(dv.registro)=year('$fecharequerida')) and dniAsesor like '%$dniAsesorMeta%' and u.dniModerador like '%$dniModeradorMeta%'";
     $resultadovp = mysqli_query($con,$sqlvp);
     $vp = $resultadovp->num_rows;
     // ventas rechazadas
-    $sqlvr = "select * from whatsapp where estado='0' and (month(fechaRegistro)=month('$fecharequerida') and year(fechaRegistro)=year('$fecharequerida')) and dniAsesor like '%$dniAsesorMeta%'";
+    $sqlvr = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where dv.estado='0' and (month(dv.registro)=month('$fecharequerida') and year(dv.registro)=year('$fecharequerida')) and dniAsesor like '%$dniAsesorMeta%' and u.dniModerador like '%$dniModeradorMeta%'";
     $resultadovr = mysqli_query($con,$sqlvr);
     $vr = $resultadovr->num_rows;
 }
 elseif ($fecharequerida == null) 
 {
     // ventas totales
-    $sqlvt = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesorMeta%'";
+    $sqlvt = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesorMeta%' and u.dniModerador like '%$dniModeradorMeta%'";
     $resultadovt = mysqli_query($con,$sqlvt);
     $vt = $resultadovt->num_rows;
     // ventas concretadas
-    $sqlvc = "select * from whatsapp where estado='1' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesorMeta%'";
+    $sqlvc = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where dv.estado='1' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesorMeta%' and u.dniModerador like '%$dniModeradorMeta%'";
     $resultadovc = mysqli_query($con,$sqlvc);
     $vc = $resultadovc->num_rows;
     // ventas pendientes
-    $sqlvp = "select * from whatsapp where estado='2' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesorMeta%'";
+    $sqlvp = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where dv.estado='2' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesorMeta%' and u.dniModerador like '%$dniModeradorMeta%'";
     $resultadovp = mysqli_query($con,$sqlvp);
     $vp = $resultadovp->num_rows;
     // ventas rechazadas
-    $sqlvr = "select * from whatsapp where estado='0' and (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesorMeta%'";
+    $sqlvr = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where dv.estado='0' and (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesorMeta%' and u.dniModerador like '%$dniModeradorMeta%'";
     $resultadovr = mysqli_query($con,$sqlvr);
     $vr = $resultadovr->num_rows;
 }
@@ -49,11 +50,10 @@ elseif ($fecharequerida == null)
 // echo "$vt | $vc | $vp | $vr";
 
 // en el caso de solo querer determinadas columnas usar esto con el mismo nombre de las columnas...
-$columnas=['codigo','dniAsesor','nombre','dni','telefono','producto','lineaProcedente','operadorCedente','modalidad','tipo','planR','equipo','formaDePago','numeroReferencia','sec','tipoFija','planFija','estado','observaciones','promocion','ubicacion','distrito','fechaRegistro','fechaActualizacion'];
-$columnasBus=['codigo','nombre','dni','telefono','producto','lineaProcedente','operadorCedente','modalidad','tipo','planR','equipo','formaDePago','numeroReferencia','sec','tipoFija','planFija','observaciones','promocion','ubicacion','distrito','fechaActualizacion'];
+$columnas=['u.nombre, v.dniCliente, c.nombre, v.estado, v.sec, v.registro'];
 
 // tabla a seleccionar
-$tabla='whatsapp';
+$tabla='ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni';
 
 $buscar= isset($_POST['busqueda']) ? $_POST['busqueda'] : null;
 $buscarestado= isset($_POST['busestate']) ? $_POST['busestate'] : null;
@@ -62,57 +62,57 @@ $buscarestado= isset($_POST['busestate']) ? $_POST['busestate'] : null;
 $where='';
 if ($fecharequerida != null) 
 {
-    $where.="where (month(fechaRegistro)=month('$fecharequerida') and year(fechaRegistro)=year('$fecharequerida')) ";
+    $where.="where (month(v.registro)=month('$fecharequerida') and year(v.registro)=year('$fecharequerida')) ";
 }
 elseif ($fecharequerida == null) 
 {
-    $where.="where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) ";
+    $where.="where (month(v.registro)=month(CURRENT_TIMESTAMP) and year(v.registro)=year(CURRENT_TIMESTAMP)) ";
 }
 
-if ($dniAsesorMeta != null) {
-    $where.="and dniAsesor='".$dniAsesorMeta."' ";
-    if ($buscarestado != null) {
-        $where.="and estado='".$buscarestado."' ";
-        if ($buscar!=null) {
-            $where.=" and (";
-            $cont= count($columnasBus);
-            for ($i=0; $i < $cont; $i++) { 
-                $where.=$columnasBus[$i]." like '%".$buscar."%' or ";
+if ($dniModeradorMeta != null) {
+    $where.="and u.dniModerador='".$dniModeradorMeta."' ";
+    if ($dniAsesorMeta != null) {
+        $where.="and v.dniAsesor='".$dniAsesorMeta."' ";
+        if ($buscarestado != null) {
+            $where.="and v.estado='".$buscarestado."' ";
+            if ($buscar != null) {
+                $where.="and v.sec='".$buscar."' ";
             }
-            $where=substr_replace($where, "", -3);
-            $where.=")";
+        }
+        elseif ($buscar != null) {
+            $where.="and v.sec='".$buscar."' ";
         }
     }
-    elseif ($buscar!=null) {
-        $where.=" and (";
-        $cont= count($columnasBus);
-        for ($i=0; $i < $cont; $i++) { 
-            $where.=$columnasBus[$i]." like '%".$buscar."%' or ";
+    elseif ($buscarestado != null) {
+        $where.="and v.estado='".$buscarestado."' ";
+        if ($buscar != null) {
+            $where.="and v.sec='".$buscar."' ";
         }
-        $where=substr_replace($where, "", -3);
-        $where.=")";
+    }
+    elseif ($buscar != null) {
+        $where.="and v.sec='".$buscar."' ";
     }
 }
-if ($buscarestado != null and $dniAsesorMeta == null) {
-    $where.="and estado='".$buscarestado."' ";
-    if ($buscar!=null) {
-        $where.=" and (";
-        $cont= count($columnasBus);
-        for ($i=0; $i < $cont; $i++) { 
-            $where.=$columnasBus[$i]." like '%".$buscar."%' or ";
+elseif ($dniAsesorMeta != null and $dniModeradorMeta == null) {
+    $where.="and v.dniAsesor='".$dniAsesorMeta."' ";
+    if ($buscarestado != null) {
+        $where.="and v.estado='".$buscarestado."' ";
+        if ($buscar != null) {
+            $where.="and v.sec='".$buscar."' ";
         }
-        $where=substr_replace($where, "", -3);
-        $where.=")";
+    }
+    elseif ($buscar != null) {
+        $where.="and v.sec='".$buscar."' ";
     }
 }
-elseif ($buscar!=null and $dniAsesorMeta == null and $buscarestado == null) {
-    $where.="and (";
-    $cont= count($columnasBus);
-    for ($i=0; $i < $cont; $i++) { 
-        $where.=$columnasBus[$i]." like '%".$buscar."%' or ";
+elseif ($buscarestado != null and $dniAsesorMeta == null and $dniModeradorMeta == null) {
+    $where.="and v.estado='".$buscarestado."' ";
+    if ($buscar != null) {
+        $where.="and v.sec='".$buscar."' ";
     }
-    $where=substr_replace($where, "", -3);
-    $where.=")";
+}
+elseif ($buscar!=null and $dniAsesorMeta == null and $buscarestado == null and $dniModeradorMeta == null) {
+    $where.="and v.sec='".$buscar."' ";
 }
 
 // limite de registros
@@ -133,9 +133,9 @@ $sLimite = " limit $inicio,$limite";
 // cantidad de registros devueltos en la consulta
 $contar="select * from $tabla $where";
 
-$sql = "select ".implode(", ", $columnas)." from $tabla $where order by codigo $sLimite";
+$sql = "select ".implode(", ", $columnas)." from $tabla $where order by v.registro $sLimite";
 // para verificar errores en la consulta
-// echo $sql;
+
 
 
 // $resulContar=mysqli_query($con,$contar);
@@ -180,34 +180,32 @@ if ($filas>0) {
     $i=$inicio+1;
     while ($fila=mysqli_fetch_array($resultado)) {
         
-        $code = $fila['codigo'];
-        $fecha =date('d/m/y', strtotime($fila['fechaRegistro']));
+        $code = $fila['sec'];
+        $fecha =date('d/m/y', strtotime($fila['registro']));
+
+        $contarProductos="select * from detalleventas where sec='$code'";
+        $contarProductosCerrados="select * from detalleventas where sec='$code' and estado = '1'";
+        
+        $resulcontarProductos=mysqli_query($con,$contarProductos);
+        $resulcontarProductosCerrados=mysqli_query($con,$contarProductosCerrados);
+        
+        $totalcontarProductos = $resulcontarProductos->num_rows;
+        $totalcontarProductosCerrados = $resulcontarProductosCerrados->num_rows;
 
         $output['data'].= "<tr>";
         $output['data'].= "<td align='center'>$i</td>";
-        $output['data'].= "<td align='left'>".$fila['nombre']."</td>";
-        $output['data'].= "<td align='center'>".$fila['numeroReferencia']."</td>";
-        if ($fila['producto'] === "0") 
-        {
-            $output['data'].= "<td align='center'>Fija</td>";
-        }
-        elseif ($fila['producto'] === "1") 
-        {
-            $output['data'].= "<td align='center'>Movil</td>";
-        }
+        $output['data'].= "<td align='left'>".$fila[0]."</td>";
+        $output['data'].= "<td align='center'>".$fila[2]."</td>";
         $output['data'].= "<td align='center'>".$fila['sec']."</td>";
-        if ($fila['estado'] === "1") 
+        if ($fila['estado'] === "0") 
         {
-            $output['data'].= "<td align='center'>Concretado</td>";
+            $output['data'].= "<td align='center'>En Proceso</td>";
         }
-        elseif ($fila['estado'] === "2") 
+        elseif ($fila['estado'] === "1") 
         {
-            $output['data'].= "<td align='center'>Pendiente</td>";
+            $output['data'].= "<td align='center'>Cerrada</td>";
         }
-        elseif ($fila['estado'] === "0") 
-        {
-            $output['data'].= "<td align='center'>No Requiere</td>";
-        }
+        $output['data'].= "<td align='center'>$totalcontarProductosCerrados/$totalcontarProductos</td>";
         $output['data'].= "<td align='center'>".$fecha."</td>";
         $output['data'].= "<td align='center'><a class='btn' data-bs-target='#Detallesreportemes' data-bs-toggle='modal' onclick="."mostrardetallesreportesmes('$code');"."><ion-icon name='information-circle-outline'></ion-icon></a></td>";
         $output['data'].= "</tr>";

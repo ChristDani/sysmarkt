@@ -13,6 +13,7 @@ $planesMov = $planeslist->listar();
 
 $fecha= !empty($_POST['fecha']) ? $_POST['fecha'] : null;
 $dniAsesor= !empty($_POST['dniasesor']) ? $_POST['dniasesor'] : null;
+$dniModerador= !empty($_POST['dnimoderador']) ? $_POST['dnimoderador'] : null;
 $tipo= !empty($_POST['tipo']) ? $_POST['tipo'] : null;
 
 $output=[];
@@ -24,50 +25,59 @@ if ($planesMov != null)
 {
     foreach ($planesMov as $pr) 
     {
+        $pl = trim($pr[1]);
         if ($fecha == null)
         {
             if ($tipo == 'lne') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo!='Chip' and planR='".trim($pr[1])."' and tipo='0' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.equipo!='Chip' and dv.plan='$pl' and dv.tipo='0' and dv.estado='1'";
             }
             elseif ($tipo == 'ln') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo='Chip' and planR='".trim($pr[1])."' and tipo='0' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.equipo='Chip' and dv.plan='$pl' and dv.tipo='0' and dv.estado='1'";
             }
             elseif ($tipo == 'pe') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo!='Chip' and planR='".trim($pr[1])."' and tipo='1' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.equipo!='Chip' and dv.plan='$pl' and dv.tipo='1' and dv.estado='1'";
             }
             elseif ($tipo == 'p') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and equipo='Chip' and planR='".trim($pr[1])."' and tipo='1' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.equipo='Chip' and dv.plan='$pl' and dv.tipo='1' and dv.estado='1'";
             }
-            elseif ($tipo == 'r') 
+            elseif ($tipo == 'rd') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month(CURRENT_TIMESTAMP) and year(fechaRegistro)=year(CURRENT_TIMESTAMP)) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='2' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pl' and dv.tipo='2' and dv.estado='1'";
+            }
+            elseif ($tipo == 'ra') 
+            {
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pl' and dv.tipo='2' and dv.estado='1'";
             }
         }
         elseif ($fecha != null) 
         {
             if ($tipo == 'lne') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and equipo!='Chip' and tipo='0' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pl' and dv.equipo!='Chip' and dv.tipo='0' and dv.estado='1'";
             }
             elseif ($tipo == 'ln') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and equipo='Chip' and tipo='0' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pl' and dv.equipo='Chip' and dv.tipo='0' and dv.estado='1'";
             }
             elseif ($tipo == 'pe') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and equipo!='Chip' and tipo='1' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pl' and dv.equipo!='Chip' and dv.tipo='1' and dv.estado='1'";
             }
             elseif ($tipo == 'p') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and equipo='Chip' and tipo='1' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pl' and dv.equipo='Chip' and dv.tipo='1' and dv.estado='1'";
             }
-            elseif ($tipo == 'r') 
+            elseif ($tipo == 'rd') 
             {
-                $sql = "select * from whatsapp where (month(fechaRegistro)=month('$fecha') and year(fechaRegistro)=year('$fecha')) and dniAsesor like '%$dniAsesor%' and planR='".trim($pr[1])."' and tipo='2' and estado='1'";
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pl' and dv.tipo='2' and dv.estado='1'";
+            }
+            elseif ($tipo == 'ra') 
+            {
+                $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.plan='$pl' and dv.tipo='2' and dv.estado='1'";
             }
         }
 
@@ -101,9 +111,13 @@ if ($planesMov != null)
         {
             $comision = ($plan*$cantidad)*($porcentajeMovil/100);
         }
-        elseif ($tipo == 'r') 
+        elseif ($tipo == 'rd') 
         {
             $comision = ($plan*$cantidad)*(40/100);
+        }
+        elseif ($tipo == 'ra') 
+        {
+            $comision = ($plan*$cantidad)*(60/100);
         }
 
         $comisiontotal = $comisiontotal+$comision;
@@ -113,7 +127,7 @@ if ($planesMov != null)
         $output['data'] .= "<div class='card-body'>";
         $output['data'] .= "<div class='head d-flex justify-content-around'>";
         $output['data'] .= "<p></p>";
-        $output['data'] .= "<p>$pr[1]</p>";
+        $output['data'] .= "<p>$pl</p>";
         $output['data'] .= "<p></p>";
         $output['data'] .= "<p></p>";
         $output['data'] .= "<p></p>";

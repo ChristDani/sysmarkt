@@ -22,6 +22,11 @@ document.getElementById('busquedaxasesormetas').addEventListener("change", funct
     ahsdgjahdgasd()
 }, false)
 
+document.getElementById('busquedaxmoderadormetas').addEventListener("change", function() {
+    getDataRM(paginaActualRM)
+    ahsdgjahdgasd()
+}, false)
+
 function getDataRM(pagina) 
 {
     let vt = document.getElementById('vt')
@@ -33,15 +38,9 @@ function getDataRM(pagina)
     let input = document.getElementById('busquedaRM').value
     let estado = document.getElementById('busquedaestadoRM').value
     let asesor = document.getElementById('busquedaxasesormetas').value
+    let moderador = document.getElementById('busquedaxmoderadormetas').value
     let select = document.getElementById('numRegistrosRM').value
     let contenido=document.getElementById('resultadosRM')
-
-    // verificar si trae los valores
-    
-    // console.log(fecha);
-    // console.log(input)
-    // console.log(select)
-    // console.log(pagina)
 
     // le damos el origen de los datos
     let url='controller/reportes/listar.php';
@@ -50,6 +49,7 @@ function getDataRM(pagina)
     formaData.append('busqueda', input)
     formaData.append('busestate', estado)
     formaData.append('busasesormet', asesor)
+    formaData.append('busmoderadormet', moderador)
     formaData.append('registros', select)
     formaData.append('pagina', pagina)
 

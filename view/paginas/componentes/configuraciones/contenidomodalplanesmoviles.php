@@ -25,7 +25,7 @@ $planesMov = $planeslist->listar();
                     <th class="color" colspan=2>Acciones</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="contenidoMovil">
                 <?php 
                   if ($planesMov != null) 
                   {

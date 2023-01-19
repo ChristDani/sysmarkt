@@ -1,7 +1,8 @@
 
 function mostrardetallesreportesmes(codigo) {
     // obtenemos el div donde poner los datos
-    let contenidoD = document.getElementById('detallesReportesMes')
+    let contenidoD = document.getElementById('detallesReportesMes');
+    let contenidoF = document.getElementById('fechaDetalle');
 
     //mandamos la posicion al controller
     let url='controller/reportes/detalle.php';
@@ -15,12 +16,6 @@ function mostrardetallesreportesmes(codigo) {
     }).then(response=>response.json())
     .then(data=>{
         contenidoD.innerHTML=data.data
+        contenidoF.innerHTML = data.fecha
     }).catch(err=>console.log(err))
-}
-
-function cerrarModalDetalle() {
-    modal.classList.toggle("modalClose");
-    setTimeout(function () {
-        contenedorModal.style.display='none';        
-    }, 200)
 }

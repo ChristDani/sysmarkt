@@ -51,5 +51,71 @@ class planes
         $conexion=$model->desconectar();
         return $filas;
     }
+
+    public function agregarFija($plan)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="INSERT into planesfija(nombre) values('$plan')";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
+
+    public function editarFija($code,$plan)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="UPDATE planesfija set nombre='$plan' where codigo='$code'";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
+
+    public function eliminarFija($code)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="DELETE from planesfija where codigo='$code'";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
+
+    public function agregarMovil($plan)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="INSERT into planes(nombre) values('$plan')";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
+
+    public function editarMovil($code,$plan)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="UPDATE planes set nombre='$plan' where codigo='$code'";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
+    
+    public function eliminarMovil($code)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="DELETE from planes where codigo='$code'";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
 }
 ?>
