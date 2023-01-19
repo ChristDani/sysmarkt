@@ -4,6 +4,7 @@ function infoUsuario(codigo,nombre,tipo)
     let btncambiar = document.getElementById('btncambiar')
     let btneliminar = document.getElementById('btneliminar')
     let btneditarmetas = document.getElementById('btneditarmetas')
+    let cmbrmdrdr = document.getElementById('cmbrmdrdr')
     let contenedorbtneditarmetas = document.getElementById('contenedorbtneditarmetas')
     if (tipo === "1") 
     {
@@ -11,6 +12,7 @@ function infoUsuario(codigo,nombre,tipo)
         btncambiar.innerHTML="Descender"
         btncambiar.classList.remove("btn-success")
         btncambiar.classList.add("btn-warning")
+        cmbrmdrdr.innerHTML=""
     }
     if (tipo === "2") 
     {
@@ -18,6 +20,7 @@ function infoUsuario(codigo,nombre,tipo)
         btncambiar.innerHTML="Descender"
         btncambiar.classList.remove("btn-success")
         btncambiar.classList.add("btn-warning")
+        cmbrmdrdr.innerHTML=""
     }
     else if (tipo === "0") 
     {
@@ -25,6 +28,7 @@ function infoUsuario(codigo,nombre,tipo)
         btncambiar.innerHTML="Ascender"            
         btncambiar.classList.remove("btn-warning")       
         btncambiar.classList.add("btn-success")
+        cmbrmdrdr.innerHTML="<a class='btn btn-primary color' data-bs-toggle='modal' data-bs-target='#editarModerador' onclick='detallemoderador(\""+codigo+"\");'>Moderador</a>"
     }
     btncambiar.addEventListener("click", cambiarTipoUser(codigo,nombre,tipo), false);
     btneliminar.addEventListener("click", eliminarUsuario(codigo,nombre), false);
@@ -41,6 +45,23 @@ function infoUsuario(codigo,nombre,tipo)
     .then(data=>{
         contenido.innerHTML=data.data
     }).catch(err=>console.log(err))
+}
+
+function detallemoderador(codigo) 
+{
+    let contenido = document.getElementById('formulariocambiomoderadores')
+
+    let url='controller/usuario/detallemoderador.php';
+    let formaData = new FormData()
+    formaData.append('dni', codigo)
+
+    fetch(url,{
+        method: "POST",
+        body: formaData
+    }).then(response=>response.json())
+    .then(data=>{
+        contenido.innerHTML=data.data
+    }).catch(err=>console.log(err))    
 }
 
 function infoUsuarioModera(codigo,tipo) 
@@ -73,7 +94,7 @@ function infoUsuarioModera(codigo,tipo)
 function editarUsuario(dni,nombre,clave,fotoPerfil) 
 {
     document.getElementById('dniedit').value=dni
-    document.getElementById('nombreedit').value=nombre
+    document.getElementById('nombreedit').innerHTML=nombre
     document.getElementById('claveedit2').value=clave
     document.getElementById('fotoPerfiledit1').value=fotoPerfil
     document.getElementById('fotoPerfilmuestra').src="view/static/ProfileIMG/"+fotoPerfil;

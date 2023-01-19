@@ -3,7 +3,6 @@ require_once "../../model/usuarios.php";
 $model = new user();
 
 $dni = $_POST['dniedit'];
-$nombre = $_POST['nombreedit'];
 $clave = !empty($_POST['claveedit']) ? sha1($_POST['claveedit']) : $_POST['claveedit2'];
 
 if ($_FILES['fotoPerfiledit']['name']) 
@@ -17,7 +16,7 @@ else
     $fotoPerfil = $_POST['fotoPerfiledit1'];
 }
 
-$model->editarUsuario($dni,$nombre,$clave,$fotoPerfil);
+$model->editarUsuario($dni,$clave,$fotoPerfil);
 ?>
 <script>
     window.history.back();

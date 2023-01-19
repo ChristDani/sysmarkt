@@ -11,7 +11,7 @@
             <div class="modal-footer justify-content-between">
             <?php if ($tipoUsuario === "1") {?>
                 <a class="btn color" data-bs-toggle="modal" data-bs-target="#CambiarTipoUser" id="btncambiar"></a>
-                <a class="btn btn-primary color" data-bs-toggle="modal" data-bs-target="#editarModerador"> Moderador</a>
+                <div id="cmbrmdrdr"></div>
             <?php }?>
             
                 <div id="contenedorbtneditarmetas">

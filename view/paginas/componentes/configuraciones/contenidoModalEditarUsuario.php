@@ -22,9 +22,15 @@
             </div>
           </div>
 
-          <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Nombre" autocomplete="off" type="text" name="nombreedit" id="nombreedit">
-            <label for="nombre">Nombre</label>
+          <div>
+            <div class='col text-center'>
+              <div class='card'>
+                <div class='card-body m-2'>       
+                  <p class='text-muted'>Nombre</p>
+                  <h3 id="nombreedit"></h3>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-floating mb-3">
             <input class="form-control" placeholder="clave" autocomplete="off" type="password" name="claveedit" id="claveedit">

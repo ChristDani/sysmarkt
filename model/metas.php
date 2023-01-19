@@ -37,14 +37,51 @@ class metas
         return $filas;
     }
 
-    public function editar($portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
+    public function insertarmeta($portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
     {
         $model=new conexion();
         $con=$model->conectar();
+        
+        $sql2="INSERT into metas values('$portamen69','$portamay69','$altapost','$altaprepa','$portaprepa','$renovacion','$hfc_ftth','$ifi')";
 
-        $sql="update metas set portamenor69='$portamen69', portamayor69='$portamay69', altapost='$altapost', altaprepa='$altaprepa', portaprepa='$portaprepa', renovacion='$renovacion', hfc_ftth='$hfc_ftth', ifi='$ifi'";
+		$rs=mysqli_query($con,$sql);
+		$rs2=mysqli_query($con,$sql2);
+
+		$con=$model->desconectar();
+    }
+
+    public function insertarmetausuario($dni,$portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
+    {
+        $model=new conexion();
+        $con=$model->conectar();
+        
+        $sql2="INSERT into metasasesor values('$dni','$portamen69','$portamay69','$altapost','$altaprepa','$portaprepa','$renovacion','$hfc_ftth','$ifi')";
+
+		$rs2=mysqli_query($con,$sql2);
+
+		$con=$model->desconectar();
+    }
+
+    public function editar($portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
+    {
+        $prtmn69 = ceil($portamen69*0.5);
+        $prtmy69 = ceil($portamay69*0.5);
+        $ltpst = ceil($altapost*0.5);
+        $ltprp = ceil($altaprepa*0.5);
+        $prtprp = ceil($portaprepa*0.5);
+        $rnvcn = ceil($renovacion*0.5);
+        $hfc = ceil($hfc_ftth*0.5);
+        $f = ceil($ifi*0.5);
+
+        $model=new conexion();
+        $con=$model->conectar();
+
+        $sql="UPDATE metas set portamenor69='$portamen69', portamayor69='$portamay69', altapost='$altapost', altaprepa='$altaprepa', portaprepa='$portaprepa', renovacion='$renovacion', hfc_ftth='$hfc_ftth', ifi='$ifi'";
+
+        $sql3 = "UPDATE metasasesor set portamenor69='$prtmn69', portamayor69='$prtmy69', altapost='$ltpst', altaprepa='$ltprp', portaprepa='$prtprp', renovacion='$rnvcn', hfc_ftth='$hfc', ifi='$f'";
 
         $rs=mysqli_query($con,$sql);
+        $rs3=mysqli_query($con,$sql3);
 
 		$con=$model->desconectar();
     }

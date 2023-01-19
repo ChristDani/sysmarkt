@@ -5,13 +5,13 @@
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Moderadores</h1>
                 <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-justify" id="moderadores">
+            <div class="modal-body">
+                <form action="controller/usuario/cambiarmoderador.php" method="post" id="formulariocambiomoderadores">
 
+                </form>
             </div>
             <div class="modal-footer justify-content-end">
-                <div id="contenedorbtneditarmetas">
-                    <a class="btn btn-primary color" data-bs-toggle="modal" data-bs-target="#editarMetasAsesor" id="btneditarmetas">cambiar</a>
-                </div>
+                <button form="formulariocambiomoderadores" class="btn btn-primary color">cambiar</button>
             </div>
         </div>
     </div>
