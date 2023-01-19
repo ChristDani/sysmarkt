@@ -1,5 +1,6 @@
 
 let listadeproductos = [];
+let listadetelefono = [];
 
 function litarproductosparaagregar() 
 {
@@ -88,7 +89,6 @@ function cambiarsec()
 }
 function secpuesta() 
 {
-    
     if (document.getElementById('sec').value.length > 0) 
     {
         document.getElementById('letrerosec').classList.remove('d-none');
@@ -128,6 +128,33 @@ function añadirproductoalista()
     listita = [sec,referencia,producto,promocion,tipo,telefop,lineaproce,operaceden,modalidad,modoreno,plan,equipo,tipofija,planfija,modofija,formapago,distrito,ubicacion,observacion,estado];
     
     listadeproductos.push(listita);
+
+    let telf = [];
+    
+    let dni = document.getElementById('dni').value;
+
+    if (listadeproductos.length > 0) 
+    {
+        listadeproductos.forEach(function(i) 
+        {
+
+        });
+    }
+    else
+    {
+        if (referencia != telefop) 
+        {
+            telf = [dni,referencia];
+            listadetelefono.push(telf);
+            telf = [dni,telefop];
+            listadetelefono.push(telf);
+        }
+        else
+        {
+            telf = [dni,referencia];
+            listadetelefono.push(telf);
+        }
+    }
 
     ocultarcontenidonewproduc();
     litarproductosparaagregar();

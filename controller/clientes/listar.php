@@ -75,7 +75,7 @@ if ($filas>0)
 
         $output['data'].= "<div class='col-xl-3 col-md-6'>";
         $output['data'].= "<div class='card'>";
-        $output['data'].= "<a href='#' type='button' data-bs-toggle='modal' data-bs-target='#DetallesWhatsapp' onclick=abrirModalDetalle('$dni');>";
+        $output['data'].= "<a href='#' type='button' data-bs-toggle='modal' data-bs-target='#DetallesClient' onclick=detallecliente('$dni');>";
         $output['data'].= "<div class='card-body'>";
         
         $output['data'].= "<div class='head d-flex justify-content-around'>";

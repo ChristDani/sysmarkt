@@ -1,4 +1,4 @@
-<div class="modal fade" id="EditarWhatsapp" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div class="modal fade" id="EditarCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -10,7 +10,7 @@
         
       </div>
       <div class="modal-footer d-flex justify-content-between">
-        <div class="btn btn-secondary" data-bs-target="#DetallesWhatsapp" data-bs-toggle="modal">Volver</div>
+        <div class="btn btn-secondary" data-bs-target="#DetallesClient" data-bs-toggle="modal">Volver</div>
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
       </div>
@@ -26,7 +26,7 @@
         
         if (dni.value.length == 8) 
         { 
-            let url='controller/whatsapp/arreglarnombre.php';
+            let url='controllerarreglarnombre.php';
             let formaData = new FormData()
             formaData.append('dni', dni.value)
     

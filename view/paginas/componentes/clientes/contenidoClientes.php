@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="col d-flex justify-content-between align-items-center">
-            <a href="#" class="primary" type="button" data-bs-toggle="modal" data-bs-target="#AgregarWhatsapp">
+            <a href="#" class="color" type="button" data-bs-toggle="modal" data-bs-target="#AgregarCliente">
                 <ion-icon name="add-circle-outline"></ion-icon>
             </a>
         </div>
@@ -39,11 +39,11 @@
     
 </div>
 
+<input hidden type="text" id="tipouser" value="<?php echo $tipoUsuario ; ?>">
+
 <?php include_once "contenidoModalAgregarClientes.php"; ?>
 <?php include_once "contenidoModalDetalleClientes.php"; ?>
 
 <script src="controller/clientes/listar.js"></script>  
-
-<!-- <script src="controller/whatsapp/modal.js"></script> -->
 
 <!-- <script src="controller/whatsapp/validaciones.js"></script> -->
