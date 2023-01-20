@@ -131,28 +131,72 @@ function añadirproductoalista()
 
     let telf = [];
     
+    let inserttref = null;
+    let inserttop = null;
+    
     let dni = document.getElementById('dni').value;
 
-    if (listadeproductos.length > 0) 
+    if (listadeproductos[0][2] == "0") //fijas
     {
-        listadeproductos.forEach(function(i) 
+        inserttref = listadetelefono.find(telefsea => telefsea[1] == referencia);
+        if (inserttref == undefined) 
         {
-
-        });
-    }
-    else
-    {
-        if (referencia != telefop) 
-        {
-            telf = [dni,referencia];
-            listadetelefono.push(telf);
-            telf = [dni,telefop];
-            listadetelefono.push(telf);
+            telf = [dni,referencia,'1','---','-'];
+            listadetelefono.push(telf);     
         }
-        else
+
+        if (listadeproductos[0][12] == "1") 
         {
-            telf = [dni,referencia];
-            listadetelefono.push(telf);
+            inserttop = listadetelefono.find(telefsea => telefsea[1] == telefop);
+            if (inserttop == undefined) 
+            {
+                telf = [dni,telefop,producto,operaceden,modalidad];
+                listadetelefono.push(telf);    
+            }      
+        }  
+    }
+    else if (listadeproductos[0][2] == "1") //moviles
+    {        
+        if (listadeproductos[0][4] == "0") // lineas nuevas
+        {
+            inserttref = listadetelefono.find(telefsea => telefsea[1] == referencia);
+            if (inserttref == undefined) 
+            {
+                telf = [dni,referencia,'1','---','1'];
+                listadetelefono.push(telf);
+            }
+        }
+        else if (listadeproductos[0][4] == "1") // portabilidades
+        {
+            inserttop = listadetelefono.find(telefsea => telefsea[1] == telefop);
+            if (inserttop == undefined) 
+            {
+                telf = [dni,telefop,producto,operaceden,modalidad];
+                listadetelefono.push(telf);    
+            }
+
+            inserttref = listadetelefono.find(telefsea => telefsea[1] == referencia);
+            if (inserttref == undefined) 
+            {
+                telf = [dni,referencia,'1','---','1'];
+                listadetelefono.push(telf);     
+            }
+        }
+        else if (listadeproductos[0][4] == "2") // renovaciones
+        {
+            inserttop = listadetelefono.find(telefsea => telefsea[1] == telefop);
+            if (inserttop == undefined) 
+            {
+                telf = [dni,telefop,producto,'Claro','1'];
+                listadetelefono.push(telf);    
+            }
+
+            inserttref = listadetelefono.find(telefsea => telefsea[1] == referencia);
+            if (inserttref == undefined) 
+            {
+                telf = [dni,referencia,'1','---','1'];
+                listadetelefono.push(telf);     
+            }
         }
     }
 
@@ -304,8 +348,8 @@ function agregarventa()
         console.log(data);
     }).catch(err=>console.log(err))
     
-    setTimeout(() => {
-        agregardetalleventa();        
+    setTimeout(() => {  
+        agregardetalleventa();
     }, 400);
 }
 function agregardetalleventa()
@@ -347,6 +391,34 @@ function agregardetalleventa()
         clave = clave + 1;
     });
     if (listadeproductos.length == clave) 
+    {
+        agregartelefonoscliente();
+    }
+}
+function agregartelefonoscliente()
+{
+    let t = 0;
+    listadetelefono.forEach(function(i) 
+    {
+        // le damos el origen de los datos
+        let url='controller/clientes/agregartelefono.php';
+        let formaData = new FormData()
+        formaData.append('dni', i[0])
+        formaData.append('telefono', i[1])
+        formaData.append('tipo', i[2])
+        formaData.append('operador', i[3])
+        formaData.append('tipoLinea', i[4])
+    
+        fetch(url,{
+            method: "POST",
+            body: formaData
+        }).then(response=>response.json())
+        .then(data=>{
+            console.log(data);
+        }).catch(err=>console.log(err))
+        t = t + 1;
+    });
+    if (listadetelefono.length == t) 
     {
         location.reload();
     }

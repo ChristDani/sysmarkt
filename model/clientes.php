@@ -49,6 +49,18 @@ class cliente
 		$con=$model->desconectar();
     }
 
+    public function insertarTelefono($dni,$telefono,$tipo,$operador,$linea)
+    {
+        $model=new conexion();
+        $con=$model->conectar();
+        
+        $sql="insert into telefonos(dniCliente,telefono,tipo,operador,tipoLinea) values('$dni','$telefono','$tipo','$operador','$linea')";
+
+		$rs=mysqli_query($con,$sql);
+
+		$con=$model->desconectar();
+    }
+
     public function editarCliente($dni,$ubicacion,$distrito)
     {
         $model=new conexion();

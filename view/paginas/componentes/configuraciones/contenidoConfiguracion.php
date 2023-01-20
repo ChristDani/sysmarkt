@@ -94,31 +94,35 @@
                                 { ?>
                                     <div class="row">
                                         <a class="delete btn col d-flex gap-1 align-items-center my-1" data-bs-toggle="modal" data-bs-target="#InfoUser" onclick="infoUsuario('<?php echo$u[0];?>','<?php echo trim($u[1]);?>','<?php echo trim($u[3]);?>');">
-                                        <?php if ($u[5] === "0") { ?>
-                                            <div class="profile-photo secondary-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                            </div>
-                                        <?php }elseif ($u[5] === "1") { ?>
-                                            <div class="profile-photo success-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                            </div>
-                                        <?php }elseif ($u[5] === "2") { ?>
-                                            <div class="profile-photo warning-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                            </div>
-                                        <?php }elseif ($u[5] === "3") { ?>
-                                            <div class="profile-photo danger-bc" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                            </div>
-                                        <?php } ?> 
-                                        <h2><?php echo strtoupper($u[1]); ?></h2>            
-                                        <div class="col text-end">
-                                            <?php if ($u[3] === "1") { ?>
-                                            <h4 class="text-muted">Administrador</h4>
-                                            <?php }elseif ($u[3] === "0") { ?>
-                                            <h4 class="text-muted">Asesor</h4>
-                                            <?php }elseif ($u[3] === "2") { ?>
-                                            <h4 class="text-muted">Moderador</h4>
-                                            <?php } ?>
-                                        </div>                                                   
-                                    </a>
-                                </div>
+                                            <div class="col-auto">
+                                                <?php if ($u[5] === "0") { ?>
+                                                    <div class="profile-photo secondary-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                                    </div>
+                                                <?php }elseif ($u[5] === "1") { ?>
+                                                    <div class="profile-photo success-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                                    </div>
+                                                <?php }elseif ($u[5] === "2") { ?>
+                                                    <div class="profile-photo warning-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                                    </div>
+                                                <?php }elseif ($u[5] === "3") { ?>
+                                                    <div class="profile-photo danger-bc" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                                    </div>
+                                                <?php } ?> 
+                                            </div>                                                   
+                                            <div class="col text-start">
+                                                <h2><?php echo strtoupper($u[1]); ?></h2>            
+                                            </div>                                                   
+                                            <div class="col-auto text-end">
+                                                <?php if ($u[3] === "1") { ?>
+                                                <h4 class="text-muted">Administrador</h4>
+                                                <?php }elseif ($u[3] === "0") { ?>
+                                                <h4 class="text-muted">Asesor</h4>
+                                                <?php }elseif ($u[3] === "2") { ?>
+                                                <h4 class="text-muted">Moderador</h4>
+                                                <?php } ?>
+                                            </div>                                                   
+                                        </a>
+                                    </div>
                 <?php           }
                             }elseif ($tipoUsuario === "2") 
                             {
@@ -126,31 +130,35 @@
                                 { ?>
                                     <div class="row">
                                         <a class="delete btn col d-flex gap-1 align-items-center my-1" data-bs-toggle="modal" data-bs-target="#InfoUser" onclick="infoUsuarioModera('<?php echo$u[0];?>','<?php echo trim($u[3]);?>');">
-                                        <?php if ($u[5] === "0") { ?>
-                                            <div class="profile-photo secondary-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                            </div>
-                                        <?php }elseif ($u[5] === "1") { ?>
-                                            <div class="profile-photo success-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                            </div>
-                                        <?php }elseif ($u[5] === "2") { ?>
-                                            <div class="profile-photo warning-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                            </div>
-                                        <?php }elseif ($u[5] === "3") { ?>
-                                            <div class="profile-photo danger-bc" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                            </div>
-                                        <?php } ?> 
-                                        <h2><?php echo strtoupper($u[1]); ?></h2>            
-                                        <div class="col text-end">
-                                            <?php if ($u[3] === "1") { ?>
-                                            <h4 class="text-muted">Administrador</h4>
-                                            <?php }elseif ($u[3] === "0") { ?>
-                                            <h4 class="text-muted">Asesor</h4>
-                                            <?php }elseif ($u[3] === "2") { ?>
-                                            <h4 class="text-muted">Moderador</h4>
-                                            <?php } ?>
-                                        </div>                                                   
-                                    </a>
-                                </div>
+                                            <div class="col-auto">
+                                                <?php if ($u[5] === "0") { ?>
+                                                    <div class="profile-photo secondary-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                                    </div>
+                                                <?php }elseif ($u[5] === "1") { ?>
+                                                    <div class="profile-photo success-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                                    </div>
+                                                <?php }elseif ($u[5] === "2") { ?>
+                                                    <div class="profile-photo warning-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                                    </div>
+                                                <?php }elseif ($u[5] === "3") { ?>
+                                                    <div class="profile-photo danger-bc" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                                    </div>
+                                                <?php } ?>    
+                                            </div>                                   
+                                            <div class="col text-start">
+                                                <h2><?php echo strtoupper($u[1]); ?></h2>             
+                                            </div>                                   
+                                            <div class="col text-end">
+                                                <?php if ($u[3] === "1") { ?>
+                                                <h4 class="text-muted">Administrador</h4>
+                                                <?php }elseif ($u[3] === "0") { ?>
+                                                <h4 class="text-muted">Asesor</h4>
+                                                <?php }elseif ($u[3] === "2") { ?>
+                                                <h4 class="text-muted">Moderador</h4>
+                                                <?php } ?>
+                                            </div>                                                   
+                                        </a>
+                                    </div>
                 <?php           }
                             }
                         }
