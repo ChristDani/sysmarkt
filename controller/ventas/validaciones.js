@@ -298,6 +298,7 @@ function ocultarcontenidonewproduc()
     document.getElementById('contenedorFormularioaddventa').classList.remove('d-none');
     document.getElementById('contenidonuevoproducto').classList.add('d-none');
     document.getElementById('btnaddnewproduc').classList.remove('d-none');
+    litarproductosparaagregar();
 }
 function arreglarnombre()
 {

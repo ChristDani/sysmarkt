@@ -45,5 +45,4 @@
 <?php include_once "contenidoModalDetalleClientes.php"; ?>
 
 <script src="controller/clientes/listar.js"></script>  
-
-<!-- <script src="controller/whatsapp/validaciones.js"></script> -->
+<script src="controller/clientes/validaciones.js"></script>
