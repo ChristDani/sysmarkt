@@ -1,6 +1,7 @@
 let paginaActualRM = 1
 
-getDataRM(paginaActualRM)
+getDataRM(paginaActualRM);
+ponerasesores();
 
 document.getElementById('fecharequerida').addEventListener("change", function() {
     getDataRM(paginaActualRM)
@@ -23,8 +24,9 @@ document.getElementById('busquedaxasesormetas').addEventListener("change", funct
 }, false)
 
 document.getElementById('busquedaxmoderadormetas').addEventListener("change", function() {
-    getDataRM(paginaActualRM)
-    ahsdgjahdgasd()
+    getDataRM(paginaActualRM);
+    ahsdgjahdgasd();
+    ponerasesores();
 }, false)
 
 function getDataRM(pagina) 
@@ -79,4 +81,23 @@ function ahsdgjahdgasd()
         graficobarra(vt,vc,vp,vr);  
         graficopie(vc,vp,vr);
       }, 500);
+}
+
+function ponerasesores() 
+{
+    let asesor = document.getElementById('busquedaxasesormetas')
+    let moderador = document.getElementById('busquedaxmoderadormetas').value
+
+    // le damos el origen de los datos
+    let url='controller/reportes/asesores.php';
+    let formaData = new FormData()
+    formaData.append('moderador', moderador)
+
+    fetch(url,{
+        method: "POST",
+        body: formaData
+    }).then(response=>response.json())
+    .then(data=>{
+        asesor.innerHTML=data.data
+    }).catch(err=>console.log(err))
 }

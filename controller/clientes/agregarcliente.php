@@ -1,7 +1,9 @@
 <?php 
 require_once "../../model/clientes.php";
+require_once "../../model/masiva.php";
 
 $cliente = new cliente();
+$masiva = new masiva();
 
 $dnicliente = isset($_POST['dni']) ? $_POST['dni'] : null;
 $nombrecliente = isset($_POST['nombre']) ? $_POST['nombre'] : null;
@@ -23,6 +25,7 @@ if ($dnicliente != null)
     {
         $datos['cliente'] .= 'Cliente no registrado anteriormente...';
         $cliente->insertarCliente($dnicliente,$nombrecliente,$ubicacioncliente,$distritocliente);
+        $masiva->eliminarpordni($dnicliente);
         $datos['cliente'] .= " // ";
         $datos['cliente'] .= "Registrando al nuevo cliente '$nombrecliente'.";
 

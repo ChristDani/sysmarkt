@@ -1,7 +1,9 @@
 <?php 
 require_once '../../model/clientes.php';
+require_once "../../model/masiva.php";
 
 $cliente = new cliente();
+$masiva = new masiva();
 
 $dni = isset($_POST['dni']) ? $_POST['dni'] : null;
 $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : null;
@@ -15,6 +17,7 @@ $datos['telefono'] = '';
 if ($dni != null) 
 {
     $cliente->insertarTelefono($dni,$telefono,$tipo,$operador,$linea);
+    $masiva->eliminarportelefono($telefono);
     $datos['telefono'] .= "Se registró el telefono: '$telefono', del cliente: '$dni'";
 }
 else 

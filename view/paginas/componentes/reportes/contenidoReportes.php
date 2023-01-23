@@ -11,6 +11,7 @@ $listUser = $user->listar();
 <!-- formulario para obtener la consulta de php para exportar a excel -->
 <form hidden action="controller/reportes/reportexcel.php" method="post">
     <input type="date" name="busquedareportefechaventa" id="busquedareportefechaventa">
+    <input type="text" name="busquedareportemoderadorventa" id="busquedareportemoderadorventa">
     <input type="text" name="busquedareporteasesorventa" id="busquedareporteasesorventa">
     <input type="text" name="busquedareporteestadoventa" id="busquedareporteestadoventa">
     <input type="text" name="busquedareporteventa" id="busquedareporteventa">
@@ -65,17 +66,7 @@ $listUser = $user->listar();
                     <div class="col d-flex justify-content-end align-items-center">
                         <div class="form-floating">
                             <select class="form-select" aria-label="Floating label select example" name="busquedaxasesormetas" id="busquedaxasesormetas">
-                                <option value="">Todos</option>
-                                <?php if ($listar != null) 
-                                        {
-                                            foreach ($listar as $x) 
-                                            { 
-                                                if ($x[3] == "0") 
-                                                { ?>
-                                                <option value="<?php echo $x[0]; ?>"><?php echo $x[1]; ?></option>
-                                    <?php       }
-                                            }
-                                        }?>
+                                
                             </select>
                             <label for="busquedaxasesormetas">Asesores</label>
                         </div>
@@ -111,9 +102,7 @@ $listUser = $user->listar();
                         </tr>
                     </thead>
                     <tbody id="resultadosRM">
-                        <!-- <tr>
-                            <th scope="row" colspan="8" height="80" class="text-center text-muted">Sin resultados...</th>
-                        </tr> -->
+                        
                     </tbody>
                 </table>
                 <div class="bare row d-flex justify-content-between">
@@ -160,11 +149,6 @@ $listUser = $user->listar();
         pasardatorv()
     }, false)
 
-    document.getElementById('numRegistrosRM').addEventListener("change", function() {
-        pasardatorv()
-    }, false)
-
-
     document.getElementById('busquedaestadoRM').addEventListener("change", function() {
         pasardatorv()
     }, false)
@@ -173,20 +157,27 @@ $listUser = $user->listar();
         pasardatorv()
     }, false)
 
+    document.getElementById('busquedaxmoderadormetas').addEventListener("change", function() {
+        pasardatorv()
+    }, false)
+
     function pasardatorv() 
     {
         busquedafecha = document.getElementById('fecharequerida').value;
         busquedaasesor = document.getElementById('busquedaxasesormetas').value;
+        busquedamoderador = document.getElementById('busquedaxmoderadormetas').value;
         busquedaestado = document.getElementById('busquedaestadoRM').value;
         busqueda = document.getElementById('busquedaRM').value;
 
         busquereportfecha = document.getElementById('busquedareportefechaventa');
         busquereportasesor = document.getElementById('busquedareporteasesorventa');
+        busquereportmoderador = document.getElementById('busquedareportemoderadorventa');
         busquereportestado = document.getElementById('busquedareporteestadoventa');
         busquereport = document.getElementById('busquedareporteventa');
 
         busquereportfecha.value = busquedafecha;
         busquereportasesor.value = busquedaasesor;
+        busquereportmoderador.value = busquedamoderador;
         busquereportestado.value = busquedaestado;
         busquereport.value = busqueda;
     }

@@ -76,21 +76,21 @@ if ($dniModeradorMeta != null) {
         if ($buscarestado != null) {
             $where.="and v.estado='".$buscarestado."' ";
             if ($buscar != null) {
-                $where.="and v.sec='".$buscar."' ";
+                $where.="and v.sec like '%".$buscar."%' ";
             }
         }
         elseif ($buscar != null) {
-            $where.="and v.sec='".$buscar."' ";
+            $where.="and v.sec like '%".$buscar."%' ";
         }
     }
     elseif ($buscarestado != null) {
         $where.="and v.estado='".$buscarestado."' ";
         if ($buscar != null) {
-            $where.="and v.sec='".$buscar."' ";
+            $where.="and v.sec like '%".$buscar."%' ";
         }
     }
     elseif ($buscar != null) {
-        $where.="and v.sec='".$buscar."' ";
+        $where.="and v.sec like '%".$buscar."%' ";
     }
 }
 elseif ($dniAsesorMeta != null and $dniModeradorMeta == null) {
@@ -98,21 +98,21 @@ elseif ($dniAsesorMeta != null and $dniModeradorMeta == null) {
     if ($buscarestado != null) {
         $where.="and v.estado='".$buscarestado."' ";
         if ($buscar != null) {
-            $where.="and v.sec='".$buscar."' ";
+            $where.="and v.sec like '%".$buscar."%' ";
         }
     }
     elseif ($buscar != null) {
-        $where.="and v.sec='".$buscar."' ";
+        $where.="and v.sec like '%".$buscar."%' ";
     }
 }
 elseif ($buscarestado != null and $dniAsesorMeta == null and $dniModeradorMeta == null) {
     $where.="and v.estado='".$buscarestado."' ";
     if ($buscar != null) {
-        $where.="and v.sec='".$buscar."' ";
+        $where.="and v.sec like '%".$buscar."%' ";
     }
 }
 elseif ($buscar!=null and $dniAsesorMeta == null and $buscarestado == null and $dniModeradorMeta == null) {
-    $where.="and v.sec='".$buscar."' ";
+    $where.="and v.sec like '%".$buscar."%' ";
 }
 
 // limite de registros

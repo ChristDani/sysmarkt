@@ -4,59 +4,72 @@ require_once '../../model/conexion.php';
 $conexion = new conexion();
 $con = $conexion->conectar();
 
-$columnas=['codigo','dniAsesor','nombre','dni','telefono','producto','lineaProcedente','operadorCedente','modalidad','tipo','planR','equipo','formaDePago','numeroReferencia','sec','tipoFija','planFija','estado','observaciones','promocion','ubicacion','distrito','fechaRegistro','fechaActualizacion'];
-$columnasBus=['codigo','nombre','dni','telefono','producto','lineaProcedente','operadorCedente','modalidad','tipo','planR','equipo','formaDePago','numeroReferencia','sec','tipoFija','planFija','observaciones','promocion','ubicacion','distrito','fechaActualizacion'];
+$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
-$tabla='whatsapp';
+$mes= date('m');
+$año= date('Y');
+
+$MesActual = $meses[$mes-1]." del ".$año;
+
+$columnas=['v.dniAsesor, u.nombre, v.dniCliente, c.nombre, v.estado, v.sec, v.origen, v.registro'];
+
+$tabla='ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni';
 
 $fecharequerida= !empty($_POST['busquedareportefechaventa']) ? $_POST['busquedareportefechaventa'] : null;
+$dniModeradorMeta= !empty($_POST['busquedareporteasesorventa']) ? $_POST['busquedareporteasesorventa'] : null;
 $dniAsesorMeta= !empty($_POST['busquedareporteasesorventa']) ? $_POST['busquedareporteasesorventa'] : null;
 $buscarestado= isset($_POST['busquedareporteestadoventa']) ? $_POST['busquedareporteestadoventa'] : null;
 $buscar= isset($_POST['busquedareporteventa']) ? $_POST['busquedareporteventa'] : null;
+
+$mesre= date('m', strtotime($fecharequerida));
+$añore= date('Y', strtotime($fecharequerida));
+
+$fecharequeridaconver = $meses[$mesre-1]." del ".$añore;
 
 $where='';
 
 if ($fecharequerida != null) 
 {
-    $name = "-".$fecharequerida;
+    $name = " - $fecharequeridaconver";
 }
 elseif ($fecharequerida == null) 
 {
-    $name = "-MesActual";
+    $name = " - $MesActual";
 }
 
 if ($dniAsesorMeta != null) {
-    $name .= "-".$dniAsesorMeta;
+    $name .= " - ".$dniAsesorMeta;
     if ($buscarestado != null) {
-        $name .= "-".$dniAsesorMeta."-".$buscarestado;
+        $name .= " - ".$dniAsesorMeta." - ".$buscarestado;
         if ($buscar!=null) {
-            $name .= "-".$dniAsesorMeta."-".$buscarestado."-".$buscar;
+            $name .= " - ".$dniAsesorMeta." - ".$buscarestado." - ".$buscar;
         }
     }
     elseif ($buscar!=null) {
-        $name .= "-".$dniAsesorMeta."-".$buscar;
+        $name .= " - ".$dniAsesorMeta." - ".$buscar;
     }
 }
 if ($buscarestado != null and $dniAsesorMeta == null) {
-    $name .= "-".$buscarestado;
+    $name .= " - ".$buscarestado;
     if ($buscar!=null) {
-        $name .= "-".$buscarestado."-".$buscar;
+        $name .= " - ".$buscarestado." - ".$buscar;
     }
 }
 elseif ($buscar!=null and $dniAsesorMeta == null and $buscarestado == null) {
-    $name .= "-".$buscar;
+    $name .= " - ".$buscar;
 }
 
 if (isset($_POST['btngenerarreporteventas'])) 
 {
     // nombre del archivo
     header('Content-Type:text/csv; charset=latin1');
-    header('Content-Disposition: attachment; filename="Reporte-Ventas'.$name.'.csv"');
+    header('Content-Disposition: attachment; filename="Reporte de Ventas'.$name.'.csv"');
 
     // salida de archivo
     $salida = fopen('php://output', 'w');
     // encabezados
-    fputcsv($salida, array('codigo','dniAsesor','nombre','dni','telefono','producto','lineaProcedente','operadorCedente','modalidad','tipo','planR','equipo','formaDePago','numeroReferencia','sec','tipoFija','planFija','estado','observaciones','promocion','ubicacion','distrito','fechaRegistro','fechaActualizacion'));
+    fputcsv($salida, array('logo de la empresa','nombre de la empresa','fecha de reporte'));
+    fputcsv($salida, array('DNI-Asesor','Nombre-Asesor','DNI-Cliente','nombre-Cliente','Estado','SEC','Origen','Fecha de Registro'));
     // consulta para crear el reporte
     if ($fecharequerida != null) 
     {
