@@ -8,7 +8,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 
 $mes= date('m');
 $año= date('Y');
-
+ 
 $MesActual = $meses[$mes-1]." del ".$año;
 
 $columnas=['v.dniAsesor, u.nombre, v.dniCliente, c.nombre, v.estado, v.sec, v.origen, v.registro'];
