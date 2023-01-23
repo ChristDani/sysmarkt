@@ -50,3 +50,57 @@ function detallecliente(dni)
         contenidoF.innerHTML = data.fecha
     }).catch(err=>console.log(err))
 }
+
+function abrirModalEditarcliente(dni) 
+{
+    let contenido = document.getElementById('formularioeditarcliente');
+
+    // le damos el origen de los datos
+    let url='controller/clientes/editcliente.php';
+    let formaData = new FormData()
+    formaData.append('dni', dni)
+
+    fetch(url,{
+        method: "POST",
+        body: formaData
+    }).then(response=>response.json())
+    .then(data=>{
+        contenido.innerHTML=data.data
+    }).catch(err=>console.log(err))
+}
+
+function abrirModalEditartelefono(telefono) 
+{
+    let contenido = document.getElementById('formularioeditartelefono');
+
+    // le damos el origen de los datos
+    let url='controller/clientes/edittelefono.php';
+    let formaData = new FormData()
+    formaData.append('telefono', telefono)
+
+    fetch(url,{
+        method: "POST",
+        body: formaData
+    }).then(response=>response.json())
+    .then(data=>{
+        contenido.innerHTML=data.data
+    }).catch(err=>console.log(err))
+}
+
+function abrirModaleliminar(tipo,codigo,name) 
+{
+    let contenido = document.getElementById('textodeeliminacion');
+    let tipoam = document.getElementById('tipo');
+    let codigoam = document.getElementById('codigo');
+
+    tipoam.value=tipo;
+    codigoam.value=codigo;
+    if (tipo == "0") 
+    {
+        contenido.innerHTML="al cliente \'<span class='text-info'>"+name+"</span>\'?";
+    }
+    else if (tipo == "1") 
+    {
+        contenido.innerHTML="el telefono \'<span class='text-info'>"+codigo+"</span>\'?";
+    }
+}

@@ -100,7 +100,8 @@ if ($filas>0) {
         {
             $output['data'].= "<div class='row text-center'>";
             $output['data'].= "<div class='col text-center'>";
-            $output['data'].= "<a href='#' class='btn color' onclick='abrirModalEditarventa($dni);' data-bs-target='#EditarVenta' data-bs-toggle='modal'>Editar Cliente</a>";
+            $output['data'].= "<a href='#' class='btn color' onclick='abrirModaleliminar(\"0\",\"$dni\",\"$nombre\");' data-bs-target='#eliminar' data-bs-toggle='modal'>Eliminar</a>";
+            $output['data'].= "<a href='#' class='btn color' onclick='abrirModalEditarcliente(\"$dni\");' data-bs-target='#EditarCliente' data-bs-toggle='modal'>Editar</a>";
             $output['data'].= "</div>";
             $output['data'].= "</div>";
         }
@@ -181,11 +182,22 @@ if ($filas>0) {
                     $output['data'].= "</div>";
                     $output['data'].= "</div>";
                 }
+                elseif ($tipo === "-") 
+                {
+                    $output['data'].= "<div class='col'>";
+                    $output['data'].= "<div class='card'>";
+                    $output['data'].= "<div class='card-body'>";        
+                    $output['data'].= "<p class='text-muted'>Tipo</p>";
+                    $output['data'].= "<h3>Sin Especificar</h3>";
+                    $output['data'].= "</div>";
+                    $output['data'].= "</div>";
+                    $output['data'].= "</div>";
+                }
                 
                 $output['data'].= "</div>";
 
                 $output['data'].= "<div class='row'>";
-                $output['data'].= "<div class='col'>";
+                $output['data'].= "<div class='col text-center'>";
                 
                 $output['data'].= "<div class='card'>";
                 $output['data'].= "<div class='card-body'>";        
@@ -200,7 +212,7 @@ if ($filas>0) {
                 {
                     if ($tipoLinea === "0") 
                     {
-                        $output['data'].= "<div class='col'>";
+                        $output['data'].= "<div class='col text-center'>";
                         $output['data'].= "<div class='card'>";
                         $output['data'].= "<div class='card-body'>";        
                         $output['data'].= "<p class='text-muted'>Modalidad</p>";
@@ -211,11 +223,22 @@ if ($filas>0) {
                     }
                     elseif ($tipoLinea === "1") 
                     {
-                        $output['data'].= "<div class='col'>";
+                        $output['data'].= "<div class='col text-center'>";
                         $output['data'].= "<div class='card'>";
                         $output['data'].= "<div class='card-body'>";        
                         $output['data'].= "<p class='text-muted'>Modalidad</p>";
                         $output['data'].= "<h3>Postpago</h3>";
+                        $output['data'].= "</div>";
+                        $output['data'].= "</div>";
+                        $output['data'].= "</div> ";
+                    }
+                    elseif ($tipoLinea === "-") 
+                    {
+                        $output['data'].= "<div class='col text-center'>";
+                        $output['data'].= "<div class='card'>";
+                        $output['data'].= "<div class='card-body'>";        
+                        $output['data'].= "<p class='text-muted'>Modalidad</p>";
+                        $output['data'].= "<h3>Sin Especificar</h3>";
                         $output['data'].= "</div>";
                         $output['data'].= "</div>";
                         $output['data'].= "</div> ";
@@ -228,7 +251,10 @@ if ($filas>0) {
                 if ($tipoUsuario == "1") 
                 {
                     $output['data'].= "<div class='row m-0'>";
-                    $output['data'].= "<a href='#' class='btn color' onclick='abrirModalEditar($telefono);' data-bs-target='#EditarVentas' data-bs-toggle='modal'>Editar Telefono</a>";
+                    $output['data'].= "<div class='col text-center'>";
+                    $output['data'].= "<a href='#' class='btn color' onclick='abrirModaleliminar(\"1\",\"$telefono\",\"---\");' data-bs-target='#eliminar' data-bs-toggle='modal'>Eliminar</a>";
+                    $output['data'].= "<a href='#' class='btn color' onclick='abrirModalEditartelefono(\"$telefono\");' data-bs-target='#EditarTelefono' data-bs-toggle='modal'>Editar</a>";
+                    $output['data'].= "</div>";
                     $output['data'].= "</div>";
                 }
 

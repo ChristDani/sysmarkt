@@ -49,6 +49,30 @@ class cliente
 		$con=$model->desconectar();
     }
 
+    public function editarCliente($dni,$ubicacion,$distrito)
+    {
+        $model=new conexion();
+        $con=$model->conectar();
+        
+        $sql="update clientes set ubicacion='$ubicacion', distrito='$distrito' where dni='$dni'";
+
+        $rs=mysqli_query($con,$sql);
+
+        $con=$model->desconectar();
+    }
+
+    public function eliminarCliente($dni)
+    {
+        $model=new conexion();
+        $con=$model->conectar();
+        
+        $sql="DELETE from clientes where dni='$dni'";
+
+        $rs=mysqli_query($con,$sql);
+
+        $con=$model->desconectar();
+    }
+
     public function insertarTelefono($dni,$telefono,$tipo,$operador,$linea)
     {
         $model=new conexion();
@@ -61,12 +85,24 @@ class cliente
 		$con=$model->desconectar();
     }
 
-    public function editarCliente($dni,$ubicacion,$distrito)
+    public function editarTelefono($dni,$telefono,$tipo,$operador,$linea)
     {
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="update clientes set ubicacion='$ubicacion', distrito='$distrito' where dni='$dni'";
+        $sql="update telefonos set dniCliente='$dni', tipo='$tipo', operador='$operador', tipoLinea='$linea' where telefono='$telefono'";
+
+		$rs=mysqli_query($con,$sql);
+
+		$con=$model->desconectar();
+    }
+
+    public function eliminarTelefono($telefono)
+    {
+        $model=new conexion();
+        $con=$model->conectar();
+        
+        $sql="DELETE from telefonos where telefono='$telefono'";
 
 		$rs=mysqli_query($con,$sql);
 

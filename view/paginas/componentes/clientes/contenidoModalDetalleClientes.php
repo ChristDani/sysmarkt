@@ -10,10 +10,11 @@
       </div>
       <div class="modal-footer">
         <h3 id="fechaDetalleCL"></h3>
-        <!-- <button id="btnEdit" class="btn btn-primary" data-bs-target="#EditarCliente" data-bs-toggle="modal">Editar</button> -->
       </div>
     </div>
   </div>
 </div>
 
 <?php include_once "contenidoModalEditarClientes.php"; ?>
+<?php include_once "contenidomodaleditartelefono.php"; ?>
+<?php include_once "contenidomodaleliminar.php"; ?>
