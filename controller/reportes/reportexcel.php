@@ -15,7 +15,6 @@ $MesActual = $meses[$mes-1]." del ".$año;
 use PhpOffice\PhpSpreadsheet\SpreadSheet;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
 
 $logoparareporte = "../../view/static/img/logoEmpresa.png";
 
@@ -162,9 +161,6 @@ $reporteventas=mysqli_query($con,$sql);
     header('Cache-Control: max-age=0');
 
     // salida de archivo
-    // $writer = new Xlsx($spreadsheet);
-    // $writer->save('jksdfasdlfkj.xlsx');
-
     $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
     $writer->save('php://output');
     
