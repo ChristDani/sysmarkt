@@ -10,17 +10,18 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 $mes= date('m');
 $año= date('Y');
 
-$MesActual = $meses[$mes-1]." del ".$año;
+$MesActual = $meses[$mes-1]." de ".$año;
 
 use PhpOffice\PhpSpreadsheet\SpreadSheet;
-// use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 $logoparareporte = "../../view/static/img/logoEmpresa.png";
 
 $columnas=['v.dniAsesor, u.nombre, v.dniCliente, c.nombre, v.estado, v.sec, v.origen, v.registro'];
 
-$tabla='ventas as v INNER JOIN usuarios as u INNER JOIN clientes as c on v.dniAsesor=u.dni and v.dniCliente=c.dni';
+$tabla='ventas as v INNER JOIN detalleventas as dv INNER JOIN usuarios as u INNER JOIN clientes as c on v.sec=dv.sec and v.dniAsesor=u.dni and v.dniCliente=c.dni';
 
 $fecharequerida= !empty($_POST['busquedareportefechaventa']) ? $_POST['busquedareportefechaventa'] : null;
 $dniModeradorMeta= !empty($_POST['busquedareporteasesorventa']) ? $_POST['busquedareporteasesorventa'] : null;
@@ -31,7 +32,7 @@ $buscar= isset($_POST['busquedareporteventa']) ? $_POST['busquedareporteventa'] 
 $mesre= date('m', strtotime($fecharequerida));
 $añore= date('Y', strtotime($fecharequerida));
 
-$fecharequeridaconver = $meses[$mesre-1]." del ".$añore;
+$fecharequeridaconver = $meses[$mesre-1]." de ".$añore;
 
 $where='';
 
@@ -129,26 +130,140 @@ $reporteventas=mysqli_query($con,$sql);
 // if (isset($_POST['btngenerarreporteventas'])) 
 // {
 
-    $imagenesinsert = new PHPExcel_Worksheet_Drawing();
+    $imagenesinsert = new Drawing();
     $spreadsheet = new SpreadSheet();
-    $spreadsheet->getProperties()->setCreator("Argosal")->setTitle("Reporte de Venta Argosal");
+    $spreadsheet->getProperties()->setCreator("Argosal")->setTitle("Reporte de Ventas Argosal");
 
     $spreadsheet->setActiveSheetIndex(0);
     $hojaActiva = $spreadsheet->getActiveSheet();
 
-    // $hojaActiva->setCellValue('A1', 'Logo de la empresa')->setCellValue('B1','titulo de reporte');
     $hojaActiva->mergeCells('A1:B1');
-
+    $hojaActiva->mergeCells('C1:V1');
+    
     $imagenesinsert->setName('Logo de Empresa');
     $imagenesinsert->setDescription('Logo de Empresa');
     $imagenesinsert->setPath($logoparareporte);
     $imagenesinsert->setCoordinates('A1');
-    // $imagenesinsert->setWidth('80');
+    $imagenesinsert->setWidth('80');
     $imagenesinsert->setHeight('50');
-    // $imagenesinsert->setWorksheet($hojaActiva);
+    $imagenesinsert->setWorksheet($spreadsheet->getActiveSheet());
+    // $hojaActiva->setCellValue('A1', 'Logo de la empresa');
+    $hojaActiva->setCellValue('C1', "Reporte de Ventas de Linea Movil$name - Argosal");
+
+    // ESTRUCTURA DE VENTA 
+    $hojaActiva->setCellValue('A2', 'DNI / Nombre Asesor');
+    $hojaActiva->setCellValue('B2', 'DNI / Nombre Cliente');
+    $hojaActiva->setCellValue('C2', 'Estado de Venta');
+    $hojaActiva->setCellValue('D2', 'SEC');
+    $hojaActiva->setCellValue('E2', 'Origen de Venta');
+
+    // ESTRUCTURA DEL DETALLE DE VENTA
+    $hojaActiva->setCellValue('F2', 'Telefono Referente');
+    $hojaActiva->setCellValue('G2', 'Estado del Producto');
+    $hojaActiva->setCellValue('H2', 'Promoción');
+    $hojaActiva->setCellValue('I2', 'Producto Requerido');
+    $hojaActiva->setCellValue('J2', 'Tipo de Linea');
+    $hojaActiva->setCellValue('K2', 'Telefono de Operación');
+    $hojaActiva->setCellValue('L2', 'Linea Procedente');
+    $hojaActiva->setCellValue('M2', 'Operador Cedente');
+    $hojaActiva->setCellValue('N2', 'Modalidad');
+    $hojaActiva->setCellValue('O2', 'Modo de Renovación');
+    $hojaActiva->setCellValue('P2', 'Plan Requerido');
+    $hojaActiva->setCellValue('Q2', 'Equipo Requerido');
+    $hojaActiva->setCellValue('R2', 'Forma de Pago');
+    $hojaActiva->setCellValue('S2', 'Observaciones');
+    $hojaActiva->setCellValue('T2', 'Distrito');
+    $hojaActiva->setCellValue('U2', 'Ubicación');
+    $hojaActiva->setCellValue('V2', 'Fecha de Registro');
+
+    // CONTENIDO DE VENTA
+    $hojaActiva->setCellValue('A3', '76845986 / Manuel Vasquez');
+    $hojaActiva->setCellValue('B3', '87956895 / Uriarte');
+    $hojaActiva->setCellValue('C3', 'Cerrada');
+    $hojaActiva->setCellValue('D3', '5459685978');
+    $hojaActiva->setCellValue('E3', 'Whatsapp');
+    
+    // CONTENIDO DEL DETALLE DE VENTA
+    $hojaActiva->setCellValue('F3', '956875487');
+    $hojaActiva->setCellValue('G3', 'Pendiente');
+    $hojaActiva->setCellValue('H3', '---');
+    $hojaActiva->setCellValue('I3', 'Movil');
+    $hojaActiva->setCellValue('J3', 'Portabilidad');
+    $hojaActiva->setCellValue('K3', '956487548');
+    $hojaActiva->setCellValue('L3', 'Postpago');
+    $hojaActiva->setCellValue('M3', 'Movistar');
+    $hojaActiva->setCellValue('N3', 'Postpago');
+    $hojaActiva->setCellValue('O3', '---');
+    $hojaActiva->setCellValue('P3', '55.90');
+    $hojaActiva->setCellValue('Q3', 'Chip');
+    $hojaActiva->setCellValue('R3', 'Cuotas');
+    $hojaActiva->setCellValue('S3', 'venta sin problemas');
+    $hojaActiva->setCellValue('T3', 'pomalca');
+    $hojaActiva->setCellValue('U3', 'miraflores');
+    $hojaActiva->setCellValue('V3', '11/01/2023 12:30:15');
 
 
 
+
+
+
+
+
+
+    // // para la hoja 2 con lineas fijas
+    // $spreadsheet->createSheet();
+    // $spreadsheet->setActiveSheetIndex(1);
+    // $hojaActiva2 = $spreadsheet->getActiveSheet();
+
+    // $hojaActiva2->mergeCells('A1:B1');
+    // $hojaActiva2->mergeCells('C1:H1');
+    
+    // // $imagenesinsert->setName('Logo de Empresa');
+    // // $imagenesinsert->setDescription('Logo de Empresa');
+    // // $imagenesinsert->setPath($logoparareporte);
+    // // $imagenesinsert->setCoordinates('A1');
+    // // $imagenesinsert->setWidth('80');
+    // // $imagenesinsert->setHeight('50');
+    // $hojaActiva2->setCellValue('A1', 'Logo de la empresa');
+    // $hojaActiva2->setCellValue('C1', "Reporte de Ventas de Linea Fija$name - Argosal");
+
+    // // ESTRUCTURA DE VENTA 
+    // $hojaActiva2->setCellValue('A2', 'DNI / Nombre Asesor');
+    // $hojaActiva2->setCellValue('B2', 'DNI / Nombre Cliente');
+    // $hojaActiva2->setCellValue('C2', 'Estado de Venta');
+    // $hojaActiva2->setCellValue('D2', 'SEC');
+    // $hojaActiva2->setCellValue('E2', 'Origen de Venta');
+
+    // // ESTRUCTURA DEL DETALLE DE VENTA
+    // $hojaActiva2->setCellValue('F2', 'Telefono Referente');
+    // $hojaActiva2->setCellValue('G2', 'Estado del Producto');
+    // $hojaActiva2->setCellValue('H2', 'Promoción');
+    // $hojaActiva2->setCellValue('I2', 'Producto Requerido');
+    
+    // $hojaActiva2->setCellValue('K2', 'Forma de Pago');
+    // $hojaActiva2->setCellValue('L2', 'Observaciones');
+    // $hojaActiva2->setCellValue('M2', 'Distrito');
+    // $hojaActiva2->setCellValue('N2', 'Ubicación');
+    // $hojaActiva2->setCellValue('O2', 'Fecha de Registro');
+
+    // // CONTENIDO DE VENTA
+    // $hojaActiva2->setCellValue('A3', '76845986 / Manuel Vasquez');
+    // $hojaActiva2->setCellValue('B3', '87956895 / Uriarte');
+    // $hojaActiva2->setCellValue('C3', 'Cerrada');
+    // $hojaActiva2->setCellValue('D3', '5459685978');
+    // $hojaActiva2->setCellValue('E3', 'Whatsapp');
+    
+    // // CONTENIDO DEL DETALLE DE VENTA
+    // $hojaActiva2->setCellValue('F3', '956875487');
+    // $hojaActiva2->setCellValue('G3', 'Pendiente');
+    // $hojaActiva2->setCellValue('H3', '---');
+    // $hojaActiva2->setCellValue('I3', 'Movil');
+    
+    // $hojaActiva2->setCellValue('K3', 'Cuotas');
+    // $hojaActiva2->setCellValue('L3', 'venta sin problemas');
+    // $hojaActiva2->setCellValue('M3', 'pomalca');
+    // $hojaActiva2->setCellValue('N3', 'miraflores');
+    // $hojaActiva2->setCellValue('O3', '11/01/2023 12:30:15');
 
 
 
