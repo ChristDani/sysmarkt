@@ -1,12 +1,16 @@
 <?php
 require_once '../../model/conexion.php';
 require_once '../../model/usuarios.php';
+require_once '../../model/empresa.php';
 require "../../librerias/vendor/autoload.php";
 
 $conexion = new conexion();
 $con = $conexion->conectar();
 
 $usuarios = new user();
+
+$modelempresa = new empresa();
+
 $moderadorselect = "";
 $asesorselect = "";
 
@@ -17,19 +21,22 @@ $año= date('Y');
 
 $MesActual = $meses[$mes-1]." de ".$año;
 
-$consultaempresa = "SELECT nombre, logo, icono from empresa";
-$empresa=mysqli_query($con,$consultaempresa);
-
 $nombredeempresa = ' ';
 $logodeempresa = ' ';
 
+$empresa=$modelempresa->listar();
 if ($empresa != null) 
 {
-    while($row=mysqli_fetch_array($empresa))
+    foreach($empresa as $row)
     {
         $nombredeempresa = $row[0];
         $logodeempresa = $row[1];
     }
+}
+else 
+{
+    $nombredeempresa = "SYSMARKT";
+    $logodeempresa = "logo-claro.png";
 }
 
 use PhpOffice\PhpSpreadsheet\SpreadSheet;
@@ -205,8 +212,7 @@ if (isset($_POST['btngenerarreporteventas']))
     $spreadsheet = new SpreadSheet();
     function addImage($path,$coordinates,$sheet)
     {
-        $logoparareporte = "../../view/static/img/logoEmpresa.png";
-        // $logoparareporte = "../../view/static/img/$path";
+        $logoparareporte = "../../view/static/img/$path";
         $imagenesinsert = new Drawing();
         $imagenesinsert->setName('Logo de Empresa');
         $imagenesinsert->setDescription('Logo de Empresa');

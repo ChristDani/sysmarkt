@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title id="tituloPagina"></title>
-    <link rel="icon" href="view/static/img/icono.png">
+    <link rel="icon" href="view/static/img/<?php echo $iconoglobalyfijodeempresa; ?>">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -16,6 +16,11 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="view/static/css/styles.css">
     <link rel="stylesheet" href="view/static/css/style.css">
+    <script>
+        if (localStorage.getItem('dark-mode') == 'true') {
+            document.documentElement.classList.add('dark-theme-variables')
+        }
+    </script>
 </head>
 
 <?php
@@ -88,7 +93,8 @@ elseif ($tipoUsuario === "0")
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="top mb-4">
-                            <h2>ARGO<span class="danger">SAL</span></h2>
+                            <h2><?php echo strtoupper($nombreglobalyfijodeempresa); ?></h2>
+                            <!-- <h2>ARGO<span class="danger">SAL</span></h2> -->
                         </div>
                         <a class="nav-link" href="index.php?pagina=Dashboard">
                             <div class="sb-nav-link-icon">

@@ -74,6 +74,14 @@
                     </div>
                 </div>    
             </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mt-1">
+                        <h1>Empresa</h1>
+                        <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#Empresad" onclick="listarPromo();">Administrar</button>
+                    </div>
+                </div>    
+            </div>
         </div>
         <?php }?>
     </div>

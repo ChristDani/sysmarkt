@@ -23,7 +23,7 @@ if ($intentos == 3) {?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Argosal</title>
-    <link rel="icon" href="view/static/img/icono.png">
+    <link rel="icon" href="view/static/img/<?php echo $iconoglobalyfijodeempresa; ?>">
     <link rel="stylesheet" href="view/static/css/reset.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

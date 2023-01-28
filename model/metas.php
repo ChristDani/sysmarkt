@@ -37,15 +37,26 @@ class metas
         return $filas;
     }
 
+    public function insertarmetadefault()
+    {
+        $model=new conexion();
+        $con=$model->conectar();
+        
+        $sql="INSERT into metas values('22','25','5','1','1','10','10','1')";
+
+		$rs=mysqli_query($con,$sql);
+
+		$con=$model->desconectar();
+    }
+
     public function insertarmeta($portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
     {
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql2="INSERT into metas values('$portamen69','$portamay69','$altapost','$altaprepa','$portaprepa','$renovacion','$hfc_ftth','$ifi')";
+        $sql="INSERT into metas values('$portamen69','$portamay69','$altapost','$altaprepa','$portaprepa','$renovacion','$hfc_ftth','$ifi')";
 
 		$rs=mysqli_query($con,$sql);
-		$rs2=mysqli_query($con,$sql2);
 
 		$con=$model->desconectar();
     }
@@ -55,9 +66,9 @@ class metas
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql2="INSERT into metasasesor values('$dni','$portamen69','$portamay69','$altapost','$altaprepa','$portaprepa','$renovacion','$hfc_ftth','$ifi')";
+        $sql="INSERT into metasasesor values('$dni','$portamen69','$portamay69','$altapost','$altaprepa','$portaprepa','$renovacion','$hfc_ftth','$ifi')";
 
-		$rs2=mysqli_query($con,$sql2);
+		$rs=mysqli_query($con,$sql);
 
 		$con=$model->desconectar();
     }
