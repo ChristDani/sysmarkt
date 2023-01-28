@@ -42,7 +42,7 @@ $listUser = $user->listar();
                     </div>
                     <div class="col d-flex justify-content-center align-items-center">
                         <label for="btngenerarreporteventas" class="btn success-bg">
-                            <div>CSV</div>
+                            <div>EXCEL</div>
                         </label>
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">

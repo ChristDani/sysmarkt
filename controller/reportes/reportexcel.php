@@ -1,9 +1,14 @@
 <?php
 require_once '../../model/conexion.php';
+require_once '../../model/usuarios.php';
 require "../../librerias/vendor/autoload.php";
 
 $conexion = new conexion();
 $con = $conexion->conectar();
+
+$usuarios = new user();
+$moderadorselect = "";
+$asesorselect = "";
 
 $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
@@ -12,22 +17,50 @@ $año= date('Y');
 
 $MesActual = $meses[$mes-1]." de ".$año;
 
+$consultaempresa = "SELECT nombre, logo, icono from empresa";
+$empresa=mysqli_query($con,$consultaempresa);
+
+$nombredeempresa = ' ';
+$logodeempresa = ' ';
+
+if ($empresa != null) 
+{
+    while($row=mysqli_fetch_array($empresa))
+    {
+        $nombredeempresa = $row[0];
+        $logodeempresa = $row[1];
+    }
+}
+
 use PhpOffice\PhpSpreadsheet\SpreadSheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-$logoparareporte = "../../view/static/img/logoEmpresa.png";
-
-$columnas=['v.dniAsesor, u.nombre, v.dniCliente, c.nombre, v.estado, v.sec, v.origen, v.registro'];
+$columnas=['v.dniAsesor', 'u.nombre', 'v.dniCliente', 'c.nombre', 'v.estado', 'v.sec', 'v.origen', 'v.registro', 'dv.telefonoRefencia', 'dv.producto', 'dv.promocion', 'dv.tipo', 'dv.telefonoOperacion', 'dv.lineaProcedente', 'dv.operadorCendente', 'dv.modalidad', 'dv.modoReno', 'dv.plan', 'dv.equipo', 'dv.tipoFija', 'dv.planFija', 'dv.modoFija', 'dv.formaPago', 'dv.distrito', 'dv.ubicacion', 'dv.observaciones', 'dv.estado'];
 
 $tabla='ventas as v INNER JOIN detalleventas as dv INNER JOIN usuarios as u INNER JOIN clientes as c on v.sec=dv.sec and v.dniAsesor=u.dni and v.dniCliente=c.dni';
 
 $fecharequerida= !empty($_POST['busquedareportefechaventa']) ? $_POST['busquedareportefechaventa'] : null;
-$dniModeradorMeta= !empty($_POST['busquedareporteasesorventa']) ? $_POST['busquedareporteasesorventa'] : null;
+$dniModeradorMeta= !empty($_POST['busquedareportemoderadorventa']) ? $_POST['busquedareportemoderadorventa'] : null;
 $dniAsesorMeta= !empty($_POST['busquedareporteasesorventa']) ? $_POST['busquedareporteasesorventa'] : null;
 $buscarestado= isset($_POST['busquedareporteestadoventa']) ? $_POST['busquedareporteestadoventa'] : null;
 $buscar= isset($_POST['busquedareporteventa']) ? $_POST['busquedareporteventa'] : null;
+
+if ($dniModeradorMeta != null) {
+    $listamoderador = $usuarios->buscarUser($dniModeradorMeta);
+    $moderadorselect = $listamoderador[0][1];
+}
+if ($dniAsesorMeta != null) {
+    $listaasesor = $usuarios->buscarUser($dniAsesorMeta);
+    $asesorselect = $listaasesor[0][1];
+}
+
+if ($buscarestado == "0") {
+    $nameestado = "Ventas en Proceso";
+}
+if ($buscarestado == "1") {
+    $nameestado = "Ventas Cerradas";
+}
 
 $mesre= date('m', strtotime($fecharequerida));
 $añore= date('Y', strtotime($fecharequerida));
@@ -35,7 +68,9 @@ $añore= date('Y', strtotime($fecharequerida));
 $fecharequeridaconver = $meses[$mesre-1]." de ".$añore;
 
 $where='';
+$name='';
 
+// consultas para el nombre del excel
 if ($fecharequerida != null) 
 {
     $name = " - $fecharequeridaconver";
@@ -45,26 +80,64 @@ elseif ($fecharequerida == null)
     $name = " - $MesActual";
 }
 
-if ($dniAsesorMeta != null) {
-    $name .= " - ".$dniAsesorMeta;
-    if ($buscarestado != null) {
-        $name .= " - ".$dniAsesorMeta." - ".$buscarestado;
-        if ($buscar!=null) {
-            $name .= " - ".$dniAsesorMeta." - ".$buscarestado." - ".$buscar;
+if ($dniModeradorMeta != null) 
+{
+    $name .= " - Moderador: $moderadorselect";
+    if ($dniAsesorMeta != null) 
+    {
+        $name .= " - Asesor: $asesorselect";
+        if ($buscarestado != null) 
+        {
+            $name .= " - $nameestado";
+            if ($buscar!=null) 
+            {
+                $name .= " - SEC: $buscar";
+            }
+        }
+        elseif ($buscar!=null) 
+        {
+            $name .= " - SEC: $buscar";
         }
     }
-    elseif ($buscar!=null) {
-        $name .= " - ".$dniAsesorMeta." - ".$buscar;
+    elseif ($buscarestado != null && $dniAsesorMeta == null) 
+    {
+        $name .= " - $nameestado";
+        if ($buscar!=null) 
+        {
+            $name .= " - SEC: $buscar";
+        }
+    }
+    elseif ($buscar!=null && $buscarestado == null && $dniAsesorMeta == null) 
+    {
+        $name .= " - SEC: $buscar";
     }
 }
-if ($buscarestado != null and $dniAsesorMeta == null) {
-    $name .= " - ".$buscarestado;
-    if ($buscar!=null) {
-        $name .= " - ".$buscarestado." - ".$buscar;
+elseif ($dniAsesorMeta != null && $dniModeradorMeta == null) 
+{
+    $name .= " - Asesor: $asesorselect";
+    if ($buscarestado != null) 
+    {
+        $name .= " - $nameestado";
+        if ($buscar!=null) 
+        {
+            $name .= " - SEC: $buscar";
+        }
+    }
+    elseif ($buscar!=null) 
+    {
+        $name .= " - SEC: $buscar";
     }
 }
-elseif ($buscar!=null and $dniAsesorMeta == null and $buscarestado == null) {
-    $name .= " - ".$buscar;
+elseif ($buscarestado != null && $dniAsesorMeta == null && $dniModeradorMeta == null) 
+{
+    $name .= " - $nameestado";
+    if ($buscar!=null) 
+    {
+        $name .= " - SEC: $buscar";
+    }
+}
+elseif ($buscar!=null && $buscarestado == null && $dniAsesorMeta == null && $dniModeradorMeta == null) {
+    $name .= " - SEC: $buscar";
 }
 
 // consulta para crear el reporte
@@ -77,78 +150,106 @@ elseif ($fecharequerida == null)
     $where.="where (month(v.registro)=month(CURRENT_TIMESTAMP) and year(v.registro)=year(CURRENT_TIMESTAMP)) ";
 }
 
-if ($dniAsesorMeta != null) {
-    $where.="and dniAsesor='".$dniAsesorMeta."' ";
-    if ($buscarestado != null) {
-        $where.="and estado='".$buscarestado."' ";
-        if ($buscar!=null) {
-            $where.=" and (";
-            $cont= count($columnasBus);
-            for ($i=0; $i < $cont; $i++) { 
-                $where.=$columnasBus[$i]." like '%".$buscar."%' or ";
+if ($dniModeradorMeta != null) {
+    $where.="and u.dniModerador='".$dniModeradorMeta."' ";
+    if ($dniAsesorMeta != null) {
+        $where.="and v.dniAsesor='".$dniAsesorMeta."' ";
+        if ($buscarestado != null) {
+            $where.="and v.estado='".$buscarestado."' ";
+            if ($buscar != null) {
+                $where.="and v.sec like '%".$buscar."%' ";
             }
-            $where=substr_replace($where, "", -3);
-            $where.=")";
+        }
+        elseif ($buscar != null) {
+            $where.="and v.sec like '%".$buscar."%' ";
         }
     }
-    elseif ($buscar!=null) {
-        $where.=" and (";
-        $cont= count($columnasBus);
-        for ($i=0; $i < $cont; $i++) { 
-            $where.=$columnasBus[$i]." like '%".$buscar."%' or ";
+    elseif ($buscarestado != null) {
+        $where.="and v.estado='".$buscarestado."' ";
+        if ($buscar != null) {
+            $where.="and v.sec like '%".$buscar."%' ";
         }
-        $where=substr_replace($where, "", -3);
-        $where.=")";
+    }
+    elseif ($buscar != null) {
+        $where.="and v.sec like '%".$buscar."%' ";
     }
 }
-if ($buscarestado != null and $dniAsesorMeta == null) {
-    $where.="and estado='".$buscarestado."' ";
-    if ($buscar!=null) {
-        $where.=" and (";
-        $cont= count($columnasBus);
-        for ($i=0; $i < $cont; $i++) { 
-            $where.=$columnasBus[$i]." like '%".$buscar."%' or ";
+elseif ($dniAsesorMeta != null and $dniModeradorMeta == null) {
+    $where.="and v.dniAsesor='".$dniAsesorMeta."' ";
+    if ($buscarestado != null) {
+        $where.="and v.estado='".$buscarestado."' ";
+        if ($buscar != null) {
+            $where.="and v.sec like '%".$buscar."%' ";
         }
-        $where=substr_replace($where, "", -3);
-        $where.=")";
+    }
+    elseif ($buscar != null) {
+        $where.="and v.sec like '%".$buscar."%' ";
     }
 }
-elseif ($buscar!=null and $dniAsesorMeta == null and $buscarestado == null) {
-    $where.="and (";
-    $cont= count($columnasBus);
-    for ($i=0; $i < $cont; $i++) { 
-        $where.=$columnasBus[$i]." like '%".$buscar."%' or ";
+elseif ($buscarestado != null and $dniAsesorMeta == null and $dniModeradorMeta == null) {
+    $where.="and v.estado='".$buscarestado."' ";
+    if ($buscar != null) {
+        $where.="and v.sec like '%".$buscar."%' ";
     }
-    $where=substr_replace($where, "", -3);
-    $where.=")";
+}
+elseif ($buscar!=null and $dniAsesorMeta == null and $buscarestado == null and $dniModeradorMeta == null) {
+    $where.="and v.sec like '%".$buscar."%' ";
 }
 
 $sql = "select ".implode(", ", $columnas)." from $tabla $where";
 $reporteventas=mysqli_query($con,$sql);
 
 
-// if (isset($_POST['btngenerarreporteventas'])) 
-// {
-
-    $imagenesinsert = new Drawing();
+if (isset($_POST['btngenerarreporteventas'])) 
+{
     $spreadsheet = new SpreadSheet();
-    $spreadsheet->getProperties()->setCreator("Argosal")->setTitle("Reporte de Ventas Argosal");
+    function addImage($path,$coordinates,$sheet)
+    {
+        $logoparareporte = "../../view/static/img/logoEmpresa.png";
+        // $logoparareporte = "../../view/static/img/$path";
+        $imagenesinsert = new Drawing();
+        $imagenesinsert->setName('Logo de Empresa');
+        $imagenesinsert->setDescription('Logo de Empresa');
+        $imagenesinsert->setPath($logoparareporte);
+        $imagenesinsert->setCoordinates($coordinates);
+        $imagenesinsert->setWidth('100');
+        $imagenesinsert->setHeight('70');
+        $imagenesinsert->setWorksheet($sheet);
+    }
+    $spreadsheet->getProperties()->setCreator($nombredeempresa)->setTitle("Reporte de Ventas - $nombredeempresa")->setCategory('Ventas')->setLastModifiedBy($nombredeempresa);
 
+    // encabezados de la hoja de lineas moviles
     $spreadsheet->setActiveSheetIndex(0);
     $hojaActiva = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()->setTitle('Linea Movil');
+    $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('P')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('R')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('S')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('T')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('U')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('V')->setAutoSize(true);
 
-    $hojaActiva->mergeCells('A1:B1');
-    $hojaActiva->mergeCells('C1:V1');
+    $hojaActiva->mergeCells('B1:V1');
     
-    $imagenesinsert->setName('Logo de Empresa');
-    $imagenesinsert->setDescription('Logo de Empresa');
-    $imagenesinsert->setPath($logoparareporte);
-    $imagenesinsert->setCoordinates('A1');
-    $imagenesinsert->setWidth('80');
-    $imagenesinsert->setHeight('50');
-    $imagenesinsert->setWorksheet($spreadsheet->getActiveSheet());
-    // $hojaActiva->setCellValue('A1', 'Logo de la empresa');
-    $hojaActiva->setCellValue('C1', "Reporte de Ventas de Linea Movil$name - Argosal");
+    addImage($logodeempresa,'A1',$spreadsheet->getActiveSheet());
+    $hojaActiva->setCellValue('B1', "Reporte de Ventas - Linea Movil$name - $nombredeempresa");
+    $hojaActiva->getColumnDimension('A')->setWidth(5);
 
     // ESTRUCTURA DE VENTA 
     $hojaActiva->setCellValue('A2', 'DNI / Nombre Asesor');
@@ -176,100 +277,238 @@ $reporteventas=mysqli_query($con,$sql);
     $hojaActiva->setCellValue('U2', 'Ubicación');
     $hojaActiva->setCellValue('V2', 'Fecha de Registro');
 
-    // CONTENIDO DE VENTA
-    $hojaActiva->setCellValue('A3', '76845986 / Manuel Vasquez');
-    $hojaActiva->setCellValue('B3', '87956895 / Uriarte');
-    $hojaActiva->setCellValue('C3', 'Cerrada');
-    $hojaActiva->setCellValue('D3', '5459685978');
-    $hojaActiva->setCellValue('E3', 'Whatsapp');
+    // encabezados de la hoja de lineas fijas
+    $spreadsheet->createSheet();
+    $spreadsheet->setActiveSheetIndex(1);
+    $hojaActiva2 = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()->setTitle('Linea Fija');
+    $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('P')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('R')->setAutoSize(true);
+
+    $hojaActiva2->mergeCells('B1:R1');
     
-    // CONTENIDO DEL DETALLE DE VENTA
-    $hojaActiva->setCellValue('F3', '956875487');
-    $hojaActiva->setCellValue('G3', 'Pendiente');
-    $hojaActiva->setCellValue('H3', '---');
-    $hojaActiva->setCellValue('I3', 'Movil');
-    $hojaActiva->setCellValue('J3', 'Portabilidad');
-    $hojaActiva->setCellValue('K3', '956487548');
-    $hojaActiva->setCellValue('L3', 'Postpago');
-    $hojaActiva->setCellValue('M3', 'Movistar');
-    $hojaActiva->setCellValue('N3', 'Postpago');
-    $hojaActiva->setCellValue('O3', '---');
-    $hojaActiva->setCellValue('P3', '55.90');
-    $hojaActiva->setCellValue('Q3', 'Chip');
-    $hojaActiva->setCellValue('R3', 'Cuotas');
-    $hojaActiva->setCellValue('S3', 'venta sin problemas');
-    $hojaActiva->setCellValue('T3', 'pomalca');
-    $hojaActiva->setCellValue('U3', 'miraflores');
-    $hojaActiva->setCellValue('V3', '11/01/2023 12:30:15');
+    addImage($logodeempresa,'A1',$spreadsheet->getActiveSheet());
+    $hojaActiva2->setCellValue('B1', "Reporte de Ventas - Linea Fija$name - $nombredeempresa");
 
+    // ESTRUCTURA DE VENTA 
+    $hojaActiva2->setCellValue('A2', 'DNI / Nombre Asesor');
+    $hojaActiva2->setCellValue('B2', 'DNI / Nombre Cliente');
+    $hojaActiva2->setCellValue('C2', 'Estado de Venta');
+    $hojaActiva2->setCellValue('D2', 'SEC');
+    $hojaActiva2->setCellValue('E2', 'Origen de Venta');
 
+    // ESTRUCTURA DEL DETALLE DE VENTA
+    $hojaActiva2->setCellValue('F2', 'Telefono Referente');
+    $hojaActiva2->setCellValue('G2', 'Estado del Producto');
+    $hojaActiva2->setCellValue('H2', 'Promoción');
+    $hojaActiva2->setCellValue('I2', 'Producto Requerido');
+    $hojaActiva2->setCellValue('J2', 'Tipo de Linea');
+    $hojaActiva2->setCellValue('K2', 'Telefono de Operación');
+    $hojaActiva2->setCellValue('L2', 'Modo de Fija');
+    $hojaActiva2->setCellValue('M2', 'Plan Requerido');
+    $hojaActiva2->setCellValue('N2', 'Forma de Pago');
+    $hojaActiva2->setCellValue('O2', 'Observaciones');
+    $hojaActiva2->setCellValue('P2', 'Distrito');
+    $hojaActiva2->setCellValue('Q2', 'Ubicación');
+    $hojaActiva2->setCellValue('R2', 'Fecha de Registro');
 
-
-
-
-
-
-
-    // // para la hoja 2 con lineas fijas
-    // $spreadsheet->createSheet();
-    // $spreadsheet->setActiveSheetIndex(1);
-    // $hojaActiva2 = $spreadsheet->getActiveSheet();
-
-    // $hojaActiva2->mergeCells('A1:B1');
-    // $hojaActiva2->mergeCells('C1:H1');
+    $lineaMovil = 3;
+    $lineaFija = 3;
+    while($row=mysqli_fetch_array($reporteventas))
+    {
+        $diadeventa= date('m');
+        $mesdeventa= date('Y');
+        $añodeventa= date('m');
+        $horadeventa= date('Y');
+        $fechar = date('d/m/y', strtotime($row[7]));
+        $dniAsesorlis = $row[0];
+        $nombreAsesorlis = $row[1];
+        $dniClientelis = $row[2];
+        $nombreClientelis = $row[3];
+        
+        // origen de venta
+        if ($row[6] == "0") 
+        {
+            $origenvenrepor = "Whatsapp";
+        }
+        elseif ($row[6] == "1") 
+        {
+            $origenvenrepor = "Landing";
+        }
+        
+        // estado de venta
+        if ($row[4] == "0") 
+        {
+            $estadorepor = "Venta en Proceso";
+        }
+        elseif ($row[4] == "1") 
+        {
+            $estadorepor = "Venta Cerrada";
+        }
+        
+        // estado de producto
+        if ($row[26] == "0") 
+        {
+            $estadoproducrepor = "Producto no Requerido";
+        }
+        elseif ($row[26] == "1") 
+        {
+            $estadoproducrepor = "Producto Vendido";
+        }
+        elseif ($row[26] == "2") 
+        {
+            $estadoproducrepor = "Producto Pendiente";
+        }
     
-    // // $imagenesinsert->setName('Logo de Empresa');
-    // // $imagenesinsert->setDescription('Logo de Empresa');
-    // // $imagenesinsert->setPath($logoparareporte);
-    // // $imagenesinsert->setCoordinates('A1');
-    // // $imagenesinsert->setWidth('80');
-    // // $imagenesinsert->setHeight('50');
-    // $hojaActiva2->setCellValue('A1', 'Logo de la empresa');
-    // $hojaActiva2->setCellValue('C1', "Reporte de Ventas de Linea Fija$name - Argosal");
+        // forma de pago
+        if ($row[22] == "0") 
+        {
+            $formapagorepor = "Contado";
+        }
+        elseif ($row[22] == "1") 
+        {
+            $formapagorepor = "Cuotas";
+        }
+        elseif ($row[22] == "-") 
+        {
+            $formapagorepor = "---";
+        }
 
-    // // ESTRUCTURA DE VENTA 
-    // $hojaActiva2->setCellValue('A2', 'DNI / Nombre Asesor');
-    // $hojaActiva2->setCellValue('B2', 'DNI / Nombre Cliente');
-    // $hojaActiva2->setCellValue('C2', 'Estado de Venta');
-    // $hojaActiva2->setCellValue('D2', 'SEC');
-    // $hojaActiva2->setCellValue('E2', 'Origen de Venta');
+        // generacion de las hojas de excel
+        if ($row[9] == "0") 
+        {
+            if ($row[19] == "0") 
+            {
+                $tipofijarepor = "Alta";
+            }
+            elseif ($row[19] == "1") 
+            {
+                $tipofijarepor = "Portabilidad";
+            }
+            elseif ($row[19] == "-") 
+            {
+                $tipofijarepor = "---";
+            }
 
-    // // ESTRUCTURA DEL DETALLE DE VENTA
-    // $hojaActiva2->setCellValue('F2', 'Telefono Referente');
-    // $hojaActiva2->setCellValue('G2', 'Estado del Producto');
-    // $hojaActiva2->setCellValue('H2', 'Promoción');
-    // $hojaActiva2->setCellValue('I2', 'Producto Requerido');
+            // CONTENIDO DE VENTA
+            $hojaActiva2->setCellValue("A$lineaFija", "$dniAsesorlis / $nombreAsesorlis");
+            $hojaActiva2->setCellValue("B$lineaFija", "$dniClientelis / $nombreClientelis");
+            $hojaActiva2->setCellValue("C$lineaFija", $estadorepor);
+            $hojaActiva2->setCellValue("D$lineaFija", $row[5]);
+            $hojaActiva2->setCellValue("E$lineaFija", $origenvenrepor);
+
+            // CONTENIDO DEL DETALLE DE VENTA
+            $hojaActiva2->setCellValue("F$lineaFija", $row[8]);
+            $hojaActiva2->setCellValue("G$lineaFija", $estadoproducrepor);
+            $hojaActiva2->setCellValue("H$lineaFija", $row[10]);
+            $hojaActiva2->setCellValue("I$lineaFija", 'Fija');
+            $hojaActiva2->setCellValue("J$lineaFija", $tipofijarepor);
+            $hojaActiva2->setCellValue("K$lineaFija", $row[12]);
+            $hojaActiva2->setCellValue("L$lineaFija", $row[21]);
+            $hojaActiva2->setCellValue("M$lineaFija", $row[20]);
+            $hojaActiva2->setCellValue("N$lineaFija", $formapagorepor);
+            $hojaActiva2->setCellValue("O$lineaFija", $row[25]);
+            $hojaActiva2->setCellValue("P$lineaFija", $row[23]);
+            $hojaActiva2->setCellValue("Q$lineaFija", $row[24]);
+            $hojaActiva2->setCellValue("R$lineaFija", $fechar);
+
+            $lineaFija = $lineaFija + 1;
+        }
+
+        if ($row[9] == "1") 
+        {
+            // modalidad
+            if ($row[15] == "0") 
+            {
+                $modalidadrepor = "Prepago";
+            }
+            elseif ($row[15] == "1") 
+            {
+                $modalidadrepor = "Postpago";
+            }
+            elseif ($row[15] == "-") 
+            {
+                $modalidadrepor = "---";
+            }
     
-    // $hojaActiva2->setCellValue('K2', 'Forma de Pago');
-    // $hojaActiva2->setCellValue('L2', 'Observaciones');
-    // $hojaActiva2->setCellValue('M2', 'Distrito');
-    // $hojaActiva2->setCellValue('N2', 'Ubicación');
-    // $hojaActiva2->setCellValue('O2', 'Fecha de Registro');
-
-    // // CONTENIDO DE VENTA
-    // $hojaActiva2->setCellValue('A3', '76845986 / Manuel Vasquez');
-    // $hojaActiva2->setCellValue('B3', '87956895 / Uriarte');
-    // $hojaActiva2->setCellValue('C3', 'Cerrada');
-    // $hojaActiva2->setCellValue('D3', '5459685978');
-    // $hojaActiva2->setCellValue('E3', 'Whatsapp');
+            // modo de renovacion
+            if ($row[22] == "0") 
+            {
+                $modorenovarepor = "Descendente";
+            }
+            elseif ($row[22] == "1") 
+            {
+                $modorenovarepor = "Ascendente";
+            }
+            elseif ($row[22] == "-") 
+            {
+                $modorenovarepor = "---";
+            }
     
-    // // CONTENIDO DEL DETALLE DE VENTA
-    // $hojaActiva2->setCellValue('F3', '956875487');
-    // $hojaActiva2->setCellValue('G3', 'Pendiente');
-    // $hojaActiva2->setCellValue('H3', '---');
-    // $hojaActiva2->setCellValue('I3', 'Movil');
+            // tipo de linea
+            if ($row[11] == "0") 
+            {
+                $tiporepor = "Linea Nueva";
+            }
+            elseif ($row[11] == "1") 
+            {
+                $tiporepor = "Portabilidad";
+            }
+            elseif ($row[11] == "2") 
+            {
+                $tiporepor = "Renovación";
+            }
+            elseif ($row[11] == "-") 
+            {
+                $tiporepor = "---";
+            }
     
-    // $hojaActiva2->setCellValue('K3', 'Cuotas');
-    // $hojaActiva2->setCellValue('L3', 'venta sin problemas');
-    // $hojaActiva2->setCellValue('M3', 'pomalca');
-    // $hojaActiva2->setCellValue('N3', 'miraflores');
-    // $hojaActiva2->setCellValue('O3', '11/01/2023 12:30:15');
-
-
-
-
-
-
+            // CONTENIDO DE VENTA
+            $hojaActiva->setCellValue("A$lineaMovil", "$dniAsesorlis / $nombreAsesorlis");
+            $hojaActiva->setCellValue("B$lineaMovil", "$dniClientelis / $nombreClientelis");
+            $hojaActiva->setCellValue("C$lineaMovil", $estadorepor);
+            $hojaActiva->setCellValue("D$lineaMovil", $row[5]);
+            $hojaActiva->setCellValue("E$lineaMovil", $origenvenrepor);
+            
+            // CONTENIDO DEL DETALLE DE VENTA
+            $hojaActiva->setCellValue("F$lineaMovil", $row[8]);
+            $hojaActiva->setCellValue("G$lineaMovil", $estadoproducrepor);
+            $hojaActiva->setCellValue("H$lineaMovil", $row[10]);
+            $hojaActiva->setCellValue("I$lineaMovil", 'Movil');
+            $hojaActiva->setCellValue("J$lineaMovil", $tiporepor);
+            $hojaActiva->setCellValue("K$lineaMovil", $row[12]);
+            $hojaActiva->setCellValue("L$lineaMovil", $row[13]);
+            $hojaActiva->setCellValue("M$lineaMovil", $row[14]);
+            $hojaActiva->setCellValue("N$lineaMovil", $modalidadrepor);
+            $hojaActiva->setCellValue("O$lineaMovil", $modorenovarepor);
+            $hojaActiva->setCellValue("P$lineaMovil", $row[17]);
+            $hojaActiva->setCellValue("Q$lineaMovil", $row[18]);
+            $hojaActiva->setCellValue("R$lineaMovil", $formapagorepor);
+            $hojaActiva->setCellValue("S$lineaMovil", $row[25]);
+            $hojaActiva->setCellValue("T$lineaMovil", $row[23]);
+            $hojaActiva->setCellValue("U$lineaMovil", $row[24]);
+            $hojaActiva->setCellValue("V$lineaMovil", $fechar);//'11/01/2023 12:30:15'
+            
+            $lineaMovil = $lineaMovil + 1;
+        }
+    }
+    
     // nombre del archivo
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment;filename="Reporte de Ventas'.$name.'.xlsx"');
@@ -278,107 +517,5 @@ $reporteventas=mysqli_query($con,$sql);
     // salida de archivo
     $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
     $writer->save('php://output');
-    
-
-
-    // encabezados
-
-    
-                    // while($row=mysqli_fetch_array($reporteventas))
-                    // {
-                    //     $fechar = date('d/m/y', strtotime($row['fechaRegistro']));
-                    //     $fechaa = date('d/m/y', strtotime($row['fechaActualizacion']));
-                        
-                    //     if ($row['estado'] == "0") 
-                    //     {
-                    //         $estadorepor = "No Requiere";
-                    //     }
-                    //     elseif ($row['estado'] == "1") 
-                    //     {
-                    //         $estadorepor = "Concretado";
-                    //     }
-                    //     elseif ($row['estado'] == "2") 
-                    //     {
-                    //         $estadorepor = "Pendiente";
-                    //     }
-
-                    //     if ($row['modalidad'] == "0") 
-                    //     {
-                    //         $modalidadrepor = "Prepago";
-                    //     }
-                    //     elseif ($row['modalidad'] == "1") 
-                    //     {
-                    //         $modalidadrepor = "Postpago";
-                    //     }
-                    //     elseif ($row['modalidad'] == "-") 
-                    //     {
-                    //         $modalidadrepor = "---";
-                    //     }
-
-                    //     if ($row['producto'] == "0") 
-                    //     {
-                    //         $productorepor = "Fija";
-                    //     }
-                    //     elseif ($row['producto'] == "1") 
-                    //     {
-                    //         $productorepor = "Movil";
-                    //     }
-
-                    //     if ($row['tipo'] == "0") 
-                    //     {
-                    //         $tiporepor = "Linea Nueva";
-                    //     }
-                    //     elseif ($row['tipo'] == "1") 
-                    //     {
-                    //         $tiporepor = "Portabilidad";
-                    //     }
-                    //     elseif ($row['tipo'] == "2") 
-                    //     {
-                    //         $tiporepor = "Renovacion";
-                    //     }
-                    //     elseif ($row['tipo'] == "-") 
-                    //     {
-                    //         $tiporepor = "---";
-                    //     }
-
-                    //     if ($row['tipoFija'] == "0") 
-                    //     {
-                    //         $tipofijarepor = "Alta";
-                    //     }
-                    //     elseif ($row['tipoFija'] == "1") 
-                    //     {
-                    //         $tipofijarepor = "Portabilidad";
-                    //     }
-                    //     elseif ($row['tipoFija'] == "-") 
-                    //     {
-                    //         $tipofijarepor = "---";
-                    //     }
-
-                    //     fputcsv($salida, array($row['codigo'],
-                    //                             $row['dniAsesor'],
-                    //                             $row['nombre'],
-                    //                             $row['dni'],
-                    //                             $row['telefono'],
-                    //                             $productorepor,
-                    //                             $row['lineaProcedente'],
-                    //                             $row['operadorCedente'],
-                    //                             $modalidadrepor,
-                    //                             $tiporepor,
-                    //                             $row['planR'],
-                    //                             $row['equipo'],
-                    //                             $row['formaDePago'],
-                    //                             $row['numeroReferencia'],
-                    //                             $row['sec'],
-                    //                             $tipofijarepor,
-                    //                             $row['planFija'],
-                    //                             $row['modoFija'],
-                    //                             $estadorepor,
-                    //                             $row['observaciones'],
-                    //                             $row['promocion'],
-                    //                             $row['ubicacion'],
-                    //                             $row['distrito'],
-                    //                             $fechar,
-                    //                             $fechaa));
-                    // }
-// }
+}
 ?>
