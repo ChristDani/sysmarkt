@@ -42,6 +42,8 @@ else
 use PhpOffice\PhpSpreadsheet\SpreadSheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 $columnas=['v.dniAsesor', 'u.nombre', 'v.dniCliente', 'c.nombre', 'v.estado', 'v.sec', 'v.origen', 'v.registro', 'dv.telefonoRefencia', 'dv.producto', 'dv.promocion', 'dv.tipo', 'dv.telefonoOperacion', 'dv.lineaProcedente', 'dv.operadorCendente', 'dv.modalidad', 'dv.modoReno', 'dv.plan', 'dv.equipo', 'dv.tipoFija', 'dv.planFija', 'dv.modoFija', 'dv.formaPago', 'dv.distrito', 'dv.ubicacion', 'dv.observaciones', 'dv.estado'];
 
@@ -252,6 +254,12 @@ if (isset($_POST['btngenerarreporteventas']))
     $spreadsheet->getActiveSheet()->getColumnDimension('V')->setAutoSize(true);
 
     $hojaActiva->mergeCells('B1:V1');
+    $hojaActiva->getStyle('B1:V1')->getFont()->setName('arial')->setSize(15);
+    $hojaActiva->getStyle('B1:V1')->getAlignment()->setHorizontal('center');
+    $hojaActiva->getStyle('B1:V1')->getAlignment()->setVertical('center');
+    $hojaActiva->getStyle('A1:V1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB('E0F9E3');
+    $hojaActiva->getStyle('A2:V2')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB('C6E3EF');
+    // $hojaActiva->getStyle('A1')->setHorizontalSize();
     
     addImage($logodeempresa,'A1',$spreadsheet->getActiveSheet());
     $hojaActiva->setCellValue('B1', "Reporte de Ventas - Linea Movil$name - $nombredeempresa");
@@ -342,7 +350,7 @@ if (isset($_POST['btngenerarreporteventas']))
         $mesdeventa= date('Y');
         $añodeventa= date('m');
         $horadeventa= date('Y');
-        $fechar = date('d/m/y', strtotime($row[7]));
+        $fechar = date('d/m/y h:i:s A', strtotime($row[7]));
         $dniAsesorlis = $row[0];
         $nombreAsesorlis = $row[1];
         $dniClientelis = $row[2];

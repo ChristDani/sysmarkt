@@ -10,7 +10,7 @@ $columnas=['dni', 'nombre', 'ubicacion', 'distrito', 'registro'];
 // tabla a seleccionar
 $tabla='clientes';
 
-$buscar= isset($_POST['busqueda']) ? $_POST['busqueda'] : 'gdhg';
+$buscar= isset($_POST['busqueda']) ? $_POST['busqueda'] : null;
 
 // busqueda de datos
 $where='';

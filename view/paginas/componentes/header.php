@@ -93,7 +93,7 @@ elseif ($tipoUsuario === "0")
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="top mb-4">
-                            <h2><?php echo strtoupper($nombreglobalyfijodeempresa); ?></h2>
+                            <h2 class="nombreempresa"><?php echo strtoupper($nombreglobalyfijodeempresa); ?></h2>
                             <!-- <h2>ARGO<span class="danger">SAL</span></h2> -->
                         </div>
                         <a class="nav-link" href="index.php?pagina=Dashboard">

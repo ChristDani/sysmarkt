@@ -64,6 +64,11 @@ input:focus, select:focus, select, input.form-control:focus, .form-floating sele
     --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
+.nombreempresa{
+    background: -webkit-linear-gradient(45deg,var(--color-black) 50%, var(--color-danger) 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 .userdefault{
     --color-primary:#7380ec;
