@@ -29,27 +29,24 @@ if ($dnicliente != null)
     }
     else 
     {
-        $datos['cliente'] .= 'Cliente no registrado anteriormente...';
         $cliente->insertarCliente($dnicliente,$nombrecliente,$ubicacioncliente,$distritocliente);
-        $masiva->eliminarpordni($dnicliente);
-        $datos['cliente'] .= " // ";
         $datos['cliente'] .= "Registrando al nuevo cliente '$nombrecliente'.";
-
+        $masiva->eliminarpordni($dnicliente);
+    }
+    
+    if ($sec != null) 
+    {
+        $venta->agregarVenta($dniasesor,$dnicliente,$sec);
+        $datos['venta'] .= "Venta registrada mediante la SEC: '$sec'";
+    }
+    else 
+    {
+        $datos['venta'] .= "No se ingresó la sec de la venta.";
     }
 }
 else 
 {
     $datos['cliente'] .= "No se ingresó ningun dato del cliente.";
-}
-
-if ($sec != null) 
-{
-    $venta->agregarVenta($dniasesor,$dnicliente,$sec);
-    $datos['venta'] .= "Venta registrada mediante la SEC: '$sec'";
-}
-else 
-{
-    $datos['venta'] .= "No se ingresó la sec de la venta.";
 }
 
 echo json_encode($datos, JSON_UNESCAPED_UNICODE); //por si viene con 'ñ' o tildes...

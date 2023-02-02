@@ -102,6 +102,35 @@ $cantidadTotalRenovacionDesc = 0;
 $comisionTotalRenovacionAsc = 0;
 $cantidadTotalRenovacionAsc = 0;
 
+$cantidadTotalProta = 0;
+if ($fecha == null)
+{
+    $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.tipo='1' and dv.modalidad='1' and dv.estado='1'";
+}
+elseif ($fecha != null) 
+{
+    $sql = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.tipo='1' and dv.modalidad='1' and dv.estado='1'";
+}
+
+$resultado = mysqli_query($consulta,$sql);
+$cantidadTotalProta = $resultado->num_rows;
+
+if ($cantidadTotalProta >= 0 and $cantidadTotalProta <= 10) 
+{
+    $porcentajeMovilPrt = 60;
+}
+elseif ($cantidadTotalProta >= 11 and $cantidadTotalProta <= 15) 
+{
+    $porcentajeMovilPrt = 80;
+}
+elseif ($cantidadTotalProta >= 16 and $cantidadTotalProta <= 20) 
+{
+    $porcentajeMovilPrt = 100;
+}
+elseif ($cantidadTotalProta >= 21) 
+{
+    $porcentajeMovilPrt = 120;
+}
 
 // suma de lineas nuevas con equipo
 if ($planesMov != null) 
@@ -245,19 +274,19 @@ if ($planesMov != null)
         $resultado = mysqli_query($consulta,$sql);
         $cantidad = $resultado->num_rows;
 
-        if ($cantidad >= 0 and $cantidad <= 10) 
+        if ($cantidadTotalProta >= 0 and $cantidadTotalProta <= 10) 
         {
             $porcentajeMovil = 60;
         }
-        elseif ($cantidad >= 11 and $cantidad <= 15) 
+        elseif ($cantidadTotalProta >= 11 and $cantidadTotalProta <= 15) 
         {
             $porcentajeMovil = 80;
         }
-        elseif ($cantidad >= 16 and $cantidad <= 20) 
+        elseif ($cantidadTotalProta >= 16 and $cantidadTotalProta <= 20) 
         {
             $porcentajeMovil = 100;
         }
-        elseif ($cantidad >= 21) 
+        elseif ($cantidadTotalProta >= 21) 
         {
             $porcentajeMovil = 120;
         }
@@ -267,23 +296,6 @@ if ($planesMov != null)
         $comisionTotalProtaEquipo = $comisionTotalProtaEquipo+$comision;
         $cantidadTotalProtaEquipo = $cantidadTotalProtaEquipo+$cantidad;
     }
-}
-
-if ($cantidadTotalProtaEquipo >= 0 and $cantidadTotalProtaEquipo <= 10) 
-{
-    $porcentajeMovilPortaEquipo = 60;
-}
-elseif ($cantidadTotalProtaEquipo >= 11 and $cantidadTotalProtaEquipo <= 15) 
-{
-    $porcentajeMovilPortaEquipo = 80;
-}
-elseif ($cantidadTotalProtaEquipo >= 16 and $cantidadTotalProtaEquipo <= 20) 
-{
-    $porcentajeMovilPortaEquipo = 100;
-}
-elseif ($cantidadTotalProtaEquipo >= 21) 
-{
-    $porcentajeMovilPortaEquipo = 120;
 }
 
 $output['movil'] .= "<div class='col-xl-3 col-md-6'>";
@@ -296,7 +308,7 @@ $output['movil'] .= "<p>Portabilidad con Equipo</p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "<p></p>";
-$output['movil'] .= "<p class='primary'>$porcentajeMovilPortaEquipo%</p>";
+$output['movil'] .= "<p class='primary'>$porcentajeMovilPrt%</p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "<div class='body'>";
@@ -341,19 +353,19 @@ if ($planesMov != null)
         $resultado = mysqli_query($consulta,$sql);
         $cantidad = $resultado->num_rows;
 
-        if ($cantidad >= 0 and $cantidad <= 10) 
+        if ($cantidadTotalProta >= 0 and $cantidadTotalProta <= 10) 
         {
             $porcentajeMovil = 60;
         }
-        elseif ($cantidad >= 11 and $cantidad <= 15) 
+        elseif ($cantidadTotalProta >= 11 and $cantidadTotalProta <= 15) 
         {
             $porcentajeMovil = 80;
         }
-        elseif ($cantidad >= 16 and $cantidad <= 20) 
+        elseif ($cantidadTotalProta >= 16 and $cantidadTotalProta <= 20) 
         {
             $porcentajeMovil = 100;
         }
-        elseif ($cantidad >= 21) 
+        elseif ($cantidadTotalProta >= 21) 
         {
             $porcentajeMovil = 120;
         }
@@ -363,23 +375,6 @@ if ($planesMov != null)
         $comisionTotalProtaSinEquipo = $comisionTotalProtaSinEquipo+$comision;
         $cantidadTotalProtaSinEquipo = $cantidadTotalProtaSinEquipo+$cantidad;
     }
-}
-
-if ($cantidadTotalProtaSinEquipo >= 0 and $cantidadTotalProtaSinEquipo <= 10) 
-{
-    $porcentajeMovilPortaSinEquipo = 60;
-}
-elseif ($cantidadTotalProtaSinEquipo >= 11 and $cantidadTotalProtaSinEquipo <= 15) 
-{
-    $porcentajeMovilPortaSinEquipo = 80;
-}
-elseif ($cantidadTotalProtaSinEquipo >= 16 and $cantidadTotalProtaSinEquipo <= 20) 
-{
-    $porcentajeMovilPortaSinEquipo = 100;
-}
-elseif ($cantidadTotalProtaSinEquipo >= 21) 
-{
-    $porcentajeMovilPortaSinEquipo = 120;
 }
 
 $output['movil'] .= "<div class='col-xl-3 col-md-6'>";
@@ -392,7 +387,7 @@ $output['movil'] .= "<p>Portabilidad sin Equipo</p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "<p></p>";
-$output['movil'] .= "<p class='primary'>$porcentajeMovilPortaSinEquipo%</p>";
+$output['movil'] .= "<p class='primary'>$porcentajeMovilPrt%</p>";
 $output['movil'] .= "<p></p>";
 $output['movil'] .= "</div>";
 $output['movil'] .= "<div class='body'>";

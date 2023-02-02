@@ -351,7 +351,7 @@ function agregarventa()
     
     setTimeout(() => {  
         agregardetalleventa();
-    }, 400);
+    }, 800);
 }
 function agregardetalleventa()
 {
@@ -421,7 +421,9 @@ function agregartelefonoscliente()
     });
     if (listadetelefono.length == t) 
     {
-        location.reload();
+        setTimeout(() => {
+            location.reload();
+        }, 400);
     }
 }
 

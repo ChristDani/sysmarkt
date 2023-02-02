@@ -16,9 +16,18 @@ $datos['telefono'] = '';
 
 if ($dni != null) 
 {
-    $cliente->insertarTelefono($dni,$telefono,$tipo,$operador,$linea);
-    $masiva->eliminarportelefono($telefono);
-    $datos['telefono'] .= "Se registró el telefono: '$telefono', del cliente: '$dni'";
+    $bustelefono = $cliente->buscarTelefono($telefono);
+
+    if ($bustelefono == null) 
+    {
+        $cliente->insertarTelefono($dni,$telefono,$tipo,$operador,$linea);
+        $masiva->eliminarportelefono($telefono);
+        $datos['telefono'] .= "Se registró el telefono: '$telefono', del cliente: '$dni'";
+    }
+    else 
+    {
+        $datos['telefono'] .= "El telefono: '$telefono' ya se encuentra registrado";
+    }
 }
 else 
 {

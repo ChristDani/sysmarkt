@@ -10,7 +10,7 @@ $sec = $_POST['sec'];
 
 $telefonoRef = $_POST['telefonoRef'];
 
-$promocion = $_POST['promocion'];
+$promocion = isset($_POST['promocion']) ? $_POST['promocion'] : '---';
 
 $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : '-';
 

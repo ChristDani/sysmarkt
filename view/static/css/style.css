@@ -65,7 +65,7 @@ input:focus, select:focus, select, input.form-control:focus, .form-floating sele
 }
 
 .nombreempresa{
-    background: -webkit-linear-gradient(45deg,var(--color-black) 50%, var(--color-danger) 50%);
+    background: -webkit-linear-gradient(45deg, var(--color-black), var(--color-danger));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

@@ -21,6 +21,18 @@ $output['data']= '';
 
 $comisiontotal = 0;
 
+if ($fecha == null)
+{
+    $sqlptm = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month(CURRENT_TIMESTAMP) and year(dv.registro)=year(CURRENT_TIMESTAMP)) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.tipo='1' and dv.estado='1'";
+}
+elseif ($fecha != null) 
+{
+    $sqlptm = "SELECT * from detalleventas as dv inner join ventas as v inner join usuarios as u on dv.sec=v.sec and v.dniAsesor=u.dni where (month(dv.registro)=month('$fecha') and year(dv.registro)=year('$fecha')) and dv.producto='1' and v.dniAsesor like '%$dniAsesor%' and u.dniModerador like '%$dniModerador%' and dv.tipo='1' and dv.estado='1'";
+}
+
+$resultadoptm = mysqli_query($consulta,$sqlptm);
+$cantidadptm = $resultadoptm->num_rows;
+
 if ($planesMov != null) 
 {
     foreach ($planesMov as $pr) 
@@ -84,19 +96,19 @@ if ($planesMov != null)
         $resultado = mysqli_query($consulta,$sql);
         $cantidad = $resultado->num_rows;
 
-        if ($cantidad >= 0 and $cantidad <= 10) 
+        if ($cantidadptm >= 0 and $cantidadptm <= 10) 
         {
             $porcentajeMovil = 60;
         }
-        elseif ($cantidad >= 11 and $cantidad <= 15) 
+        elseif ($cantidadptm >= 11 and $cantidadptm <= 15) 
         {
             $porcentajeMovil = 80;
         }
-        elseif ($cantidad >= 16 and $cantidad <= 20) 
+        elseif ($cantidadptm >= 16 and $cantidadptm <= 20) 
         {
             $porcentajeMovil = 100;
         }
-        elseif ($cantidad >= 21) 
+        elseif ($cantidadptm >= 21) 
         {
             $porcentajeMovil = 120;
         }

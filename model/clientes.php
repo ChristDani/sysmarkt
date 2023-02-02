@@ -20,6 +20,23 @@ class cliente
         return $filas;
     }
 
+    public function buscarTelefono($telef)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="select * from telefonos where telefono='$telef'";
+        $rs=mysqli_query($conexion,$sql);
+
+        while($row=mysqli_fetch_array($rs))
+		{
+            $filas[]=$row;
+        }
+        
+        $conexion=$model->desconectar();
+        return $filas;
+    }
+
     public function listar()
     {
         $filas=null;
