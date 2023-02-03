@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="align-items-center d-flex justify-content-center vh-100 gap-2">
-        <div id="conteusu" class="card">
+        <div id="conteusu" class="card d-none">
             <div class="card-body text-center">
                 <h2>Primer Usuario</h2>
                 <div class="form-floating mb-3 d-none">
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div id="contempr" class="card d-none">
+        <div id="contempr" class="card /*d-none*/">
             <div class="card-body text-center">
                 <!-- <form action="" method="post" enctype="multipart/form-data"> -->
                     <h2>Otorgale estilo a tu Página</h2>
@@ -51,18 +51,32 @@
                         <label for="nombreempresa">Nombre</label>
                     </div>
     
-                    <label class="filein align-items-center d-grid filein justify-content-center p-lg-5 p-sm-0">
-                        <input type="file" name="logo" id="logo">
-                        <h3 class="my-auto" id="letrerologo">Logo</h3>
-                    </label>
+                    <div class="row">
+                        <div class="col">
+                            <label class="filein p-3 w-100">
+                                <input type="file" id="logoempresa">
+                                <h3 class="my-auto" id="letrerologo">Logo</h3>
+                            </label>
+                        </div>
+                        <div class="col-auto p-0">
+                            <img id="contimagendelogoempresa">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="filein p-3 w-100">
+                                <input type="file" id="iconoempresa">
+                                <h3 class="my-auto" id="letreroicono">Icono</h3>
+                            </label>
+                        </div>
+                        <div class="col-auto p-0">
+                            <img id="contimagendeiconoempresa">
+                        </div>
+                    </div>
     
-                    <label class="filein align-items-center d-grid filein justify-content-center p-lg-5 p-sm-0">
-                        <input type="file" name="icono" id="icono">
-                        <h3 class="my-auto" id="letreroicono">Icono</h3>
-                    </label>
                 <!-- </form> -->
                 <label class="btn" onclick="cambio(2);">Omitir</label>
-                <label class="btn" onclick="cambio(2);">Asignar</label>
+                <label class="btn" onclick="cambio(2);agregarempresa();">Asignar</label>
             </div>
         </div>
 
