@@ -154,6 +154,7 @@
         }
         else 
         {
+            $iconoglobalyfijodeempresa = "icono.png";
             include_once "paginas/primerusuario.php";
         }
     }
