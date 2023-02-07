@@ -20,6 +20,16 @@ class metas
         return $filas;
     }
 
+    public function eliminar()
+    {
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="DELETE from metas";
+        $rs=mysqli_query($conexion,$sql);
+        
+        $conexion=$model->desconectar();
+    }
+
     public function listarAsesor($dni)
     {
         $filas=null;

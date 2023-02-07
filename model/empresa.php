@@ -20,12 +20,24 @@ class empresa
         return $filas;
     }
     
+    public function eliminarEmpresa()
+    {
+        $model=new conexion();
+        $con=$model->conectar();
+        
+        $sql="DELETE from empresa";
+
+		$rs=mysqli_query($con,$sql);
+
+		$con=$model->desconectar();
+    }
+
     public function insertarEmpresa($nombre,$logo,$icono)
     {
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="INSERT into empresa(nombre,logo,icono) values('$nombre','$logo','$icono')";
+        $sql=" INSERT into empresa(nombre,logo,icono) values('$nombre','$logo','$icono');";
 
 		$rs=mysqli_query($con,$sql);
 

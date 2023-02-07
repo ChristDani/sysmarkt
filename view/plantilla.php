@@ -29,7 +29,7 @@
             else 
             {
                 $nombreglobalyfijodeempresa = "sysmarkt";
-                $iconoglobalyfijodeempresa = "icono.png";
+                $iconoglobalyfijodeempresa = "iconosysmarkt.png";
             }
             $primerasmetas=$modelmetas->listar();
             if ($primerasmetas == null) 
@@ -154,7 +154,7 @@
         }
         else 
         {
-            $iconoglobalyfijodeempresa = "icono.png";
+            $iconoglobalyfijodeempresa = "iconosysmarkt.png";
             include_once "paginas/primerusuario.php";
         }
     }

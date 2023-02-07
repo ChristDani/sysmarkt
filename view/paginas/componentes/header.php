@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title id="tituloPagina"></title>
-    <link rel="icon" href="view/static/img/<?php echo $iconoglobalyfijodeempresa; ?>">
+    <title id="tituloPagina"><?php echo strtoupper($nombreglobalyfijodeempresa); ?></title>
+    <link rel="icon" href="view/static/empresa/<?php echo $iconoglobalyfijodeempresa; ?>">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -69,6 +69,7 @@ elseif ($tipoUsuario === "0")
 ?>
 
 <body class="sb-nav-fixed">
+    <label class="d-none" id="nombreempresajsjsjsjs"><?php echo strtoupper($nombreglobalyfijodeempresa); ?></label>
     <nav class="sb-topnav navbar navbar-expand">
         <div class="navbar-nav mr-0 ml-md-3 my-2 my-md-0">
             <button class="mx-2 btn btn-link btn-sm d-flex justify-content-center" id="sidebarToggle">

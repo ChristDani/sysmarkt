@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Argosal | 401</title>
-    <link rel="icon" href="view/static/img/<?php echo $iconoglobalyfijodeempresa; ?>">
+    <title><?php echo strtoupper($nombreglobalyfijodeempresa); ?> | 401</title>
+    <link rel="icon" href="view/static/empresa/<?php echo $iconoglobalyfijodeempresa; ?>">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;400;500;600;700;800;900&display=swap');
         *{

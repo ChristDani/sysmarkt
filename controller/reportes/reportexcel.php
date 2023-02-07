@@ -36,7 +36,7 @@ if ($empresa != null)
 else 
 {
     $nombredeempresa = "SYSMARKT";
-    $logodeempresa = "logo-claro.png";
+    $logodeempresa = "logosysmarkt.png";
 }
 
 use PhpOffice\PhpSpreadsheet\SpreadSheet;
@@ -214,7 +214,7 @@ if (isset($_POST['btngenerarreporteventas']))
     $spreadsheet = new SpreadSheet();
     function addImage($path,$coordinates,$sheet)
     {
-        $logoparareporte = "../../view/static/img/$path";
+        $logoparareporte = "../../view/static/empresa/$path";
         $imagenesinsert = new Drawing();
         $imagenesinsert->setName('Logo de Empresa');
         $imagenesinsert->setDescription('Logo de Empresa');
@@ -525,7 +525,7 @@ if (isset($_POST['btngenerarreporteventas']))
     
     // nombre del archivo
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="Reporte de Ventas'.$name.'.xlsx"');
+    header('Content-Disposition: attachment;filename="Reporte de Ventas'.$name.' - '.$nombredeempresa.'.xlsx"');
     header('Cache-Control: max-age=0');
 
     // salida de archivo

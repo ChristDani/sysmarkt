@@ -9,7 +9,7 @@ $nombre = !empty($_POST['nombre']) ? $_POST['nombre'] : null;
 $datos = [];
 $datos['usuario'] = '';
 
-if ($dni != null && strlen($dni) == 8) 
+if ($dni != null && strlen($dni) == 8 && $nombre != null) 
 {
     $clave = sha1(strrev($dni));
     $usuarios->insertarUsuario($dni,$nombre,$clave,'1','---');

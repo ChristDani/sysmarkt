@@ -7,13 +7,14 @@
     "use strict";
 
     // Add active state to sidbar nav links
+    let nombreemp = document.getElementById('nombreempresajsjsjsjs').textContent;
     var path = window.location.search; // because the 'href' property of the DOM element is the absolute path
     const params = new URLSearchParams(path)
         $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
             if (this.search === path) {
                 $(this).addClass("active");
                 let tituloPagina = document.getElementById('tituloPagina');
-                tituloPagina.innerHTML = "Argosal | "+params.get('pagina');
+                tituloPagina.innerHTML = nombreemp+" | "+params.get('pagina');
             }
         });
 

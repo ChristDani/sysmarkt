@@ -50,68 +50,93 @@ function agregarprimerusuario()
     }
 }
 
-document.getElementById('logoempresa').addEventListener("change", function() {
-    cambiarlogo();
-    
-    
-    // $("#logoempresa").change(function () {
-    // // Código a ejecutar cuando se detecta un cambio de archivO
-    // readImage(this);
-    // });
-    // let hdsjfcjsdf = document.getElementById('logoempresa');
-}, false)
-
-document.getElementById('iconoempresa').addEventListener("change", function() {
-    cambiaricono();
-}, false)
-
-function cambiarlogo() 
+document.getElementById('logoempresa').addEventListener("change", function() 
 {
-    let cont = document.getElementById('logoempresa');
     let valor = document.getElementById('logoempresa').files[0].name;
     let letrero = document.getElementById('letrerologo')
 
     letrero.innerHTML = valor;
-    
-    function readImage(input) 
-    {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#contimagendelogoempresa').attr('src', e.target.result); // Renderizamos la imagen
-                // document.getElementById('contimagendelogoempresa').attr('src', e.target.result); // Renderizamos la imagen
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    readImage(cont);
-}
 
-function cambiaricono() 
+    const input = document.getElementById("logoempresa")
+    const preview = document.getElementById("contimagendelogoempresa")
+
+    const [file] = input.files
+    if (file) {
+        preview.src = URL.createObjectURL(file)
+    }
+}, false)
+
+document.getElementById('iconoempresa').addEventListener("change", function() 
 {
     let valor = document.getElementById('iconoempresa').files[0].name;
     let letrero = document.getElementById('letreroicono')
 
     letrero.innerHTML = valor;
+    
+    const input = document.getElementById("iconoempresa")
+    const preview = document.getElementById("contimagendeiconoempresa")
 
-    document.getElementById('contimagendelogoempresa').src="view/static/img/icono.png";
-}
+    const [file] = input.files
+    if (file) {
+        preview.src = URL.createObjectURL(file)
+    }
+}, false)
 
 function agregarempresa()
 {
     let nombre = document.getElementById('nombreempresa').value;
-    let logo = document.getElementById('logoempresa').files;
-    let icono = document.getElementById('iconoempresa').files;
+    let logo = document.getElementById('logoempresa').files[0];
+    let icono = document.getElementById('iconoempresa').files[0];
 
-    console.log(logo);
-    console.log(icono);
+    if (nombre.length > 0) 
+    {
+        // le damos el origen de los datos
+        let url='controller/empresa/asignarem.php';
+        let formaData = new FormData()
+        formaData.append('nombre', nombre)
+        formaData.append('logo', logo)
+        formaData.append('icono', icono)
+    
+        fetch(url,{
+            method: "POST",
+            body: formaData
+        }).then(response=>response.json())
+        .then(data=>{
+            console.log(data);
+        }).catch(err=>console.log(err))
+
+        setTimeout(() => {
+            cambio(3);
+        }, 400);
+    }
+    else
+    {
+        alert("Especifique el nombre de la empresa");
+    }
+}
+
+function agregarmetas() 
+{
+    let portamen69 = document.getElementById('portamen69metasempresa').value;
+    let portamay69 = document.getElementById('portamay69metasempresa').value;
+    let altapost = document.getElementById('altapostmetasempresa').value;
+    let altaprepa = document.getElementById('altaprepametasempresa').value;
+    let portaprepa = document.getElementById('portaprepametasempresa').value;
+    let renovacion = document.getElementById('renovacionmetasempresa').value;
+    let hfc_ftth = document.getElementById('hfc_ftthmetasempresa').value;
+    let ifi = document.getElementById('ifimetasempresa').value;
 
     // le damos el origen de los datos
-    let url='controller/empresa/primeruser.php';
+    let url='controller/empresa/primerasmetas.php';
     let formaData = new FormData()
-    formaData.append('nombre', nombre)
-    formaData.append('logo', logo)
-    formaData.append('icono', icono)
+    formaData.append('portamen69', portamen69)
+    formaData.append('portamay69', portamay69)
+    formaData.append('altapost', altapost)
+    formaData.append('altaprepa', altaprepa)
+    formaData.append('portaprepa', portaprepa)
+    formaData.append('renovacion', renovacion)
+    formaData.append('hfc_ftth', hfc_ftth)
+    formaData.append('ifi', ifi)
 
     fetch(url,{
         method: "POST",
@@ -120,6 +145,15 @@ function agregarempresa()
     .then(data=>{
         console.log(data);
     }).catch(err=>console.log(err))
+
+    if (portamen69.length > 0 && portamay69.length > 0 && altapost.length > 0 && altaprepa.length > 0 && portaprepa.length > 0 && renovacion.length > 0 && hfc_ftth.length > 0 && ifi.length > 0) 
+    {
+        cambio(2);
+    }
+    else
+    {
+        alert('Campos incompletos o vacios');        
+    }
 }
 
 function cambio(num) 
@@ -128,18 +162,18 @@ function cambio(num)
     let emp = document.getElementById('contempr');
     let met = document.getElementById('contemetas');
 
-    // if (num == 1) 
-    // {
-    //     usu.classList.add('d-none');
-    //     emp.classList.remove('d-none');
-    // }
-    // else if (num == 2) 
-    // {
-    //     emp.classList.add('d-none');
-    //     met.classList.remove('d-none');
-    // }
-    // else if (num == 3) 
-    // {
-        
-    // }
+    if (num == 1) 
+    {
+        usu.classList.add('d-none');
+        met.classList.remove('d-none');
+    }
+    else if (num == 2) 
+    {
+        met.classList.add('d-none');
+        emp.classList.remove('d-none');
+    }
+    else if (num == 3) 
+    {
+        location.reload();
+    }
 }
