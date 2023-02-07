@@ -155,7 +155,7 @@
         else 
         {
             $iconoglobalyfijodeempresa = "iconosysmarkt.png";
-            include_once "paginas/primerusuario.php";
+            include_once "paginas/configempre.php";
         }
     }
     if (!$conexionpruebalogin) 

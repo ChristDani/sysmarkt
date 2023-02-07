@@ -25,7 +25,41 @@ class user
         $filas=null;
         $model=new conexion();
 		$conexion=$model->conectar();
-        $sql="SELECT * from usuarios where activo='1'";
+        $sql="SELECT * from usuarios where activo='1' order by nombre";
+        $rs=mysqli_query($conexion,$sql);
+
+        while($row=mysqli_fetch_array($rs))
+		{
+            $filas[]=$row;
+        }
+        
+        $conexion=$model->desconectar();
+        return $filas;
+    }
+
+    public function listaruseradmin($dni)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="SELECT * from usuarios where activo='1' and dni!='$dni' order by nombre";
+        $rs=mysqli_query($conexion,$sql);
+
+        while($row=mysqli_fetch_array($rs))
+		{
+            $filas[]=$row;
+        }
+        
+        $conexion=$model->desconectar();
+        return $filas;
+    }
+
+    public function listarusermoderador($dni)
+    {
+        $filas=null;
+        $model=new conexion();
+		$conexion=$model->conectar();
+        $sql="SELECT * from usuarios where activo='1' and dniModerador='$dni' order by nombre";
         $rs=mysqli_query($conexion,$sql);
 
         while($row=mysqli_fetch_array($rs))

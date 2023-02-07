@@ -42,8 +42,8 @@ else
 use PhpOffice\PhpSpreadsheet\SpreadSheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
 $columnas=['v.dniAsesor', 'u.nombre', 'v.dniCliente', 'c.nombre', 'v.estado', 'v.sec', 'v.origen', 'v.registro', 'dv.telefonoRefencia', 'dv.producto', 'dv.promocion', 'dv.tipo', 'dv.telefonoOperacion', 'dv.lineaProcedente', 'dv.operadorCendente', 'dv.modalidad', 'dv.modoReno', 'dv.plan', 'dv.equipo', 'dv.tipoFija', 'dv.planFija', 'dv.modoFija', 'dv.formaPago', 'dv.distrito', 'dv.ubicacion', 'dv.observaciones', 'dv.estado'];
 
@@ -222,6 +222,9 @@ if (isset($_POST['btngenerarreporteventas']))
         $imagenesinsert->setCoordinates($coordinates);
         $imagenesinsert->setWidth('100');
         $imagenesinsert->setHeight('70');
+        $imagenesinsert->setOffsetX(25);
+        $imagenesinsert->setOffsetY(10);
+        $imagenesinsert->setResizeProportional(true);
         $imagenesinsert->setWorksheet($sheet);
     }
     $spreadsheet->getProperties()->setCreator($nombredeempresa)->setTitle("Reporte de Ventas - $nombredeempresa")->setCategory('Ventas')->setLastModifiedBy($nombredeempresa);
@@ -254,12 +257,17 @@ if (isset($_POST['btngenerarreporteventas']))
     $spreadsheet->getActiveSheet()->getColumnDimension('V')->setAutoSize(true);
 
     $hojaActiva->mergeCells('B1:V1');
+    $hojaActiva->getRowDimension('1')->setRowHeight(70);
+    $hojaActiva->getRowDimension('2')->setRowHeight(25);
     $hojaActiva->getStyle('B1:V1')->getFont()->setName('arial')->setSize(15);
     $hojaActiva->getStyle('B1:V1')->getAlignment()->setHorizontal('center');
     $hojaActiva->getStyle('B1:V1')->getAlignment()->setVertical('center');
+    $hojaActiva->getStyle('A2:V2')->getAlignment()->setHorizontal('center');
+    $hojaActiva->getStyle('A2:V2')->getAlignment()->setVertical('center');
     $hojaActiva->getStyle('A1:V1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB('E0F9E3');
     $hojaActiva->getStyle('A2:V2')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB('C6E3EF');
-    // $hojaActiva->getStyle('A1')->setHorizontalSize();
+    $hojaActiva->getStyle('A1:V1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+    $hojaActiva->getStyle('A2:V2')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
     
     addImage($logodeempresa,'A1',$spreadsheet->getActiveSheet());
     $hojaActiva->setCellValue('B1', "Reporte de Ventas - Linea Movil$name - $nombredeempresa");
@@ -316,6 +324,17 @@ if (isset($_POST['btngenerarreporteventas']))
     $spreadsheet->getActiveSheet()->getColumnDimension('R')->setAutoSize(true);
 
     $hojaActiva2->mergeCells('B1:R1');
+    $hojaActiva2->getRowDimension('1')->setRowHeight(70);
+    $hojaActiva2->getRowDimension('2')->setRowHeight(25);
+    $hojaActiva2->getStyle('B1:R1')->getFont()->setName('arial')->setSize(15);
+    $hojaActiva2->getStyle('B1:R1')->getAlignment()->setHorizontal('center');
+    $hojaActiva2->getStyle('B1:R1')->getAlignment()->setVertical('center');
+    $hojaActiva2->getStyle('A2:R2')->getAlignment()->setHorizontal('center');
+    $hojaActiva2->getStyle('A2:R2')->getAlignment()->setVertical('center');
+    $hojaActiva2->getStyle('A1:R1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB('E0F9E3');
+    $hojaActiva2->getStyle('A2:R2')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB('C6E3EF');
+    $hojaActiva2->getStyle('A1:R1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+    $hojaActiva2->getStyle('A2:R2')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
     
     addImage($logodeempresa,'A1',$spreadsheet->getActiveSheet());
     $hojaActiva2->setCellValue('B1', "Reporte de Ventas - Linea Fija$name - $nombredeempresa");
@@ -346,10 +365,6 @@ if (isset($_POST['btngenerarreporteventas']))
     $lineaFija = 3;
     while($row=mysqli_fetch_array($reporteventas))
     {
-        $diadeventa= date('m');
-        $mesdeventa= date('Y');
-        $añodeventa= date('m');
-        $horadeventa= date('Y');
         $fechar = date('d/m/y h:i:s A', strtotime($row[7]));
         $dniAsesorlis = $row[0];
         $nombreAsesorlis = $row[1];
@@ -419,6 +434,9 @@ if (isset($_POST['btngenerarreporteventas']))
             {
                 $tipofijarepor = "---";
             }
+
+            $hojaActiva2->getStyle("A$lineaFija:R$lineaFija")->getAlignment()->setHorizontal('center');
+            $hojaActiva2->getStyle("A$lineaFija:R$lineaFija")->getAlignment()->setVertical('center');
 
             // CONTENIDO DE VENTA
             $hojaActiva2->setCellValue("A$lineaFija", "$dniAsesorlis / $nombreAsesorlis");
@@ -492,6 +510,9 @@ if (isset($_POST['btngenerarreporteventas']))
             {
                 $tiporepor = "---";
             }
+
+            $hojaActiva->getStyle("A$lineaMovil:V$lineaMovil")->getAlignment()->setHorizontal('center');
+            $hojaActiva->getStyle("A$lineaMovil:V$lineaMovil")->getAlignment()->setVertical('center');
     
             // CONTENIDO DE VENTA
             $hojaActiva->setCellValue("A$lineaMovil", "$dniAsesorlis / $nombreAsesorlis");

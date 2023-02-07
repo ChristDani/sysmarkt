@@ -2,14 +2,23 @@
 require_once "model/usuarios.php";
 
 $modal = new user();
-$listaUsuarios = $modal->listar();
+$usuarioperfil = $modal->listar();
+
+if ($tipoUsuario === "1") 
+{
+    $listaUsuarios = $modal->listaruseradmin($dniUsuario);
+} 
+elseif ($tipoUsuario === "2") 
+{
+    $listaUsuarios = $modal->listarusermoderador($dniUsuario);
+} 
 
 $diassemana = array("Lunes","Martes","Miercoles","Jueves","Viernes","Sábado","Domingo");
 $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
-if ($listaUsuarios != null) 
+if ($usuarioperfil != null) 
 {
-    foreach ($listaUsuarios as $u) 
+    foreach ($usuarioperfil as $u) 
     { 
         if ($u[0] === $dniUsuario) 
         {

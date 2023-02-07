@@ -92,90 +92,83 @@
                 <div class="row">
                     <h1>Usuarios</h1>
                 </div>
-                <?php if ($listaUsuarios != null) 
-                        {
+            <?php   if ($listaUsuarios != null) 
+                    {
                         foreach ($listaUsuarios as $u) 
-                        { 
-                            if ($tipoUsuario === "1") 
-                            {
-                                if ($u[0] != $dniUsuario) 
-                                { ?>
-                                    <div class="row">
-                                        <a class="delete btn col d-flex gap-1 align-items-center my-1" data-bs-toggle="modal" data-bs-target="#InfoUser" onclick="infoUsuario('<?php echo$u[0];?>','<?php echo trim($u[1]);?>','<?php echo trim($u[3]);?>');">
-                                            <div class="col-auto">
-                                                <?php if ($u[5] === "0") { ?>
-                                                    <div class="profile-photo secondary-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                                    </div>
-                                                <?php }elseif ($u[5] === "1") { ?>
-                                                    <div class="profile-photo success-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                                    </div>
-                                                <?php }elseif ($u[5] === "2") { ?>
-                                                    <div class="profile-photo warning-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                                    </div>
-                                                <?php }elseif ($u[5] === "3") { ?>
-                                                    <div class="profile-photo danger-bc" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                                    </div>
-                                                <?php } ?> 
-                                            </div>                                                   
-                                            <div class="col text-start">
-                                                <h2><?php echo strtoupper($u[1]); ?></h2>            
-                                            </div>                                                   
-                                            <div class="col-auto text-end">
-                                                <?php if ($u[3] === "1") { ?>
-                                                <h4 class="text-muted">Administrador</h4>
-                                                <?php }elseif ($u[3] === "0") { ?>
-                                                <h4 class="text-muted">Asesor</h4>
-                                                <?php }elseif ($u[3] === "2") { ?>
-                                                <h4 class="text-muted">Moderador</h4>
-                                                <?php } ?>
-                                            </div>                                                   
-                                        </a>
-                                    </div>
-                <?php           }
-                            }elseif ($tipoUsuario === "2") 
-                            {
-                                if ($u[0] != $dniUsuario && $u[3] === "0" && $u[8] === $dniUsuario) 
-                                { ?>
-                                    <div class="row">
-                                        <a class="delete btn col d-flex gap-1 align-items-center my-1" data-bs-toggle="modal" data-bs-target="#InfoUser" onclick="infoUsuarioModera('<?php echo$u[0];?>','<?php echo trim($u[3]);?>');">
-                                            <div class="col-auto">
-                                                <?php if ($u[5] === "0") { ?>
-                                                    <div class="profile-photo secondary-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                                    </div>
-                                                <?php }elseif ($u[5] === "1") { ?>
-                                                    <div class="profile-photo success-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                                    </div>
-                                                <?php }elseif ($u[5] === "2") { ?>
-                                                    <div class="profile-photo warning-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                                    </div>
-                                                <?php }elseif ($u[5] === "3") { ?>
-                                                    <div class="profile-photo danger-bc" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
-                                                    </div>
-                                                <?php } ?>    
-                                            </div>                                   
-                                            <div class="col text-start">
-                                                <h2><?php echo strtoupper($u[1]); ?></h2>             
-                                            </div>                                   
-                                            <div class="col text-end">
-                                                <?php if ($u[3] === "1") { ?>
-                                                <h4 class="text-muted">Administrador</h4>
-                                                <?php }elseif ($u[3] === "0") { ?>
-                                                <h4 class="text-muted">Asesor</h4>
-                                                <?php }elseif ($u[3] === "2") { ?>
-                                                <h4 class="text-muted">Moderador</h4>
-                                                <?php } ?>
-                                            </div>                                                   
-                                        </a>
-                                    </div>
-                <?php           }
-                            }
-                        }
-                    } if ($tipoUsuario === "1" || $tipoUsuario === "2") {?>
+                        {?>
+                            <div class="row">
+                    <?php   if($tipoUsuario === "1")
+                            {?>
+                                <a class="delete btn col d-flex gap-1 align-items-center my-1" data-bs-toggle="modal" data-bs-target="#InfoUser" onclick="infoUsuario('<?php echo$u[0];?>','<?php echo trim($u[1]);?>','<?php echo trim($u[3]);?>');">
+                    <?php   }
+                            elseif($tipoUsuario === "2")
+                            {?>
+                                <a class="delete btn col d-flex gap-1 align-items-center my-1" data-bs-toggle="modal" data-bs-target="#InfoUser" onclick="infoUsuarioModera('<?php echo$u[0];?>','<?php echo trim($u[3]);?>');">
+                    <?php   }?>
+                                    <div class="col-auto">
+                                        <?php if ($u[5] === "0") { ?>
+                                            <div class="profile-photo secondary-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                            </div>
+                                        <?php }elseif ($u[5] === "1") { ?>
+                                            <div class="profile-photo success-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                            </div>
+                                        <?php }elseif ($u[5] === "2") { ?>
+                                            <div class="profile-photo warning-bc rounded-circle img-fluid" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                            </div>
+                                        <?php }elseif ($u[5] === "3") { ?>
+                                            <div class="profile-photo danger-bc" style="background-image: url('view/static/ProfileIMG/<?php echo trim($u[6]);?>');">
+                                            </div>
+                                        <?php } ?> 
+                                    </div>                                                   
+                                    <div class="col text-start">
+                                        <h2><?php echo strtoupper($u[1]); ?></h2>            
+                                    </div>                                                   
+                                    <div class="col-auto text-end">
+                                        <?php if ($u[3] === "1") { ?>
+                                        <h4 class="text-muted">Administrador</h4>
+                                        <?php }elseif ($u[3] === "0") { ?>
+                                        <h4 class="text-muted">Asesor</h4>
+                                        <?php }elseif ($u[3] === "2") { ?>
+                                        <h4 class="text-muted">Moderador</h4>
+                                        <?php } ?>
+                                    </div>                                                   
+                                </a>
+                            </div>
+                <?php   }
+                    }
+                    else
+                    {?>
+                        <div class="row">
+                            <div class="col text-center">
+                    <?php   if ($tipoUsuario === "1") 
+                            {?>
+                                <h2>No cuentas con Moderadores y/o Asesores disponibles ):</h2>
+                    <?php   } 
+                            elseif ($tipoUsuario === "2") 
+                            {?>
+                                <h2>No cuentas con Asesores disponibles ):</h2>
+                    <?php   } ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h3 class="text-muted">Añade algunos...</h3>
+                            </div>
+                        </div>
+            <?php   }
+
+                    if ($tipoUsuario === "1") 
+                    {?>
                         <div class="d-flex justify-content-end mt-1">
                             <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#Añadir">Añadir Usuario</button>
                         </div>
-                    <?php  } ?>
-
+            <?php   } 
+                    elseif ($tipoUsuario === "2") 
+                    {?>
+                        <div class="d-flex justify-content-end mt-1">
+                            <button type="submit" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#Añadir">Añadir Asesor</button>
+                        </div>
+            <?php   } ?>
             </div>
         </div>
     </div>
@@ -189,6 +182,7 @@
 <?php include_once "contenidomodalplanesmoviles.php"; ?>
 <?php include_once "contenidomodalplanesfija.php"; ?>
 <?php include_once "contenidomodalpromociones.php"; ?>
+<?php include_once "contenidomodalempresa.php"; ?>
 <?php include_once "contenidomodalEliminarplan.php"; ?>
 <script src="controller/usuario/usuarios.js"></script>
 <script src="controller/planes/planes.js"></script>

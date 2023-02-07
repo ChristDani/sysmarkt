@@ -30,6 +30,12 @@ if ($filas>0)
         $i+=1; 
     }
 }
+else
+{
+    $output['data'] .= "<tr>";
+    $output['data'] .= "<th class='color text-center' colspan='5'>Aún no agregaste Promociones</th>";
+    $output['data'] .= "</tr>";
+}
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE); //por si viene con 'ñ' o tildes...
 ?>

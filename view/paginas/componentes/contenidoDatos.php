@@ -23,7 +23,7 @@
         </div>
         <div class="col d-flex justify-content-center align-items-center">
             <label for="btngenerarreportemasiva" class="btn success-bg">
-                <div>CSV</div>
+                <div>EXCEL</div>
             </label>
         </div>
         <div class="col d-flex justify-content-end align-items-center">
