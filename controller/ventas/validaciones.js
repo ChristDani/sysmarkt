@@ -603,11 +603,11 @@ function mostrarTipoMovil(valor)
         document.getElementById('lineaProce').selectedIndex = 0;        
         document.getElementById('doperadorCeden').classList.add('d-none');
         document.getElementById('operadorCeden').selectedIndex = 0; 
-        document.getElementById('dmodalidad').classList.add('d-none');
-        document.getElementById('modalidad').selectedIndex = 2;
+        document.getElementById('dmodalidad').classList.remove('d-none');
+        document.getElementById('modalidad').selectedIndex = 0;
         document.getElementById('dmodoReno').classList.add('d-none');
         document.getElementById('modoReno').selectedIndex = 0;  
-        mostrarModalidadMovil('1'); 
+        mostrarModalidadMovil('-'); 
     }
     else if (valor == porta) 
     {
@@ -657,7 +657,7 @@ function mostrarTipoMovil(valor)
         document.getElementById('dtelefono').classList.remove('d-none');
         document.getElementById('telefono').value = '';
         document.getElementById('dlineaProce').classList.add('d-none');
-        document.getElementById('lineaProce').selectedIndex = 1;
+        document.getElementById('lineaProce').selectedIndex = 2;
         document.getElementById('doperadorCeden').classList.add('d-none');
         document.getElementById('operadorCeden').selectedIndex = 0; 
         document.getElementById('dmodalidad').classList.add('d-none');

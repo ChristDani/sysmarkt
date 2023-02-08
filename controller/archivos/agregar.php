@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 require "../../librerias/PHPExcel/Classes/PHPExcel.php";
 require_once "../../model/conexion.php";
 require_once "../../model/archivos.php";

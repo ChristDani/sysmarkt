@@ -472,8 +472,19 @@ if ($filas>0) {
                         $output['data'].= "<p class='text-muted'>Equipo</p>";
                         $output['data'].= "<h3>$equipo</h3>";
                         $output['data'].= "</div> ";  
-
-
+                        
+                        // modeo renovacion
+                        $output['data'].= "<div class='col'>";            
+                        $output['data'].= "<p class='text-muted'>Modo Renovación</p>";
+                        if ($modoReno == "0")
+                        {
+                            $output['data'].= "<h3>Descendente</h3>";
+                        }
+                        elseif ($modoReno == "1")
+                        {
+                            $output['data'].= "<h3>Ascendente</h3>";
+                        }
+                        $output['data'].= "</div> ";  
                     }
                 }       
                 

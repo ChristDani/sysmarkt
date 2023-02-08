@@ -35,6 +35,7 @@ if ($datos != null)
 
         $output['data'] .= "<div class='form-floating mb-3'>";
         $output['data'] .= "<select class='form-select form-select-sm' name='moderador' id='moderador'>";
+        $output['data'] .= "<option value='---'>---</option>";
         if ($listaUsuarios != null) 
         {
             foreach ($listaUsuarios as $x) 
@@ -45,7 +46,6 @@ if ($datos != null)
                 }
                 elseif ($x[3] === "2" && $x[0] != $moderador) 
                 {
-
                     $output['data'] .= "<option value='".$x[0]."'>".$x[1]."</option>";
                 }
             }

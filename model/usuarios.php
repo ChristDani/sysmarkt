@@ -111,10 +111,24 @@ class user
 
     public function cambiarTipoUsuario($dni,$tipo)
     {
+        
+        if ($tipo === "0") 
+        {
+            $moderador = "---";
+        }
+        elseif ($tipo === "1") 
+        {
+            $moderador = "---";
+        }
+        elseif ($tipo === "2") 
+        {
+            $moderador = "---";
+        }
+
         $model=new conexion();
         $con=$model->conectar();
         
-        $sql="UPDATE usuarios set tipo='$tipo' where dni='$dni'";
+        $sql="UPDATE usuarios set tipo='$tipo', dniModerador='$moderador' where dni='$dni'";
 
 		$rs=mysqli_query($con,$sql);
 

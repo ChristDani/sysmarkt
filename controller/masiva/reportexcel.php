@@ -45,7 +45,7 @@ $tabla='masiva';
 
 $busquedaconsultareportedepamasiva = !empty($_POST['busquedareportedepartamentomasiva']) ? $_POST['busquedareportedepartamentomasiva'] : null;
 $busquedaconsultareporteprovimasiva = !empty($_POST['busquedareporteprovinciamasiva']) ? $_POST['busquedareporteprovinciamasiva'] : null;
-$busquedaconsultareportedistrimasiva = !empty($_POST['busquedareportedistritomasiva']) ? $_POST['busquedareportedistritomasiva'] : null;
+$bustelodni = !empty($_POST['busquedareportedistritomasiva']) ? $_POST['busquedareportedistritomasiva'] : null;
 
 $where='';
 $name = '';
@@ -56,27 +56,27 @@ if ($busquedaconsultareportedepamasiva != null)
     if ($busquedaconsultareporteprovimasiva != null) 
     {
         $name .= " - Provincia: $busquedaconsultareporteprovimasiva";        
-        if ($busquedaconsultareportedistrimasiva != null) 
+        if ($bustelodni != null) 
         {
-            $name .= " - Distrito: $busquedaconsultareportedistrimasiva";        
+            $name .= " - Telefono/DNI: $bustelodni";        
         }
     }
-    elseif ($busquedaconsultareportedistrimasiva != null) 
+    elseif ($bustelodni != null) 
     {
-        $name .= " - Distrito: $busquedaconsultareportedistrimasiva"; 
+        $name .= " - Telefono/DNI: $bustelodni"; 
     }
 }
 elseif ($busquedaconsultareporteprovimasiva != null and $busquedaconsultareportedepamasiva == null) 
 {
     $name .= " - Provincia: $busquedaconsultareporteprovimasiva";   
-    if ($busquedaconsultareportedistrimasiva != null) 
+    if ($bustelodni != null) 
     {
-        $name .= " - Distrito: $busquedaconsultareportedistrimasiva"; 
+        $name .= " - Telefono/DNI: $bustelodni"; 
     }
 }
-elseif ($busquedaconsultareportedistrimasiva !=null and $busquedaconsultareportedepamasiva == null and $busquedaconsultareporteprovimasiva == null) 
+elseif ($bustelodni !=null and $busquedaconsultareportedepamasiva == null and $busquedaconsultareporteprovimasiva == null) 
 {
-    $name .= " - Distrito: $busquedaconsultareportedistrimasiva"; 
+    $name .= " - Telefono/DNI: $bustelodni"; 
 }
 
 // consulta para crear el reporte
@@ -86,27 +86,27 @@ if ($busquedaconsultareportedepamasiva != null)
     if ($busquedaconsultareporteprovimasiva != null) 
     {
         $where .= " and provincia like '%".$busquedaconsultareporteprovimasiva."%'";
-        if ($busquedaconsultareportedistrimasiva != null) 
+        if ($bustelodni != null) 
         {
-            $where .= " and distrito like '%".$busquedaconsultareportedistrimasiva."%'";
+            $where .= " and (documento like '%".$bustelodni."%' or celular like '%".$bustelodni."%')";
         }
     }
-    elseif ($busquedaconsultareportedistrimasiva != null) 
+    elseif ($bustelodni != null) 
     {
-        $where .= " and distrito like '%".$busquedaconsultareportedistrimasiva."%'";
+        $where .= " and (documento like '%".$bustelodni."%' or celular like '%".$bustelodni."%')";
     }
 }
 elseif ($busquedaconsultareporteprovimasiva != null and $busquedaconsultareportedepamasiva == null) 
 {
     $where .= "where provincia like '%".$busquedaconsultareporteprovimasiva."%'";
-    if ($busquedaconsultareportedistrimasiva != null) 
+    if ($bustelodni != null) 
     {
-        $where .= " and distrito like '%".$busquedaconsultareportedistrimasiva."%'";
+        $where .= " and (documento like '%".$bustelodni."%' or celular like '%".$bustelodni."%')";
     }
 }
-elseif ($busquedaconsultareportedistrimasiva !=null and $busquedaconsultareportedepamasiva == null and $busquedaconsultareporteprovimasiva == null) 
+elseif ($bustelodni !=null and $busquedaconsultareportedepamasiva == null and $busquedaconsultareporteprovimasiva == null) 
 {
-    $where .= "where distrito like '%".$busquedaconsultareportedistrimasiva."%'";
+    $where .= "where (documento like '%".$bustelodni."%' or celular like '%".$bustelodni."%')";
 }
 
 $sql = "select ".implode(", ", $columnas)." from $tabla $where order by documento desc";
@@ -130,7 +130,7 @@ if (isset($_POST['btngenerarreportemasiva']))
         $imagenesinsert->setResizeProportional(true);
         $imagenesinsert->setWorksheet($sheet);
     }
-    $spreadsheet->getProperties()->setCreator($nombredeempresa)->setTitle("Reporte de Ventas - $nombredeempresa")->setCategory('Ventas')->setLastModifiedBy($nombredeempresa);
+    $spreadsheet->getProperties()->setCreator($nombredeempresa)->setTitle("Data Masiva - $nombredeempresa")->setCategory('Data')->setLastModifiedBy($nombredeempresa);
 
     // encabezados
     $spreadsheet->setActiveSheetIndex(0);
