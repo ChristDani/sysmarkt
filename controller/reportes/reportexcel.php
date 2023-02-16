@@ -2,7 +2,7 @@
 require_once '../../model/conexion.php';
 require_once '../../model/usuarios.php';
 require_once '../../model/empresa.php';
-require "../../librerias/vendor/autoload.php";
+require "../../vendor/autoload.php";
 
 $conexion = new conexion();
 $con = $conexion->conectar();
