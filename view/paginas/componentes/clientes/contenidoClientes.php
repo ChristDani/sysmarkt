@@ -1,3 +1,9 @@
+<!-- formulario para obtener la consulta de php para exportar a excel -->
+<form hidden action="controller/clientes/reportexcel.php" method="post">
+    <input type="text" name="busquedaclientereportes" id="busquedaclientereportes">
+    <input id="btngenerarreporteclientes" name="btngenerarreporteclientes" type="submit" value="send">
+</form>
+
 <h1>CLIENTES</h1>
 
 <div class="card">
@@ -19,9 +25,14 @@
                 <ion-icon name="add-circle-outline"></ion-icon>
             </a>
         </div>
+        <div class="col d-flex justify-content-center align-items-center">
+            <label for="btngenerarreporteclientes" class="btn success-bg">
+                <div>EXCEL</div>
+            </label>
+        </div>
         <div class="col d-flex justify-content-end align-items-center">
             <div class="form-floating">
-                <input type="text" class="form-control" id="busquedaCliente" placeholder="Buscar" onkeyup="getDataClientes(1);">
+                <input type="text" class="form-control" id="busquedaCliente" placeholder="Buscar" onkeyup="getDataClientes(1);pasardatorc();">
                 <label for="busquedaCliente">Buscar</label>
             </div>
         </div>
@@ -46,3 +57,13 @@
 
 <script src="controller/clientes/listar.js"></script>  
 <script src="controller/clientes/validaciones.js"></script>
+<script>
+    function pasardatorc() 
+    {
+        let busqueda = document.getElementById('busquedaCliente').value;
+
+        let formulario = document.getElementById('busquedaclientereportes');
+
+        formulario.value = busqueda;
+    }
+</script>
