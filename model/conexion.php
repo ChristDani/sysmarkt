@@ -5,8 +5,8 @@
 
 		public function conectar()
 		{	
-			// try 
-			// {
+			try 
+			{
 				$servidor = "localhost";
 				$usuario = "root";
 				$clave = "";
@@ -18,11 +18,11 @@
 				{
 					return $con;
 				}
-			// } 
-			// catch (Exception $e) 
-			// {
-			// 	// echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-			// }		
+			} 
+			catch (Exception $e) 
+			{
+				// echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+			}		
 		}
 
 		public function desconectar($con)
