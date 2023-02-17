@@ -41,6 +41,18 @@ elseif ($tipoUsuario === "0")
     $resultado = mysqli_query($consulta,$sql);
     $totalVentasMenu = $resultado->num_rows;
 }
+
+if ($listar != null)
+{
+    foreach ($listar as $x)
+    {
+        if ($x[0] === $dniUsuario)
+        { 
+            $fotoUsuario = trim($x[6]);
+        } 
+    } 
+}
+
 ?>
 
 <!DOCTYPE html>
