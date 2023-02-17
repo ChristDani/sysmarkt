@@ -2,7 +2,7 @@
 require_once '../../model/conexion.php';
 require_once '../../model/usuarios.php';
 require_once '../../model/empresa.php';
-require "../../vendor/autoload.php";
+require "../../librerias/vendor/autoload.php";
 
 $conexion = new conexion();
 $con = $conexion->conectar();
@@ -39,8 +39,7 @@ else
     $logodeempresa = "logosysmarkt.png";
 }
 
-use PhpOffice\PhpSpreadsheet\SpreadSheet;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\{Spreadsheet, IOFactory};
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Border;
