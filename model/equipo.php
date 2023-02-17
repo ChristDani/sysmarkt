@@ -16,7 +16,7 @@ class equipos
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 }

@@ -16,7 +16,7 @@ class cliente
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -33,7 +33,7 @@ class cliente
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -50,7 +50,7 @@ class cliente
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -63,7 +63,7 @@ class cliente
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function editarCliente($dni,$ubicacion,$distrito)
@@ -75,7 +75,7 @@ class cliente
 
         $rs=mysqli_query($con,$sql);
 
-        $con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function eliminarCliente($dni)
@@ -87,7 +87,7 @@ class cliente
 
         $rs=mysqli_query($con,$sql);
 
-        $con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function insertarTelefono($dni,$telefono,$tipo,$operador,$linea)
@@ -99,7 +99,7 @@ class cliente
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function editarTelefono($dni,$telefono,$tipo,$operador,$linea)
@@ -111,7 +111,7 @@ class cliente
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function eliminarTelefono($telefono)
@@ -123,7 +123,7 @@ class cliente
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 }
 ?>

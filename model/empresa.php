@@ -16,7 +16,7 @@ class empresa
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
     
@@ -29,7 +29,7 @@ class empresa
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function insertarEmpresa($nombre,$logo,$icono)
@@ -41,7 +41,7 @@ class empresa
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function editarEmpresa($nombre,$logo,$icono)
@@ -53,7 +53,7 @@ class empresa
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 }
 ?>

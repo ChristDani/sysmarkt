@@ -12,7 +12,7 @@ class archivos
 
 		$rs=mysqli_query($con,$sql);
 
-		mysqli_close($con);
+        $model->desconectar($con);
     }
 
     public function insertarCac($region,$pdv,$nombre,$entrega,$direccion,$distrito,$provincia,$departamento,$horario)
@@ -24,7 +24,7 @@ class archivos
 
 		$rs=mysqli_query($con,$sql);
 
-		mysqli_close($con);
+        $model->desconectar($con);
     }
 
     public function insertarDac($nombre,$distrito,$provincia,$departamento,$region,$direccion,$descripcion)
@@ -36,7 +36,7 @@ class archivos
 
 		$rs=mysqli_query($con,$sql);
 
-		mysqli_close($con);
+        $model->desconectar($con);
     }
 
     public function insertarAcd($region,$pdv,$nombre,$entrega,$pdvsisact,$codpdv,$descripcion,$direccion,$distrito,$provincia,$departamento,$horario,$estado,$alta,$baja)
@@ -48,7 +48,7 @@ class archivos
 
 		$rs=mysqli_query($con,$sql);
 
-		mysqli_close($con);
+        $model->desconectar($con);
     }
 
     public function insertarCadena($region,$razonsocial,$codigointer,$codpdv,$pdvsisact,$entrega,$direccion,$distrito,$provincia,$departamento,$dias,$horario,$estado)
@@ -60,7 +60,7 @@ class archivos
 
 		$rs=mysqli_query($con,$sql);
 
-		mysqli_close($con);
+        $model->desconectar($con);
     }
 
     public function insertarMasiva($documento,$nombre,$tel_Fijo,$celular,$fechaActivacion,$operador,$tipo_plan,$direccion,$distrito,$provincia,$departamento)
@@ -73,7 +73,7 @@ class archivos
 
 		$rs=mysqli_query($con,$sql);
 
-		mysqli_close($con);
+        $model->desconectar($con);
     }
 }
 ?>

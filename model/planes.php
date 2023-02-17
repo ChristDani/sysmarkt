@@ -16,7 +16,7 @@ class planes
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
     public function listarFija()
@@ -32,7 +32,7 @@ class planes
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
     public function listarPromo()
@@ -48,7 +48,7 @@ class planes
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -60,7 +60,7 @@ class planes
         $sql="INSERT into planesfija(nombre) values('$plan')";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 
     public function editarFija($code,$plan)
@@ -71,7 +71,7 @@ class planes
         $sql="UPDATE planesfija set nombre='$plan' where codigo='$code'";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 
     public function eliminarFija($code)
@@ -82,7 +82,7 @@ class planes
         $sql="DELETE from planesfija where codigo='$code'";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 
     public function agregarMovil($plan)
@@ -93,7 +93,7 @@ class planes
         $sql="INSERT into planes(nombre) values('$plan')";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 
     public function editarMovil($code,$plan)
@@ -104,7 +104,7 @@ class planes
         $sql="UPDATE planes set nombre='$plan' where codigo='$code'";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
     
     public function eliminarMovil($code)
@@ -115,7 +115,7 @@ class planes
         $sql="DELETE from planes where codigo='$code'";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 
     public function agregarPromo($promo)
@@ -126,7 +126,7 @@ class planes
         $sql="INSERT into promociones(nombre) values('$promo')";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 
     public function editarPromo($code,$promo)
@@ -137,7 +137,7 @@ class planes
         $sql="UPDATE promociones set nombre='$promo' where codigo='$code'";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
     
     public function eliminarPromo($code)
@@ -148,7 +148,7 @@ class planes
         $sql="DELETE from promociones where codigo='$code'";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 }
 ?>

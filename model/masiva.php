@@ -11,7 +11,7 @@ class masiva
         $sql="DELETE from masiva where celular='$code' or tel_Fijo='$code'";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 
     public function eliminarpordni($code)
@@ -22,7 +22,7 @@ class masiva
         $sql="DELETE from masiva where documento='$code'";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 }
 ?>

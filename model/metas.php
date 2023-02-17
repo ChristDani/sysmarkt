@@ -16,7 +16,7 @@ class metas
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -27,7 +27,7 @@ class metas
         $sql="DELETE from metas";
         $rs=mysqli_query($conexion,$sql);
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
     }
 
     public function listarAsesor($dni)
@@ -43,7 +43,7 @@ class metas
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -56,7 +56,7 @@ class metas
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function insertarmeta($portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
@@ -68,7 +68,7 @@ class metas
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function insertarmetausuario($dni,$portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
@@ -80,7 +80,7 @@ class metas
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function editar($portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
@@ -104,7 +104,7 @@ class metas
         $rs=mysqli_query($con,$sql);
         $rs3=mysqli_query($con,$sql3);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function editarasesor($dni,$portamen69,$portamay69,$altapost,$altaprepa,$portaprepa,$renovacion,$hfc_ftth,$ifi)
@@ -116,7 +116,7 @@ class metas
 
         $rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 }
 ?>

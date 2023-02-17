@@ -13,7 +13,7 @@ class ventas
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function agregarDetalleVenta($sec,$referencia,$producto,$promocion,$tipo,$telefop,$lineaproce,$operaceden,$modalidad,$modoreno,$plan,$equipo,$tipofija,$planfija,$modofija,$formapago,$distrito,$ubicacion,$observacion,$estado)
@@ -25,7 +25,7 @@ class ventas
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function editarventa($dniAsesor,$sec,$secant)
@@ -37,7 +37,7 @@ class ventas
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
     
     public function editarDetalle($codigo,$sec,$telefonoRef,$promocion,$tipo,$telefono,$lineaProce,$operadorCeden,$modalidad,$modoReno,$plan,$equipos,$tipoFija,$planFija,$modoFija,$formaPago,$distrito,$ubicacion,$observacion,$estado)
@@ -69,7 +69,7 @@ class ventas
             $cam=mysqli_query($con,$cambio);
         }
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 }
 

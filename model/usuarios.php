@@ -16,7 +16,7 @@ class user
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -33,7 +33,7 @@ class user
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -50,7 +50,7 @@ class user
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -67,7 +67,7 @@ class user
             $filas[]=$row;
         }
         
-        $conexion=$model->desconectar();
+        $model->desconectar($conexion);
         return $filas;
     }
 
@@ -80,7 +80,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function editarUsuario($dni,$clave,$fotoPerfil)
@@ -92,7 +92,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function reactivar($dni)
@@ -106,7 +106,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function cambiarTipoUsuario($dni,$tipo)
@@ -132,7 +132,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function activarEstado($dni)
@@ -144,7 +144,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function desactivarEstado($dni)
@@ -156,7 +156,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function reposarEstado($dni)
@@ -168,7 +168,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function ocuparEstado($dni)
@@ -180,7 +180,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function eliminarUsuario($dni)
@@ -192,7 +192,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 
     public function cambiarmoderador($dni,$moderador)
@@ -204,7 +204,7 @@ class user
 
 		$rs=mysqli_query($con,$sql);
 
-		$con=$model->desconectar();
+        $model->desconectar($con);
     }
 }
 ?>
