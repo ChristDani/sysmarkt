@@ -14,7 +14,7 @@ function conectarusuario(dni, estado)
 {
     if (estado != 1 && estado != 3)
     {
-        // window.location.href = "controller/usuario/conectarUsuario.php?dni="+dni;
+        window.location.href = "controller/usuario/conectarUsuario.php?dni="+dni;
     }
     else
     {
