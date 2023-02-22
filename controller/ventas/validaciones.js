@@ -60,8 +60,11 @@ function litarproductosparaagregar()
 }
 function cambiardni() 
 {
-    document.getElementById('letrerodni').classList.add('d-none');
-    document.getElementById('inputdni').classList.remove('d-none');
+    if (listadeproductos.length == 0) 
+    {
+        document.getElementById('letrerodni').classList.add('d-none');
+        document.getElementById('inputdni').classList.remove('d-none');
+    }
 }
 function dnipuesto() 
 { 

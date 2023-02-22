@@ -3,26 +3,68 @@ let estado = document.getElementById('estadousuarioparaloscambiosdeestadoXD').te
 
 console.log(dni,estado);
 
-document.documentElement.addEventListener('load', conectarusuario(dni, estado))
+window.BeforeUnloadEvent = desconectarusuario(dni)
+// document.documentElement.addEventListener('onunload', ausentarusuario(dni))
+document.documentElement.addEventListener('onload', conectarusuario(dni, estado))
 
 function desconectarusuario(dni) 
 {
-    
+    // alert('sadasdads');
+    let tipo = "3";
+
+    let url='controller/usuario/estadoautomatico.php';
+    let formaData = new FormData()
+    formaData.append('dni', dni)
+    formaData.append('tipo', tipo)
+
+    fetch(url,{
+        method: "POST",
+        body: formaData
+    }).then(response=>response.json())
+    .then(data=>{
+        console.log(data);
+    }).catch(err=>console.log(err))
 }
 
 function conectarusuario(dni, estado) 
 {
-    if (estado != 1 && estado != 3)
+    if (estado != 1 && estado != 3) 
     {
-        window.location.href = "controller/usuario/conectarUsuario.php?dni="+dni;
+        let tipo = "1";
+
+        let url='controller/usuario/estadoautomatico.php';
+        let formaData = new FormData()
+        formaData.append('dni', dni)
+        formaData.append('tipo', tipo)
+
+        fetch(url,{
+            method: "POST",
+            body: formaData
+        }).then(response=>response.json())
+        .then(data=>{
+            console.log(data);
+        }).catch(err=>console.log(err))
     }
     else
     {
-        console.log('El usuario ya se encuentra presente :D');
+        console.log("Usuario Presente.");
     }
 }
 
 function ausentarusuario(dni) 
 {
-    window.location.href = "controller/usuario/reposarUsuario.php?dni="+dni;
+    let tipo = 2;
+
+    let url='controller/usuario/estadoautomatico.php';
+    let formaData = new FormData()
+    formaData.append('dni', dni)
+    formaData.append('tipo', tipo)
+
+    fetch(url,{
+        method: "POST",
+        body: formaData
+    }).then(response=>response.json())
+    .then(data=>{
+        console.log(data);
+    }).catch(err=>console.log(err))
 }
