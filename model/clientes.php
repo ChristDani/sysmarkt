@@ -42,7 +42,7 @@ class cliente
         $filas=null;
         $model=new conexion();
 		$conexion=$model->conectar();
-        $sql="select * from clientes";
+        $sql="select * from clientes order by nombre";
         $rs=mysqli_query($conexion,$sql);
 
         while($row=mysqli_fetch_array($rs))
