@@ -197,23 +197,23 @@ class user
 
     public function cambiarmoderador($dni,$moderador)
     {
-        // $model=new conexion();
-        // $con=$model->conectar();
+        $model=new conexion();
+        $con=$model->conectar();
         
-        // $sql="UPDATE usuarios set dniModerador='$moderador' where dni='$dni'";
+        $sql="UPDATE usuarios set dniModerador='$moderador' where dni='$dni'";
 
-		// $rs=mysqli_query($con,$sql);
+		$rs=mysqli_query($con,$sql);
 
-        // $model->desconectar($con);
+        $model->desconectar($con);
 
-        $data = [
-            'dni' => $dni,
-            'moderador' => $moderador
-        ];
+        // $data = [
+        //     'dni' => $dni,
+        //     'moderador' => $moderador
+        // ];
 
-        $sql = "UPDATE usuarios set dniModerador= :moderador where dni= :dni";
-        $stmt= $conn->prepare($sql);
-        $stmt->execute($data);
+        // $sql = "UPDATE usuarios set dniModerador= :moderador where dni= :dni";
+        // $stmt= $conn->prepare($sql);
+        // $stmt->execute($data);
     }
 }
 ?>

@@ -59,7 +59,7 @@
       <?php } elseif ($tipoUsuario === "2") { ?>
         <div class="form-floating mb-3 d-none">
             <input class="form-control" placeholder="..." autocomplete="off" required type="text" name="dniModerador" id="dniModerador" value="<?php echo $dniUsuario; ?>">
-            <label for="dniModerador">Moderador</label>
+            <label for="dniModerador">Moderador</label> 
           </div>
 <?php } ?>
         </div>
