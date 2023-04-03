@@ -12,6 +12,8 @@
 				$clave = "3yDd#R4ccZA/";
 				$base = "u292896214_argosal";
 
+				$conn = new PDO("mysql:host=$servidor;dbname=$base", $usuario, $clave);
+
 				$con = mysqli_connect("$servidor", "$usuario", "$clave", "$base");
 	
 				if ($con) 
@@ -19,9 +21,9 @@
 					return $con;
 				}
 			} 
-			catch (Exception $e) 
+			catch (PDOException $e) 
 			{
-				// echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+				echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 			}	
 			
 			try 
@@ -32,15 +34,17 @@
 				$base = "argosal"; 
 
 				$con = mysqli_connect("$servidor", "$usuario", "$clave", "$base");
+				$conn = new PDO("mysql:host=$servidor;dbname=$base", $usuario, $clave);
+
 	
 				if ($con) 
 				{
 					return $con;
 				}
 			} 
-			catch (Exception $e) 
+			catch (PDOException $e) 
 			{
-				// echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+				echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 			}	
 		}
 
